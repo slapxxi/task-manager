@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "removeComments": true,
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "strict": true,
+    "target": "es5"
+  },
+  "include": ["./src/"],
+  "compileOnSave": true
+}
