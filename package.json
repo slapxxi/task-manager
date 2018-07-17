@@ -10,6 +10,8 @@
     "prettier": "prettier --write",
     "start": "webpack-dev-server",
     "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand --watch",
+    "test:debug:win": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
     "test": "jest",
     "tslint": "tslint"
   },
