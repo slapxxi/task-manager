@@ -4,14 +4,15 @@
   "description": "Template for a typical React application",
   "main": "src/index.js",
   "scripts": {
+    "build": "webpack",
     "csscomb": "csscomb --tty-mode -c .csscomb.json",
     "eslint": "eslint",
     "precommit": "lint-staged && npm test",
     "prettier": "prettier --write",
     "start": "webpack-dev-server",
-    "test:watch": "jest --watch",
-    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand --watch",
     "test:debug:win": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch",
+    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand --watch",
+    "test:watch": "jest --watch",
     "test": "jest",
     "tslint": "tslint"
   },
