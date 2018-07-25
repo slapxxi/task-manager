@@ -5,3 +5,12 @@ declare module 'react-testing-library' {
     baseElement: HTMLHtmlElement;
   }
 }
+
+declare global {
+  interface Glyph {
+    id: string;
+    viewBox: string;
+    content?: string;
+    node?: Node;
+  }
+}

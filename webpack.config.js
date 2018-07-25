@@ -36,6 +36,21 @@ module.exports = {
         ],
         exclude: /node_modules/,
       },
+      {
+        test: /\.svg$/,
+        use: [
+          { loader: 'svg-sprite-loader' },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                { removeTitle: true },
+                { convertPathData: { floatPrecision: 2 } },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
   devServer: {

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders icon with specified name 1`] = `
+<svg
+  height="100"
+  viewBox="0 0 10 10"
+  width="100"
+>
+  <use
+    xlink:href="#icon"
+  />
+</svg>
+`;
