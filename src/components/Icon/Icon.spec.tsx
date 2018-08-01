@@ -8,3 +8,10 @@ it('renders icon with specified name', () => {
   );
   expect(container.firstChild).toMatchSnapshot();
 });
+
+it('accepts className', () => {
+  const { container } = render(
+    <Icon glyph={{ id: 'icon', viewBox: '0 0 10 10' }} className="icon" />,
+  );
+  expect(container.firstChild).toMatchSnapshot();
+});

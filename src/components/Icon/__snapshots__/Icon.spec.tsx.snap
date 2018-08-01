@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`accepts className 1`] = `
+<svg
+  class="icon"
+  height="100"
+  viewBox="0 0 10 10"
+  width="100"
+>
+  <use
+    xlink:href="#icon"
+  />
+</svg>
+`;
+
 exports[`renders icon with specified name 1`] = `
 <svg
   height="100"
