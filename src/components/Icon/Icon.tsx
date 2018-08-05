@@ -3,6 +3,7 @@ import * as React from 'react';
 interface Props {
   glyph: Glyph;
   size?: number;
+  [prop: string]: any;
 }
 
 function Icon({ glyph, size = 100, ...rest }: Props) {
