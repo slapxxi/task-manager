@@ -3,17 +3,11 @@ import * as React from 'react';
 interface Props {
   glyph: Glyph;
   size?: number;
-  className?: string;
 }
 
-function Icon({ className, glyph, size = 100 }: Props) {
+function Icon({ glyph, size = 100, ...rest }: Props) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox={glyph.viewBox}
-      className={className}
-    >
+    <svg width={size} height={size} viewBox={glyph.viewBox} {...rest}>
       <use xlinkHref={`#${glyph.id}`} />
     </svg>
   );
