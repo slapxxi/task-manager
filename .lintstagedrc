@@ -2,7 +2,6 @@
   "*.{ts,tsx,js,jsx,md,css}": ["npm run prettier --", "git add"],
   "*.{ts,tsx,js,jsx}": ["jest --findRelatedTests"],
   "*.{css,scss}": ["npm run csscomb --", "git add"],
-  "*.svg": ["npm run svgo --", "git add"],
   "*.{js,jsx}": ["npm run eslint --"],
   "*.{ts,tsx}": ["npm run tslint --"]
 }
