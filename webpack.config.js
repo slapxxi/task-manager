@@ -1,9 +1,13 @@
+// @ts-check
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const env = 'development';
+
+/** @type webpack.Configuration */
 
 module.exports = {
   mode: env,
@@ -27,7 +31,8 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         include: path.resolve(__dirname, 'src'),
         use: [
-          { loader: MiniCSSExtractPlugin.loader },
+          // { loader: MiniCSSExtractPlugin.loader },
+          { loader: 'style-loader' },
           {
             loader: 'typings-for-css-modules-loader',
             options: { modules: true, namedExport: true },
@@ -39,12 +44,16 @@ module.exports = {
       {
         test: /\.svg$/,
         use: [
-          { loader: 'svg-sprite-loader' },
+          {
+            loader: 'svg-sprite-loader',
+            options: { esModule: false },
+          },
           {
             loader: 'svgo-loader',
             options: {
               plugins: [
                 { removeTitle: true },
+                { convertStyleToAttrs: false },
                 { convertPathData: { floatPrecision: 2 } },
               ],
             },
@@ -60,6 +69,7 @@ module.exports = {
     historyApiFallback: true,
   },
   plugins: [
+    new SpriteLoaderPlugin(),
     new HtmlWebpackPlugin({
       title: 'Demo Application',
       template: 'index.html',
@@ -67,10 +77,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env),
     }),
-    new MiniCSSExtractPlugin({
-      filename: env === 'development' ? '[name].css' : '[name].[hash].css',
-      chunkFilename: env === 'development' ? '[id].css' : '[id].[hash].css',
-    }),
+    // new MiniCSSExtractPlugin({
+    //   filename: env === 'development' ? '[name].css' : '[name].[hash].css',
+    //   chunkFilename: env === 'development' ? '[id].css' : '[id].[hash].css',
+    // }),
   ],
   externals: {
     react: 'React',

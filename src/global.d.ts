@@ -1,10 +1,5 @@
+import { Color } from 'csstype';
 import 'react-testing-library';
-
-declare module 'react-testing-library' {
-  interface RenderResult {
-    baseElement: HTMLHtmlElement;
-  }
-}
 
 declare global {
   interface Glyph {
@@ -13,4 +8,13 @@ declare global {
     content?: string;
     node?: Node;
   }
+
+  interface ColorTheme {
+    primaryColor?: Color;
+    secondaryColor?: Color;
+    tertiaryColor?: Color;
+    [index: number]: Color;
+  }
+
+  type Size = number | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 }
