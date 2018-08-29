@@ -1,17 +1,49 @@
 import * as React from 'react';
+import { themeToCSSVariables } from '../../lib';
 
 interface Props {
   glyph: Glyph;
-  size?: number;
+  theme?: ColorTheme;
+  size?: Size;
   [prop: string]: any;
 }
 
-function Icon({ glyph, size = 100, ...rest }: Props) {
+function Icon({ glyph, size = 64, theme, ...rest }: Props) {
+  size = determineSize(size);
   return (
     <svg width={size} height={size} viewBox={glyph.viewBox} {...rest}>
-      <use xlinkHref={`#${glyph.id}`} />
+      {theme && (
+        <defs>
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `#icon-${glyph.id} {${themeToCSSVariables(theme)}}`,
+            }}
+          />
+        </defs>
+      )}
+      <use xlinkHref={`#${glyph.id}`} id={'icon-' + glyph.id} />
     </svg>
   );
+}
+
+function determineSize(size: Size) {
+  if (typeof size === 'number') {
+    return size;
+  }
+  switch (size) {
+    case 'xsmall':
+      return 36;
+    case 'small':
+      return 48;
+    case 'medium':
+      return 64;
+    case 'large':
+      return 96;
+    case 'xlarge':
+      return 192;
+    default:
+      return 48;
+  }
 }
 
 export default Icon;

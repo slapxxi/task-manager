@@ -3,11 +3,95 @@
 exports[`accepts className 1`] = `
 <svg
   class="icon"
-  height="100"
+  height="64"
   viewBox="0 0 10 10"
-  width="100"
+  width="64"
 >
   <use
+    id="icon-icon"
+    xlink:href="#icon"
+  />
+</svg>
+`;
+
+exports[`converts accepted theme to CSS variables 1`] = `
+<svg
+  height="64"
+  viewBox="0 0 10 10"
+  width="64"
+>
+  <defs>
+    <style>
+      #icon-icon {--primary-color: red; --secondary-color: blue;}
+    </style>
+  </defs>
+  <use
+    id="icon-icon"
+    xlink:href="#icon"
+  />
+</svg>
+`;
+
+exports[`renders "large" size 1`] = `
+<svg
+  height="96"
+  viewBox="0 0 10 10"
+  width="96"
+>
+  <use
+    id="icon-icon"
+    xlink:href="#icon"
+  />
+</svg>
+`;
+
+exports[`renders "medium" size 1`] = `
+<svg
+  height="64"
+  viewBox="0 0 10 10"
+  width="64"
+>
+  <use
+    id="icon-icon"
+    xlink:href="#icon"
+  />
+</svg>
+`;
+
+exports[`renders "small" size 1`] = `
+<svg
+  height="48"
+  viewBox="0 0 10 10"
+  width="48"
+>
+  <use
+    id="icon-icon"
+    xlink:href="#icon"
+  />
+</svg>
+`;
+
+exports[`renders "xlarge" size 1`] = `
+<svg
+  height="192"
+  viewBox="0 0 10 10"
+  width="192"
+>
+  <use
+    id="icon-icon"
+    xlink:href="#icon"
+  />
+</svg>
+`;
+
+exports[`renders "xsmall" size 1`] = `
+<svg
+  height="36"
+  viewBox="0 0 10 10"
+  width="36"
+>
+  <use
+    id="icon-icon"
     xlink:href="#icon"
   />
 </svg>
@@ -15,11 +99,12 @@ exports[`accepts className 1`] = `
 
 exports[`renders icon with specified name 1`] = `
 <svg
-  height="100"
+  height="64"
   viewBox="0 0 10 10"
-  width="100"
+  width="64"
 >
   <use
+    id="icon-icon"
     xlink:href="#icon"
   />
 </svg>
