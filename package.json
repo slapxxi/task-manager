@@ -28,7 +28,7 @@
   "dependencies": {
     "@types/jest": "^23.3.1",
     "@types/lodash": "^4.14.116",
-    "@types/node": "^10.9.3",
+    "@types/node": "^10.9.4",
     "@types/react": "^16.4.13",
     "@types/react-dom": "^16.0.7",
     "@types/react-router-dom": "^4.3.0",
@@ -52,7 +52,7 @@
     "css-loader": "^1.0.0",
     "csscomb": "^4.2.0",
     "docz": "^0.10.3",
-    "eslint": "^5.4.0",
+    "eslint": "^5.5.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.22.0",
