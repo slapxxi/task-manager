@@ -68,7 +68,12 @@ const developmentConfiguration = {
   },
   plugins: [
     ...defaultConfiguration.plugins,
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': 'development' }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify({
+        NODE_ENV: 'development',
+        ...process.env,
+      }),
+    }),
     new HtmlWebpackPlugin({
       title: 'Development',
       template: 'index.html',

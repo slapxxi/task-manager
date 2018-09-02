@@ -1,4 +1,7 @@
+const dotenv = require('dotenv');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+
+dotenv.config();
 
 const defaultConfiguration = {
   entry: './src/index.tsx',
