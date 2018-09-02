@@ -1,4 +1,4 @@
-const config = {
+const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.FIREBASE_DATABASE_URL,
@@ -7,4 +7,4 @@ const config = {
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
 };
 
-export default config;
+export default firebaseConfig;
