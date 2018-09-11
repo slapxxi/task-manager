@@ -9,7 +9,7 @@ const defaultConfiguration = require('./webpack.config');
 const developmentConfiguration = {
   ...defaultConfiguration,
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
