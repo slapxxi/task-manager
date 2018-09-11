@@ -3,9 +3,7 @@
 exports[`accepts className 1`] = `
 <svg
   class="icon"
-  height="64"
   viewBox="0 0 10 10"
-  width="64"
 >
   <use
     id="icon-icon"
@@ -16,9 +14,7 @@ exports[`accepts className 1`] = `
 
 exports[`converts accepted theme to CSS variables 1`] = `
 <svg
-  height="64"
   viewBox="0 0 10 10"
-  width="64"
 >
   <defs>
     <style>
@@ -99,9 +95,7 @@ exports[`renders "xsmall" size 1`] = `
 
 exports[`renders icon with specified name 1`] = `
 <svg
-  height="64"
   viewBox="0 0 10 10"
-  width="64"
 >
   <use
     id="icon-icon"

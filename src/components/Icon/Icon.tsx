@@ -8,10 +8,14 @@ interface Props {
   [prop: string]: any;
 }
 
-function Icon({ glyph, size = 64, theme, ...rest }: Props) {
-  size = determineSize(size);
+function Icon({ glyph, size, theme, ...rest }: Props) {
+  let dimensions = {};
+  if (size) {
+    size = determineSize(size);
+    dimensions = { width: size, height: size };
+  }
   return (
-    <svg width={size} height={size} viewBox={glyph.viewBox} {...rest}>
+    <svg {...dimensions} viewBox={glyph.viewBox} {...rest}>
       {theme && (
         <defs>
           <style
