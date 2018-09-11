@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linecap="round" stroke-miterlimit="1.5">
+	<g fill="none" stroke="#000" stroke-width="8" style="stroke: var(--primary-color, #000)">
+		<path d="M78.966 30.46H21.122l-.083 62.034a4 4 0 0 0 4 4.005h49.844a4 4 0 0 0 4-3.994l.083-62.045z" />
+		<path d="M83.463 30.46H16.639l-.073-10.386a3.997 3.997 0 0 1 4-4.028h58.823a4 4 0 0 1 4 3.972l.074 10.442z" />
+		<path d="M69.472 16.046l.045-9.514a3.017 3.017 0 0 0-3.016-3.031H33.618a3.017 3.017 0 0 0-3.017 3.002l-.045 9.543" />
+		<path d="M36.045 42.557v41.846M50 42.557v41.846m13.955-41.846v41.846" stroke-linecap="butt" />
+	</g>
+</svg>

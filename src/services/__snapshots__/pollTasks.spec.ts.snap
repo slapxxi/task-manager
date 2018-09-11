@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`polls all available tasks 1`] = `
+Array [
+  Object {
+    "completed": false,
+    "createdAt": 1,
+    "description": null,
+    "id": "firstTask",
+    "title": null,
+  },
+  Object {
+    "completed": false,
+    "createdAt": 2,
+    "description": null,
+    "id": "secondTask",
+    "title": null,
+  },
+  Object {
+    "completed": false,
+    "createdAt": 69696969,
+    "description": null,
+    "id": "testTask",
+    "title": null,
+  },
+  Object {
+    "completed": true,
+    "createdAt": 69696969,
+    "description": "Task description",
+    "id": "validTask",
+    "title": "Valid",
+  },
+]
+`;

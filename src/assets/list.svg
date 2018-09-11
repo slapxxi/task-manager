@@ -1,0 +1,10 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5">
+	<g fill="none" stroke="#000" stroke-width="8" style="stroke: var(--primary-color, #000)">
+		<circle cx="13.58" cy="20.69" r="8.292" />
+		<path d="M31.839 20.69h62.873" />
+		<circle cx="13.58" cy="50" r="8.292" />
+		<path d="M31.843 50h62.869" />
+		<circle cx="13.58" cy="79.31" r="8.292" />
+		<path d="M31.85 79.31h62.862" />
+	</g>
+</svg>
