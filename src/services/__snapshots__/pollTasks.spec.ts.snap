@@ -21,7 +21,7 @@ Array [
     "createdAt": 69696969,
     "description": null,
     "id": "testTask",
-    "title": null,
+    "title": "test",
   },
   Object {
     "completed": true,

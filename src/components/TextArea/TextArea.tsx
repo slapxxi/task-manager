@@ -7,7 +7,7 @@ interface Props {
   [prop: string]: any;
 }
 
-class TextArea extends React.Component<Props, {}> {
+class TextArea extends React.PureComponent<Props, {}> {
   public ref = React.createRef<HTMLTextAreaElement>();
 
   public componentDidMount() {
@@ -36,8 +36,8 @@ class TextArea extends React.Component<Props, {}> {
     return (
       <Container
         {...this.props}
-        onChange={this.handleChange}
         innerRef={this.ref}
+        onChange={this.handleChange}
       />
     );
   }
@@ -46,11 +46,15 @@ class TextArea extends React.Component<Props, {}> {
 const Container = styled.textarea`
   overflow: visible;
   box-sizing: border-box;
-  border: 0;
-  line-height: 1.4;
+  width: 100%;
   height: auto;
   padding: 0;
+  border: 0;
   margin: 0;
+  background: transparent;
+  line-height: 1.4;
+  resize: none;
+  appearance: none;
   color: inherit;
 `;
 

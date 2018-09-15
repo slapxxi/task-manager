@@ -2,12 +2,16 @@ import * as React from 'react';
 import { Consumer } from './context';
 
 interface Props {
-  children: (store: any) => React.ReactNode;
+  children: (store: StoreState) => React.ReactNode;
 }
 
-class Store extends React.Component<Props, {}> {
+class Store extends React.PureComponent<Props, {}> {
+  public renderChildren = (value: StoreState) => {
+    return this.props.children(value);
+  };
+
   public render() {
-    return <Consumer>{(store) => this.props.children(store)}</Consumer>;
+    return <Consumer>{this.renderChildren}</Consumer>;
   }
 }
 

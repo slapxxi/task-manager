@@ -2,7 +2,6 @@ export const tasks: string;
 export const taskHeader: string;
 export const taskTitle: string;
 export const indicator: string;
-export const taskDetails: string;
 export const taskDescription: string;
 export const taskDescriptionCompleted: string;
 export const taskFooter: string;

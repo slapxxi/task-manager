@@ -10,6 +10,9 @@ function Button(props: Props) {
 }
 
 const Container = styled.button`
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
   border: 1px solid lightgrey;
   border-radius: 4px;
   padding: 5px 10px;

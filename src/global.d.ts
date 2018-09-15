@@ -2,6 +2,12 @@ import { Color } from 'csstype';
 import 'react-testing-library';
 
 declare global {
+  interface StoreState {
+    tasks: Task[];
+    updateTask?: (task: Task) => void;
+    deleteTask?: (task: Task) => void;
+  }
+
   interface APIResponse {
     tasks: {
       [id: string]: {

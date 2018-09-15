@@ -7,13 +7,14 @@ interface Props {
 }
 
 interface State {
-  store: any;
+  store: StoreState;
 }
 
 class StoreProvider extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.updateTask = this.updateTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
     this.state = {
       store: {
         tasks: [],
