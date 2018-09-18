@@ -42,8 +42,8 @@
 
 .checkbox {
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   outline: none;
   border: 0;
   background: none;
@@ -89,17 +89,15 @@
 .checkbox::after {
   position: absolute;
   top: 0;
-  width: 20px;
-  height: 20px;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='1.5'%3E%3Cpath d='M92.5 28.75c0-11.728-9.522-21.25-21.25-21.25h-42.5C17.022 7.5 7.5 17.022 7.5 28.75v42.5c0 11.728 9.522 21.25 21.25 21.25h42.5c11.728 0 21.25-9.522 21.25-21.25v-42.5z' fill='none' stroke='%23778' stroke-width='8' style='stroke: var(--secondary-color, %23778);' /%3E%3C/svg%3E%0A")
-    no-repeat;
+  width: 22px;
+  height: 22px;
+  background: url('../../assets/roundcheckbox.svg') no-repeat;
   background-position: center center;
   content: '';
 }
 
 .checkbox:checked::after {
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='1.5'%3E%3Cpath d='M92.5 28.75c0-11.728-9.522-21.25-21.25-21.25h-42.5C17.022 7.5 7.5 17.022 7.5 28.75v42.5c0 11.728 9.522 21.25 21.25 21.25h42.5c11.728 0 21.25-9.522 21.25-21.25v-42.5z' fill='none' stroke='lightgrey' stroke-width='8' /%3E%3Cpath d='M42.389 52.884L70.213 25.06l11.032 11.032L42.397 74.94l-.008-.008-.008.008-23.626-23.625 11.032-11.032 12.602 12.601z' fill='%2316f' /%3E%3C/svg%3E%0A")
-    no-repeat;
+  background: url('../../assets/roundcheckbox_checked.svg') no-repeat;
 }
 
 .tags {
