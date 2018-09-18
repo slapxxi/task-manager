@@ -97,6 +97,7 @@ class TaskItem extends React.PureComponent<Props, {}> {
             style={{ marginLeft: 10 }}
             className={styles.detailsIcon}
             onClick={this.handleToggleDetails}
+            data-testid="expand"
           />
         </header>
         <AnimatedDetails

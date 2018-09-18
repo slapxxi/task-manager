@@ -17,6 +17,20 @@ beforeEach(() => {
   decline.mockClear();
 });
 
+it('calls `onExpand` when expand button clicked', () => {
+  const { getByTestId } = render(<TaskItem task={task} onExpand={updater} />);
+  fireEvent.click(getByTestId('expand'));
+  expect(updater).toHaveBeenCalled();
+});
+
+it('calls `onExpand` with relevant value', () => {
+  const { getByTestId } = render(
+    <TaskItem task={task} onExpand={updater} expand={true} />,
+  );
+  fireEvent.click(getByTestId('expand'));
+  expect(updater).toHaveBeenCalledWith(false);
+});
+
 it('calls `onChange` when checkbox clicked', () => {
   const { getByTestId } = render(<TaskItem task={task} onChange={updater} />);
   fireEvent.click(getByTestId('checkbox'));
