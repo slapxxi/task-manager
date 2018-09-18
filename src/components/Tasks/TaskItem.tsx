@@ -81,13 +81,13 @@ class TaskItem extends React.PureComponent<Props, {}> {
           />
           <Title
             // @ts-ignore
-            completed={task.completed}
             active={expand}
+            completed={task.completed}
             className={styles.taskTitle}
-            type="text"
             value={task.title || ''}
             placeholder="Title..."
             onChange={this.handleChangeTitle}
+            autoFocus={expand}
             data-testid="title"
           />
           {expand ? null : <Tags />}

@@ -21,6 +21,22 @@ class TextArea extends React.PureComponent<Props, {}> {
     }
   };
 
+  public handleFocus = () => {
+    let length: number;
+    if (this.props.value) {
+      // double the value because Opera is inconsistent with carriage returns
+      length = this.props.value.length * 2;
+    } else {
+      length = 0;
+    }
+    // timeout is required for blink
+    setTimeout(() => {
+      if (this.ref.current) {
+        this.ref.current.setSelectionRange(length, length);
+      }
+    }, 1);
+  };
+
   public adjustHeight() {
     const ref = this.ref.current;
     if (ref) {
@@ -38,6 +54,7 @@ class TextArea extends React.PureComponent<Props, {}> {
         {...this.props}
         innerRef={this.ref}
         onChange={this.handleChange}
+        onFocus={this.handleFocus}
       />
     );
   }
