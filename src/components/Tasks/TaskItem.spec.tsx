@@ -5,6 +5,7 @@ import TaskItem from './TaskItem';
 const task = {
   id: 'test',
   title: 'test',
+  tags: [],
 };
 
 const updater = jest.fn();

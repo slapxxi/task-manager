@@ -13,10 +13,10 @@ const Container = styled.button`
   display: block;
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid lightgrey;
-  border-radius: 4px;
-  padding: 5px 10px;
+  border: 2px solid #cacacf;
+  padding: 10px 15px;
   background: 0;
+  color: #778;
 `;
 
 export default Button;

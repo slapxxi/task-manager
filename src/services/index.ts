@@ -1,6 +1,6 @@
 import deleteTask from './deleteTask';
-import fetchTasks from './fetchTasks';
-import pollTasks from './pollTasks';
+import pollDatabase from './pollTasks';
+import stopPolling from './stopPolling';
 import updateTask from './updateTask';
 
-export { fetchTasks, pollTasks, updateTask, deleteTask };
+export { pollDatabase, updateTask, deleteTask, stopPolling };

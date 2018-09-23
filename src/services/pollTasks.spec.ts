@@ -1,16 +1,28 @@
-import pollTasks from './pollTasks';
+import firebase from 'firebase';
+import pollDatabase from './pollTasks';
 
-Date.now = jest.fn(() => 69696969);
+beforeEach(() => {
+  // @ts-ignore
+  firebase.__reset();
+});
 
 it('polls all available tasks', (done) => {
-  pollTasks((tasks) => {
+  pollDatabase(({ tasks }) => {
     expect(tasks).toMatchSnapshot();
     done();
   });
 });
 
+it('contains tags', (done) => {
+  pollDatabase(({ tasks }) => {
+    expect(tasks[0].tags).toEqual([]);
+    expect(tasks[2].tags).toEqual([{ id: 'html', name: 'HTML' }]);
+    done();
+  });
+});
+
 it('sorts by `createdAt` field', (done) => {
-  pollTasks((tasks) => {
+  pollDatabase(({ tasks }) => {
     expect(tasks[0].createdAt).toEqual(1);
     expect(tasks[1].createdAt).toEqual(2);
     done();

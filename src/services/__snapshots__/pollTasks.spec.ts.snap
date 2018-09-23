@@ -5,30 +5,31 @@ Array [
   Object {
     "completed": false,
     "createdAt": 1,
-    "description": null,
-    "id": "firstTask",
-    "title": null,
+    "description": "",
+    "id": "first-task",
+    "tags": Array [],
+    "title": "first",
   },
   Object {
     "completed": false,
     "createdAt": 2,
-    "description": null,
-    "id": "secondTask",
-    "title": null,
+    "description": "",
+    "id": "second-task",
+    "tags": Array [],
+    "title": "second",
   },
   Object {
     "completed": false,
-    "createdAt": 69696969,
-    "description": null,
-    "id": "testTask",
-    "title": "test",
-  },
-  Object {
-    "completed": true,
-    "createdAt": 69696969,
-    "description": "Task description",
-    "id": "validTask",
-    "title": "Valid",
+    "createdAt": 69,
+    "description": "",
+    "id": "third-task",
+    "tags": Array [
+      Object {
+        "id": "html",
+        "name": "HTML",
+      },
+    ],
+    "title": "third",
   },
 ]
 `;

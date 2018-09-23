@@ -4,7 +4,6 @@
   "jsRules": {},
   "rulesDirectory": [],
   "rules": {
-    "align": [true, "parameters", "arguments", "statements"],
     "ban": false,
     "class-name": true,
     "comment-format": [true, "check-space"],

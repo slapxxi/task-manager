@@ -1,0 +1,51 @@
+.tags {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag {
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.tag:first-child {
+  margin-left: 0;
+}
+
+.label {
+  box-sizing: border-box;
+  position: relative;
+  font-size: 12px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 5px 10px;
+  min-width: 14px;
+  text-align: center;
+  color: grey;
+  cursor: pointer;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 2px;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox:checked ~ .label {
+  border-color: #16f;
+  background-color: #19f;
+  color: #d0d0ff;
+}

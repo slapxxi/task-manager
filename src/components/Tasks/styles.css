@@ -37,6 +37,8 @@
 .taskFooter {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
   padding: 30px 0 0;
 }
 
@@ -61,6 +63,11 @@
   --primary-color: #9a9aaa;
   margin-left: 10px;
   cursor: pointer;
+}
+
+.tagIcon {
+  transform: rotate(-35deg);
+  composes: icon;
 }
 
 .icon:hover {
@@ -100,29 +107,7 @@
   background: url('../../assets/roundcheckbox_checked.svg') no-repeat;
 }
 
-.tags {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .footerTags {
   flex: 1;
-  composes: tags;
-}
-
-.tag {
-  font-size: 12px;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
-  padding: 2px 6px;
-  min-width: 14px;
-  text-align: center;
-  margin-left: 5px;
-  color: lightgrey;
-}
-
-.tag:first-child {
-  margin-left: 0;
+  composes: tags from '../Tags/styles.css';
 }

@@ -82,7 +82,7 @@ class Tasks extends React.Component<Props, State> {
               onDelete={this.handleDeleteTask}
               onExpand={(expand) => this.handleExpand(index, expand)}
               confirmDelete={true}
-              expand={index === this.state.activeItem}
+              expand={true || index === this.state.activeItem}
             />
           ))}
           {this.state.mode === Mode.create && (

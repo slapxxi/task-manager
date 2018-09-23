@@ -1,5 +1,11 @@
+import { isEqual } from 'lodash';
 import * as React from 'react';
-import { deleteTask, pollTasks, updateTask } from '../../services';
+import {
+  deleteTask,
+  pollDatabase,
+  stopPolling,
+  updateTask,
+} from '../../services';
 import { Provider } from './context';
 
 interface Props {
@@ -7,10 +13,12 @@ interface Props {
 }
 
 interface State {
-  store: StoreState;
+  store: InnerStore;
 }
 
 class StoreProvider extends React.Component<Props, State> {
+  public fn: (params: any) => void = () => null;
+
   constructor(props: Props) {
     super(props);
     this.updateTask = this.updateTask.bind(this);
@@ -18,14 +26,20 @@ class StoreProvider extends React.Component<Props, State> {
     this.state = {
       store: {
         tasks: [],
-        updateTask: this.updateTask,
-        deleteTask: this.deleteTask,
+        tags: [],
       },
     };
   }
 
+  public shouldComponentUpdate(_: Props, nextState: State) {
+    if (isEqual(this.state.store, nextState.store)) {
+      return false;
+    }
+    return true;
+  }
+
   public updateTask(task: Task) {
-    updateTask(task);
+    updateTask(task, this.state.store.tags);
   }
 
   public deleteTask(task: Task) {
@@ -33,13 +47,27 @@ class StoreProvider extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    pollTasks((tasks) =>
-      this.setState({ store: { ...this.state.store, tasks } }),
+    this.fn = pollDatabase((database) =>
+      this.setState({ store: { ...this.state.store, ...database } }),
     );
   }
 
+  public componentWillUnmount() {
+    stopPolling(this.fn);
+  }
+
   public render() {
-    return <Provider value={this.state.store}>{this.props.children}</Provider>;
+    return (
+      <Provider
+        value={{
+          ...this.state.store,
+          updateTask: this.updateTask,
+          deleteTask: this.deleteTask,
+        }}
+      >
+        {this.props.children}
+      </Provider>
+    );
   }
 }
 

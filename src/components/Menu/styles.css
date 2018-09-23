@@ -1,0 +1,65 @@
+.menu {
+  position: relative;
+  padding: 20px 10px;
+}
+
+.layout {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  padding: 10px;
+  background: #112;
+  color: #fff;
+  transition: transform 0.2s;
+  transform: translateY(-100%);
+  box-shadow: 1px 5px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.layoutActive {
+  transform: none;
+
+  composes: layout;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  font-size: 1.2em;
+}
+
+.icon {
+  --primary-color: #889;
+  margin-right: 0.33em;
+  transform: rotate(-35deg);
+}
+
+.button {
+  display: block;
+  margin: 0;
+  margin-left: auto;
+  /* visually align with text */
+  padding: 4px 0 0;
+  border: 0;
+  background: 0;
+  --primary-color: grey;
+
+  appearance: none;
+}
+
+.button:hover {
+  --primary-color: #334;
+}

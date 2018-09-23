@@ -1,10 +1,12 @@
+import { includes, isEmpty } from 'lodash';
 import * as React from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
-import { Icon } from '../';
+import { Icon, Tags } from '../';
 import dots from '../../assets/dots.svg';
 import flag from '../../assets/flag.svg';
 import list from '../../assets/list.svg';
+import tag from '../../assets/tag.svg';
 import trashbin from '../../assets/trashbin.svg';
 import { toggleTask } from '../../lib/tasks';
 import TextArea from '../TextArea/TextArea';
@@ -52,6 +54,17 @@ class TaskItem extends React.PureComponent<Props, {}> {
     }
   };
 
+  public handleAddTag = (name: string) => {
+    if (
+      !includes(this.props.task.tags.map((t) => t.name.toLowerCase()), name)
+    ) {
+      if (this.props.onChange) {
+        const { task } = this.props;
+        this.props.onChange({ ...task, tags: [...task.tags, { name }] });
+      }
+    }
+  };
+
   public handleDelete = () => {
     const { onDelete, confirmDelete } = this.props;
     if (onDelete) {
@@ -90,7 +103,9 @@ class TaskItem extends React.PureComponent<Props, {}> {
             autoFocus={expand}
             data-testid="title"
           />
-          {expand ? null : <Tags />}
+          {!expand && !isEmpty(task.tags) ? (
+            <Icon glyph={tag} size={18} className={styles.tagIcon} />
+          ) : null}
           <Icon
             glyph={dots}
             width={15}
@@ -119,7 +134,11 @@ class TaskItem extends React.PureComponent<Props, {}> {
               />
             )}
             <footer className={styles.taskFooter}>
-              <Tags className={styles.footerTags} />
+              <Tags
+                className={styles.footerTags}
+                tags={task.tags}
+                onAddTag={this.handleAddTag}
+              />
               {this.props.onDelete && (
                 <Icon
                   glyph={trashbin}
@@ -137,15 +156,6 @@ class TaskItem extends React.PureComponent<Props, {}> {
       </Container>
     );
   }
-}
-
-function Tags(props: any) {
-  return (
-    <ul className={styles.tags} {...props}>
-      <li className={styles.tag}>html</li>
-      <li className={styles.tag}>css</li>
-    </ul>
-  );
 }
 
 const Container = styled<{ active: boolean; completed: boolean }, 'li'>('li')`
