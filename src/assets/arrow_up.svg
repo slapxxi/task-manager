@@ -1,3 +1,3 @@
-<svg viewBox="0 -4 50 50" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
-	<path d="M.205 24.259h47.924L24.167.297.205 24.259z" style="fill: var(--primary-color, #000)" />
+<svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+	<path d="M90.043 59.957L100 50 50 0 0 50l9.957 9.957L50 19.914l40.043 40.043z" fill="#000" style="fill: var(--primary-color, #000)" />
 </svg>

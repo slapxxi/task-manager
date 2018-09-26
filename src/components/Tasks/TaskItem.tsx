@@ -3,7 +3,8 @@ import * as React from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
 import { Icon, Tags } from '../';
-import dots from '../../assets/dots.svg';
+import arrow_down from '../../assets/arrow_down.svg';
+import arrow_up from '../../assets/arrow_up.svg';
 import flag from '../../assets/flag.svg';
 import list from '../../assets/list.svg';
 import tag from '../../assets/tag.svg';
@@ -107,8 +108,7 @@ class TaskItem extends React.PureComponent<Props, {}> {
             <Icon glyph={tag} size={18} className={styles.tagIcon} />
           ) : null}
           <Icon
-            glyph={dots}
-            width={15}
+            glyph={expand ? arrow_up : arrow_down}
             style={{ marginLeft: 10 }}
             className={styles.detailsIcon}
             onClick={this.handleToggleDetails}

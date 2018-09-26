@@ -75,7 +75,7 @@
 }
 
 .detailsIcon {
-  width: 18px;
+  width: 14px;
   padding: 5px 0 5px;
   composes: icon;
 }
@@ -109,5 +109,6 @@
 
 .footerTags {
   flex: 1;
+  flex-basis: 100%;
   composes: tags from '../Tags/styles.css';
 }
