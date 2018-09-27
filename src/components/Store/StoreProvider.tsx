@@ -9,6 +9,7 @@ import {
 import { Provider } from './context';
 
 interface Props {
+  store?: StoreState;
   children: React.ReactNode;
 }
 
@@ -24,7 +25,7 @@ class StoreProvider extends React.Component<Props, State> {
     this.updateTask = this.updateTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.state = {
-      store: {
+      store: props.store || {
         tasks: [],
         tags: [],
       },
