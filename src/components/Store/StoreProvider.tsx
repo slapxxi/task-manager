@@ -14,7 +14,7 @@ interface Props {
 }
 
 interface State {
-  store: InnerStore;
+  store: StoreState;
 }
 
 class StoreProvider extends React.Component<Props, State> {
@@ -62,8 +62,10 @@ class StoreProvider extends React.Component<Props, State> {
       <Provider
         value={{
           ...this.state.store,
-          updateTask: this.updateTask,
-          deleteTask: this.deleteTask,
+          actions: {
+            updateTask: this.updateTask,
+            deleteTask: this.deleteTask,
+          },
         }}
       >
         {this.props.children}

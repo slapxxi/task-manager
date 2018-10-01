@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from 'react-testing-library';
+import { fireEvent, render } from 'react-testing-library';
 import uuid from 'uuid';
 import { createTag } from '../../lib/tags';
 import { createTask } from '../../lib/tasks';
-import { pollDatabase } from '../../services';
+import { pollDatabase, updateTask } from '../../services';
 import Store from './Store';
 import StoreProvider from './StoreProvider';
 
@@ -16,12 +16,13 @@ const initialState = {
 
 const remoteState = {
   tasks: [createTask()],
-  tags: [createTag()],
+  tags: [createTag({ name: 'test' })],
 };
 
 const capture = jest.fn(() => 'div');
 
 jest.mock('../../services/', () => ({
+  updateTask: jest.fn((value) => value),
   pollDatabase: jest.fn((fn) => fn(remoteState)),
   stopPolling: jest.fn(),
 }));
@@ -66,4 +67,42 @@ it('updates state with received data', () => {
     </StoreProvider>,
   );
   expect(capture).toHaveBeenLastCalledWith(remoteState.tasks, remoteState.tags);
+});
+
+it('provides actions to interact with the store', () => {
+  render(
+    <StoreProvider>
+      <Store>{({ actions }) => capture(actions)}</Store>
+    </StoreProvider>,
+  );
+  expect(capture).toHaveBeenLastCalledWith({
+    updateTask: expect.any(Function),
+    deleteTask: expect.any(Function),
+  });
+});
+
+it('updates tasks with `updateTask` action', () => {
+  const { getByTestId } = render(
+    <StoreProvider>
+      <Store>
+        {({ tasks, actions }) => (
+          <div>
+            {capture(tasks)}
+            <button
+              data-testid="button"
+              onClick={() => actions.updateTask({ ...tasks[0], title: 'new' })}
+            />
+          </div>
+        )}
+      </Store>
+    </StoreProvider>,
+  );
+  fireEvent.click(getByTestId('button'));
+  expect(updateTask).toHaveBeenLastCalledWith(
+    {
+      ...remoteState.tasks[0],
+      title: 'new',
+    },
+    remoteState.tags,
+  );
 });

@@ -17,8 +17,10 @@ declare global {
   }
 
   interface InnerStore extends StoreState {
-    updateTask?: (task: Task) => void;
-    deleteTask?: (task: Task) => void;
+    actions: {
+      updateTask: (task: Task) => void;
+      deleteTask: (task: Task) => void;
+    };
   }
 
   interface APIResponse {

@@ -7,8 +7,12 @@ class App extends React.Component<{}, {}> {
       <StoreProvider>
         <Menu />
         <Store>
-          {({ tasks, updateTask, deleteTask }) => (
-            <Tasks tasks={tasks} onChange={updateTask} onDelete={deleteTask} />
+          {({ tasks, actions }) => (
+            <Tasks
+              tasks={tasks}
+              onChange={actions.updateTask}
+              onDelete={actions.deleteTask}
+            />
           )}
         </Store>
       </StoreProvider>
