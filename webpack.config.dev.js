@@ -19,7 +19,14 @@ const developmentConfiguration = {
     rules: [
       {
         test: /\.(t|j)sx?$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              onlyCompileBundledFiles: true,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
       {

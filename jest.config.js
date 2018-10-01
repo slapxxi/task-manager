@@ -9,4 +9,9 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|svg)$': 'identity-obj-proxy',
   },
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
 };
