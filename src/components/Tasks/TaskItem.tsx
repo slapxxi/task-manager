@@ -55,6 +55,12 @@ class TaskItem extends React.PureComponent<Props, {}> {
     }
   };
 
+  public handleExpand = () => {
+    if (this.props.onExpand) {
+      this.props.onExpand(true);
+    }
+  };
+
   public handleAddTag = (name: string) => {
     if (
       !includes(this.props.task.tags.map((t) => t.name.toLowerCase()), name)
@@ -63,6 +69,15 @@ class TaskItem extends React.PureComponent<Props, {}> {
         const { task } = this.props;
         this.props.onChange({ ...task, tags: [...task.tags, { name }] });
       }
+    }
+  };
+
+  public handleRemoveTag = (inputTag: Tag) => {
+    if (this.props.onChange) {
+      this.props.onChange({
+        ...this.props.task,
+        tags: [...this.props.task.tags.filter((t) => t.id !== inputTag.id)],
+      });
     }
   };
 
@@ -83,7 +98,6 @@ class TaskItem extends React.PureComponent<Props, {}> {
   public render() {
     const { task, expand } = this.props;
     return (
-      // @ts-ignore
       <Container active={expand} completed={task.completed}>
         <header className={styles.taskHeader}>
           <input
@@ -94,12 +108,12 @@ class TaskItem extends React.PureComponent<Props, {}> {
             data-testid="checkbox"
           />
           <Title
-            // @ts-ignore
             active={expand}
             completed={task.completed}
             className={styles.taskTitle}
             value={task.title || ''}
             placeholder="Title..."
+            onClick={this.handleExpand}
             onChange={this.handleChangeTitle}
             autoFocus={expand}
             data-testid="title"
@@ -138,6 +152,7 @@ class TaskItem extends React.PureComponent<Props, {}> {
                 className={styles.footerTags}
                 tags={task.tags}
                 onAddTag={this.handleAddTag}
+                onRemoveTag={this.handleRemoveTag}
               />
               {this.props.onDelete && (
                 <Icon
@@ -158,7 +173,7 @@ class TaskItem extends React.PureComponent<Props, {}> {
   }
 }
 
-const Container = styled<{ active: boolean; completed: boolean }, 'li'>('li')`
+const Container = styled<{ active?: boolean; completed?: boolean }, 'li'>('li')`
   overflow: hidden;
   box-sizing: border-box;
   position: relative;

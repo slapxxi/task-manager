@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import * as React from 'react';
 import { Button } from '../';
 import { createTask, isValidTask } from '../../lib/tasks';
@@ -22,6 +23,8 @@ interface State {
 }
 
 class Tasks extends React.Component<Props, State> {
+  private lastActiveItem: number = NaN;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -32,11 +35,16 @@ class Tasks extends React.Component<Props, State> {
   }
 
   public handleCreateTask = () => {
-    this.setState({ mode: Mode.create, newTask: createTask() });
+    this.lastActiveItem = this.state.activeItem;
+    this.setState({
+      mode: Mode.create,
+      newTask: createTask(),
+      activeItem: NaN,
+    });
   };
 
   public handleCancel = () => {
-    this.setState({ mode: Mode.default });
+    this.setState({ mode: Mode.default, activeItem: this.lastActiveItem });
   };
 
   public handleDeleteTask = (task: Task) => {
@@ -74,6 +82,7 @@ class Tasks extends React.Component<Props, State> {
     return (
       <>
         <ul className={styles.tasks}>
+          {isEmpty(tasks) && <p>There are no tasks yet.</p>}
           {tasks.map((t: Task, index) => (
             <TaskItem
               key={t.id}
@@ -82,7 +91,7 @@ class Tasks extends React.Component<Props, State> {
               onDelete={this.handleDeleteTask}
               onExpand={(expand) => this.handleExpand(index, expand)}
               confirmDelete={true}
-              expand={true || index === this.state.activeItem}
+              expand={index === this.state.activeItem}
             />
           ))}
           {this.state.mode === Mode.create && (

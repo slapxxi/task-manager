@@ -5,7 +5,10 @@ import TaskItem from './TaskItem';
 const task = {
   id: 'test',
   title: 'test',
+  description: '',
   tags: [],
+  completed: false,
+  createdAt: 1,
 };
 
 const updater = jest.fn();
@@ -21,6 +24,12 @@ beforeEach(() => {
 it('calls `onExpand` when expand button clicked', () => {
   const { getByTestId } = render(<TaskItem task={task} onExpand={updater} />);
   fireEvent.click(getByTestId('expand'));
+  expect(updater).toHaveBeenCalled();
+});
+
+it('calls `onExpand` when title clicked', () => {
+  const { getByTestId } = render(<TaskItem task={task} onExpand={updater} />);
+  fireEvent.click(getByTestId('title'));
   expect(updater).toHaveBeenCalled();
 });
 
