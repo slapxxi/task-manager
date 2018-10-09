@@ -7,11 +7,13 @@ function pollDatabase(fn: (state: StoreState) => void) {
     .ref('/')
     .on('value', (snapshot) => {
       if (snapshot) {
-        const tags = normalizeTags(snapshot.val().tags);
-        const tasks = normalizeTasks(snapshot.val().tasks, tags);
-        return fn({ tasks, tags });
+        const response = snapshot.val();
+        const tags = normalizeTags(response.tags);
+        const tasks = normalizeTasks(response.tasks, tags);
+        const projects = normalizeProjects(response.projects, tasks);
+        return fn({ tasks, tags, projects });
       }
-      return fn({ tasks: [], tags: [] });
+      return fn({ tasks: [], tags: [], projects: [] });
     });
 }
 
@@ -21,6 +23,7 @@ function normalizeTasks(tasks: APIResponse['tasks'], tags: Tag[]): Task[] {
       id: key,
       title: task.title || '',
       tags: matchTags(task, tags),
+      project: task.project || null,
       description: task.description || '',
       completed: task.completed || false,
       createdAt: task.createdAt || Date.now(),
@@ -40,6 +43,17 @@ function normalizeTags(tags: APIResponse['tags']): Tag[] {
   return map(tags, (item, key) => ({
     id: key,
     name: item.name || 'empty tag',
+  }));
+}
+
+function normalizeProjects(
+  projects: APIResponse['projects'],
+  tasks: Task[],
+): Project[] {
+  return map(projects, (item, key) => ({
+    id: key,
+    name: item.name,
+    tasks: tasks.filter((t) => t.project && t.project === key),
   }));
 }
 

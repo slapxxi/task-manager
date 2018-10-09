@@ -13,6 +13,19 @@ it('polls all available tasks', (done) => {
   });
 });
 
+it('extracts projects', (done) => {
+  pollDatabase(({ projects }) => {
+    expect(projects).toEqual([
+      {
+        id: 'test',
+        name: 'Test Project',
+        tasks: [expect.objectContaining({ id: 'third-task' })],
+      },
+    ]);
+    done();
+  });
+});
+
 it('contains tags', (done) => {
   pollDatabase(({ tasks }) => {
     expect(tasks[0].tags).toEqual([]);

@@ -45,6 +45,7 @@ function createTask(params: Task): APIResponse['tasks']['task'] {
     title: params.title || '',
     description: params.description || '',
     createdAt: params.createdAt || Date.now(),
+    project: params.project || null,
     tags: (params.tags || []).map((t) => t.id) as string[],
     completed: params.completed || false,
   };

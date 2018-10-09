@@ -6,6 +6,20 @@ declare global {
 
   type Size = number | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
+  interface Glyph {
+    id: ID;
+    viewBox: string;
+    content?: string;
+    node?: Node;
+  }
+
+  interface ColorTheme {
+    primaryColor?: Color;
+    secondaryColor?: Color;
+    tertiaryColor?: Color;
+    [index: number]: Color;
+  }
+
   interface Tag {
     readonly id?: string;
     readonly name: string;
@@ -14,6 +28,7 @@ declare global {
   interface StoreState {
     tasks: Task[];
     tags: Tag[];
+    projects: Project[];
   }
 
   interface InnerStore extends StoreState {
@@ -28,6 +43,7 @@ declare global {
       [id: string]: {
         title: string;
         tags: ID[];
+        project: ID | null;
         description: string;
         createdAt: number;
         completed: boolean;
@@ -38,29 +54,33 @@ declare global {
         name: string;
       };
     };
-    [index: string]: any;
+    projects: {
+      [id: string]: {
+        name: string;
+      };
+    };
   }
 
   interface Task {
     readonly id: ID;
     readonly title: string | null;
     readonly tags: Tag[];
+    readonly project: ID | null;
     readonly description: string | null;
     readonly completed: boolean;
     readonly createdAt: number;
   }
 
-  interface Glyph {
+  interface DBProject {
     id: ID;
-    viewBox: string;
-    content?: string;
-    node?: Node;
+    name: string;
   }
 
-  interface ColorTheme {
-    primaryColor?: Color;
-    secondaryColor?: Color;
-    tertiaryColor?: Color;
-    [index: number]: Color;
+  // Various entities can refer to a project ID to be grouped under its
+  // umbrella.
+  interface Project {
+    id: ID;
+    name: string;
+    tasks: Task[];
   }
 }

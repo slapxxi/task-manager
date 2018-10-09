@@ -28,6 +28,7 @@ class StoreProvider extends React.Component<Props, State> {
       store: props.store || {
         tasks: [],
         tags: [],
+        projects: [],
       },
     };
   }

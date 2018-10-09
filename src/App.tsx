@@ -1,20 +1,30 @@
+import { Menu, Projects, Store, StoreProvider, Tasks } from '@local/components';
 import * as React from 'react';
-import { Menu, Store, StoreProvider, Tasks } from './components';
 
 // TODO Display sync icon when connecting to a server
 // TODO Add projects to organize tasks
+// TODO Higher order component for input behavior modification?
+// TODO Validate user input
+// TODO Handle Errors
 class App extends React.Component<{}, {}> {
+  public componentDidCatch() {
+    console.log('error');
+  }
+
   public render() {
     return (
       <StoreProvider>
         <Menu />
         <Store>
-          {({ tasks, actions }) => (
-            <Tasks
-              tasks={tasks}
-              onChange={actions.updateTask}
-              onDelete={actions.deleteTask}
-            />
+          {({ projects, tasks, actions }) => (
+            <div>
+              <Tasks
+                tasks={tasks}
+                onChange={actions.updateTask}
+                onDelete={actions.deleteTask}
+              />
+              <Projects projects={projects} />
+            </div>
           )}
         </Store>
       </StoreProvider>

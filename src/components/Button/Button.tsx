@@ -13,7 +13,7 @@ const Container = styled.button`
   display: block;
   box-sizing: border-box;
   width: 100%;
-  border: 2px solid #cacacf;
+  border: 0;
   padding: 10px 15px;
   background: 0;
   color: #778;

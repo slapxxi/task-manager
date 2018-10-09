@@ -30,7 +30,7 @@ class Tasks extends React.Component<Props, State> {
     this.state = {
       mode: Mode.default,
       newTask: createTask(),
-      activeItem: props.tasks.length - 1,
+      activeItem: NaN,
     };
   }
 

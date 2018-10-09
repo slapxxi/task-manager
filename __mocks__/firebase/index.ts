@@ -35,6 +35,7 @@ const mock = {
         'third-task': {
           title: 'third',
           tags: ['html'],
+          project: 'test',
         },
       },
       tags: {
@@ -43,6 +44,11 @@ const mock = {
         },
         css: {
           name: 'CSS',
+        },
+      },
+      projects: {
+        test: {
+          name: 'Test Project',
         },
       },
     };

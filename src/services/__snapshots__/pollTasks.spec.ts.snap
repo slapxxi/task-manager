@@ -7,6 +7,7 @@ Array [
     "createdAt": 1,
     "description": "",
     "id": "first-task",
+    "project": null,
     "tags": Array [],
     "title": "first",
   },
@@ -15,6 +16,7 @@ Array [
     "createdAt": 2,
     "description": "",
     "id": "second-task",
+    "project": null,
     "tags": Array [],
     "title": "second",
   },
@@ -23,6 +25,7 @@ Array [
     "createdAt": 69,
     "description": "",
     "id": "third-task",
+    "project": "test",
     "tags": Array [
       Object {
         "id": "html",
