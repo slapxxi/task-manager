@@ -5,4 +5,7 @@ export const header: string;
 export const list: string;
 export const listItem: string;
 export const icon: string;
+export const tagIcon: string;
 export const button: string;
+export const buttonRight: string;
+export const link: string;

@@ -34,6 +34,7 @@ declare global {
   interface InnerStore extends StoreState {
     actions: {
       updateTask: (task: Task) => void;
+      updateProject: (project: Project) => void;
       deleteTask: (task: Task) => void;
     };
   }

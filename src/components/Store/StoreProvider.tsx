@@ -4,6 +4,7 @@ import {
   deleteTask,
   pollDatabase,
   stopPolling,
+  updateProject,
   updateTask,
 } from '../../services';
 import { Provider } from './context';
@@ -40,6 +41,10 @@ class StoreProvider extends React.Component<Props, State> {
     return true;
   }
 
+  public updateProject(project: Project) {
+    updateProject(project);
+  }
+
   public updateTask(task: Task) {
     updateTask(task, this.state.store.tags);
   }
@@ -65,6 +70,7 @@ class StoreProvider extends React.Component<Props, State> {
           ...this.state.store,
           actions: {
             updateTask: this.updateTask,
+            updateProject: this.updateProject,
             deleteTask: this.deleteTask,
           },
         }}

@@ -12,11 +12,13 @@ Date.now = () => 100;
 const initialState = {
   tasks: [createTask()],
   tags: [createTag()],
+  projects: [],
 };
 
 const remoteState = {
   tasks: [createTask()],
   tags: [createTag({ name: 'test' })],
+  projects: [],
 };
 
 const capture = jest.fn(() => 'div');
@@ -77,6 +79,7 @@ it('provides actions to interact with the store', () => {
   );
   expect(capture).toHaveBeenLastCalledWith({
     updateTask: expect.any(Function),
+    updateProject: expect.any(Function),
     deleteTask: expect.any(Function),
   });
 });

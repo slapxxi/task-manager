@@ -1,3 +1,7 @@
+:root {
+  --base-color: hsl(216, 10%, 70%);
+}
+
 .menu {
   position: relative;
   padding: 20px 10px;
@@ -42,24 +46,41 @@
 }
 
 .icon {
-  --primary-color: #889;
-  margin-right: 0.33em;
-  transform: rotate(-35deg);
+  --primary-color: var(--base-color);
+  margin-right: 0.5em;
+}
+
+.tagIcon {
+  composes: icon;
+  transform: rotate(-45deg);
 }
 
 .button {
+  --primary-color: var(--base-color);
   display: block;
-  margin: 0;
-  margin-left: auto;
+  margin: 0 auto;
   /* visually align with text */
   padding: 4px 0 0;
   border: 0;
   background: 0;
-  --primary-color: grey;
 
   appearance: none;
 }
 
+.buttonRight {
+  margin: 0 0 0 auto;
+  composes: button;
+}
+
 .button:hover {
   --primary-color: #334;
+}
+
+.link {
+  text-decoration: none;
+  color: hsl(190, 10%, 90%);
+}
+
+.link:hover {
+  color: var(--base-color);
 }

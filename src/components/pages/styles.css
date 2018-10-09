@@ -1,0 +1,23 @@
+.title {
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.list {
+  list-style: none;
+  padding: 0 10px;
+  margin: 0;
+}
+
+.listItem {
+  margin: 1em 0;
+}
+
+.link {
+  text-decoration: none;
+  color: hsl(200, 20%, 30%);
+}
+
+.link:hover {
+  color: hsl(200, 20%, 40%);
+}
