@@ -15,7 +15,11 @@
     "sourceMap": false,
     "strictNullChecks": true,
     "strict": true,
-    "target": "es5"
+    "target": "es5",
+    "paths": {
+      "@local/types": ["types"],
+      "@local/components": ["components/index"]
+    }
   },
   "include": ["./src/"],
   "compileOnSave": true

@@ -1,3 +1,4 @@
+const path = require('path');
 const dotenv = require('dotenv');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
@@ -7,6 +8,9 @@ const defaultConfiguration = {
   entry: './src/index.tsx',
   resolve: {
     extensions: ['.js', '.json', '.ts', '.tsx', '.css'],
+    alias: {
+      '@local': path.resolve(__dirname, 'src'),
+    },
   },
   optimization: {
     splitChunks: {
