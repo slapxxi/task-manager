@@ -1,16 +1,14 @@
-// @ts-check
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const defaultConfiguration = require('./webpack.config');
-
-/** @type webpack.Configuration */
 
 const developmentConfiguration = {
   ...defaultConfiguration,
   mode: 'development',
   devtool: 'source-map',
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
     chunkFilename: '[name].bundle.js',

@@ -1,12 +1,9 @@
-// @ts-check
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const defaultConfiguration = require('./webpack.config');
-
-/** @type webpack.Configuration */
 
 const productionConfiguration = {
   ...defaultConfiguration,
@@ -17,11 +14,17 @@ const productionConfiguration = {
     chunkFilename: '[name].[chunkhash].bundle.js',
   },
   module: {
-    // @ts-ignore
     rules: [
       {
         test: /\.(t|j)sx?$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              onlyCompileBundledFiles: true,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
       {
