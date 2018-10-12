@@ -14,6 +14,7 @@ function ProjectPage({ projectID }: Props) {
             project={projects.filter((p) => p.id === projectID)[0]}
             onEdit={actions.updateProject}
             onEditTask={actions.updateTask}
+            onDeleteTask={actions.deleteTask}
           />
         )}
       </Store>

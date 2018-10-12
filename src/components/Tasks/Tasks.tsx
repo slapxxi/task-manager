@@ -1,9 +1,10 @@
+import { Task as ITask } from '@local/types';
 import { isEmpty } from 'lodash';
 import * as React from 'react';
 import { Button } from '../';
 import { createTask, isValidTask } from '../../lib/tasks';
 import styles from './styles.css';
-import TaskItem from './TaskItem';
+import Task from './Task';
 
 enum Mode {
   default,
@@ -11,15 +12,15 @@ enum Mode {
 }
 
 interface Props {
-  tasks: Task[];
-  onChange?: (task: Task) => void;
-  onDelete?: (task: Task) => void;
+  tasks: ITask[];
+  onChange?: (task: ITask) => void;
+  onDelete?: (task: ITask) => void;
 }
 
 interface State {
   mode: Mode;
   activeItem: number;
-  newTask: Task;
+  newTask: ITask;
 }
 
 class Tasks extends React.Component<Props, State> {
@@ -47,7 +48,7 @@ class Tasks extends React.Component<Props, State> {
     this.setState({ mode: Mode.default, activeItem: this.lastActiveItem });
   };
 
-  public handleDeleteTask = (task: Task) => {
+  public handleDeleteTask = (task: ITask) => {
     if (this.props.onDelete) {
       this.setState({ activeItem: NaN }, () => {
         if (this.props.onDelete) {
@@ -64,7 +65,7 @@ class Tasks extends React.Component<Props, State> {
     this.setState({ activeItem: index });
   };
 
-  public createTask = (task: Task) => {
+  public createTask = (task: ITask) => {
     if (isValidTask(task)) {
       this.setState(
         { mode: Mode.default, activeItem: this.props.tasks.length },
@@ -83,8 +84,8 @@ class Tasks extends React.Component<Props, State> {
       <>
         <ul className={styles.tasks}>
           {isEmpty(tasks) && <p>There are no tasks yet.</p>}
-          {tasks.map((t: Task, index) => (
-            <TaskItem
+          {tasks.map((t: ITask, index) => (
+            <Task
               key={t.id}
               task={t}
               onChange={onChange}
@@ -95,15 +96,18 @@ class Tasks extends React.Component<Props, State> {
             />
           ))}
           {this.state.mode === Mode.create && (
-            <TaskItem
+            <Task
               task={this.state.newTask}
               onChange={this.createTask}
               expand={true}
+              data-testid="newTask"
             />
           )}
         </ul>
         {this.state.mode === Mode.default ? (
-          <Button onClick={this.handleCreateTask}>Create Task</Button>
+          <Button onClick={this.handleCreateTask} data-testid="create">
+            Create Task
+          </Button>
         ) : (
           <Button onClick={this.handleCancel}>Cancel</Button>
         )}

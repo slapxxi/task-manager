@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import firebase from 'firebase';
 
 function deleteTask(task: Task) {

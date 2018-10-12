@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import { Color } from 'csstype';
 import 'react-testing-library';
 
@@ -60,16 +61,6 @@ declare global {
         name: string;
       };
     };
-  }
-
-  interface Task {
-    readonly id: ID;
-    readonly title: string | null;
-    readonly tags: Tag[];
-    readonly project: ID | null;
-    readonly description: string | null;
-    readonly completed: boolean;
-    readonly createdAt: number;
   }
 
   interface DBProject {

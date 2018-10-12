@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import firebase from 'firebase';
 import { find } from 'lodash';
 import uuid from 'uuid';

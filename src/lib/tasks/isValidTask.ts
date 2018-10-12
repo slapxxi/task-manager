@@ -1,3 +1,5 @@
+import { Task } from '@local/types';
+
 function isValidTask(task: Task) {
   if (
     task.title === undefined ||

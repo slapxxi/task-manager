@@ -1,8 +1,9 @@
+import { Task as ITask } from '@local/types';
 import { includes, isEmpty } from 'lodash';
 import * as React from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
-import { Icon, Tags } from '../';
+import { Icon, Tags } from '..';
 import arrow_down from '../../assets/arrow_down.svg';
 import arrow_up from '../../assets/arrow_up.svg';
 import flag from '../../assets/flag.svg';
@@ -14,15 +15,15 @@ import TextArea from '../TextArea/TextArea';
 import styles from './styles.css';
 
 interface Props {
-  task: Task;
+  task: ITask;
   expand?: boolean;
   confirmDelete?: boolean;
-  onChange?: (task: Task) => void;
-  onDelete?: (task: Task) => void;
+  onChange?: (task: ITask) => void;
+  onDelete?: (task: ITask) => void;
   onExpand?: (expand: boolean) => void;
 }
 
-class TaskItem extends React.PureComponent<Props, {}> {
+class Task extends React.PureComponent<Props, {}> {
   constructor(props: Props) {
     super(props);
     this.state = { showDetails: this.props.expand ? true : false };
@@ -215,4 +216,4 @@ const Details = styled.div`
   padding: 10px 0 0;
 `;
 
-export default TaskItem;
+export default Task;

@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import uuid from 'uuid';
 
 interface Params {
@@ -25,10 +26,10 @@ function createTask(params?: Params): Task {
   }
   return {
     id,
-    title: '',
+    title: null,
     completed: false,
     tags: [],
-    description: '',
+    description: null,
     project: null,
     createdAt: Date.now(),
   };

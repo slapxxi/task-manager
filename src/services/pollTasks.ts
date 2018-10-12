@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import firebase from 'firebase';
 import { compact, map, sortBy } from 'lodash';
 

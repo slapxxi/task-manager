@@ -1,3 +1,5 @@
+import { Task } from '@local/types';
+
 function assignToProject(task: Task, project: Project) {
   if (project.id === undefined) {
     throw new Error('Missing project ID');

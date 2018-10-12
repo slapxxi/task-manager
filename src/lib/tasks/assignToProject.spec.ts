@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import assignToProject from './assignToProject';
 
 it('assign task to project', () => {

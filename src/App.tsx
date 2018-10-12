@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 // TODO Higher order component for input behavior modification?
 // TODO Validate user input
 // TODO Handle Errors
+// TODO Delete tasks in project page
 class App extends React.Component<{}, {}> {
   public render() {
     return (
