@@ -1,18 +1,7 @@
 // @ts-ignore
-import Tasks from '@local/components/Tasks/Tasks';
-import { last } from 'lodash';
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
-import { createTask } from '../../lib/tasks';
 import Project from './Project';
-
-jest.mock('@local/components/Tasks/Tasks', () => {
-  return jest.fn(() => 'tasks');
-});
-
-beforeEach(() => {
-  (Tasks as jest.Mock).mockClear();
-});
 
 const project = {
   id: 'test',
@@ -20,30 +9,33 @@ const project = {
   tasks: [],
 };
 
-it('renders project', () => {
-  const { getByTestId } = render(<Project project={project} />);
-  const projectName = getByTestId('name') as HTMLTextAreaElement;
-  expect(projectName.value).toEqual('Test Project');
+it('renders a project', () => {
+  const spy = jest.fn(() => 'project');
+  const { container } = render(
+    <Project project={project} renderProject={() => spy()} />,
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });
 
-it('invokes callback when project modified', () => {
+it('passes project to render prop', () => {
+  const spy = jest.fn(() => 'project');
+  render(
+    <Project project={project} renderProject={({ project: p }) => spy(p)} />,
+  );
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith(project);
+});
+
+it('calls `onEdit` when project is modified', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<Project project={project} onEdit={spy} />);
-  fireEvent.change(getByTestId('name'), { target: { value: 'new name' } });
-  expect(spy).toHaveBeenCalledWith({ id: 'test', name: 'new name', tasks: [] });
-});
-
-it('invokes callback when task deleted', () => {
-  const spy = jest.fn();
-  render(
-    <Project
-      project={{
-        ...project,
-        tasks: [createTask({ title: 'task', id: 'task' })],
-      }}
-      onDeleteTask={spy}
-    />,
-  );
-  last((Tasks as jest.Mock).mock.calls)![0].onDelete({ task: 'test' });
-  expect(spy).toHaveBeenCalledWith({ task: 'test' });
+  fireEvent.change(getByTestId('project-name'), {
+    target: { value: 'New Project' },
+  });
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith({
+    id: 'test',
+    name: 'New Project',
+    tasks: [],
+  });
 });

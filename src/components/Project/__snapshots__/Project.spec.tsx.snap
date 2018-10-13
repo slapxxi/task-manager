@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a project 1`] = `
+<div>
+  <textarea
+    class="name sc-bwzfXH cdcvxu"
+    data-testid="project-name"
+    placeholder="Project Name..."
+  >
+    Test Project
+  </textarea>
+  project
+</div>
+`;

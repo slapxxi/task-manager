@@ -1,7 +1,7 @@
 import { Task } from '@local/types';
 import assignToProject from './assignToProject';
 
-it('assign task to project', () => {
+it('assigns task to project', () => {
   const result = assignToProject({} as Task, { id: 'test-project' } as Project);
   expect(result.project).toEqual('test-project');
 });

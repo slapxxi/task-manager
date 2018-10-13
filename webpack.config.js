@@ -9,6 +9,7 @@ const defaultConfiguration = {
   resolve: {
     extensions: ['.js', '.json', '.ts', '.tsx', '.css'],
     alias: {
+      '@lib': path.resolve(__dirname, 'src', 'lib'),
       '@local': path.resolve(__dirname, 'src'),
     },
   },

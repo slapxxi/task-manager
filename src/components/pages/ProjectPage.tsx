@@ -1,4 +1,5 @@
-import { Project, Store } from '@local/components';
+import { assignToProject } from '@lib';
+import { Project, Store, Task, Tasks } from '@local/components';
 import * as React from 'react';
 
 interface Props {
@@ -13,8 +14,23 @@ function ProjectPage({ projectID }: Props) {
           <Project
             project={projects.filter((p) => p.id === projectID)[0]}
             onEdit={actions.updateProject}
-            onEditTask={actions.updateTask}
-            onDeleteTask={actions.deleteTask}
+            renderProject={({ project }) => (
+              <Tasks
+                tasks={project.tasks}
+                onCreate={(t) =>
+                  actions.updateTask(assignToProject(t, project))
+                }
+                renderTask={({ task, expand, onExpand }) => (
+                  <Task
+                    task={task}
+                    expand={expand}
+                    onExpand={onExpand}
+                    onEdit={actions.updateTask}
+                    onDelete={actions.deleteTask}
+                  />
+                )}
+              />
+            )}
           />
         )}
       </Store>

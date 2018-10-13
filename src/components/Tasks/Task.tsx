@@ -18,7 +18,7 @@ interface Props {
   task: ITask;
   expand?: boolean;
   confirmDelete?: boolean;
-  onChange?: (task: ITask) => void;
+  onEdit?: (task: ITask) => void;
   onDelete?: (task: ITask) => void;
   onExpand?: (expand: boolean) => void;
 }
@@ -30,23 +30,23 @@ class Task extends React.PureComponent<Props, {}> {
   }
 
   public handleToggle = () => {
-    const { task, onChange } = this.props;
-    if (onChange) {
-      onChange(toggleTask(task));
+    const { task, onEdit } = this.props;
+    if (onEdit) {
+      onEdit(toggleTask(task));
     }
   };
 
   public handleChangeDescription = (value: string) => {
-    const { task, onChange } = this.props;
-    if (onChange) {
-      onChange({ ...task, description: value });
+    const { task, onEdit } = this.props;
+    if (onEdit) {
+      onEdit({ ...task, description: value });
     }
   };
 
   public handleChangeTitle = (title: string) => {
-    const { task, onChange } = this.props;
-    if (onChange) {
-      onChange({ ...task, title });
+    const { task, onEdit } = this.props;
+    if (onEdit) {
+      onEdit({ ...task, title });
     }
   };
 
@@ -66,16 +66,16 @@ class Task extends React.PureComponent<Props, {}> {
     if (
       !includes(this.props.task.tags.map((t) => t.name.toLowerCase()), name)
     ) {
-      if (this.props.onChange) {
+      if (this.props.onEdit) {
         const { task } = this.props;
-        this.props.onChange({ ...task, tags: [...task.tags, { name }] });
+        this.props.onEdit({ ...task, tags: [...task.tags, { name }] });
       }
     }
   };
 
   public handleRemoveTag = (inputTag: Tag) => {
-    if (this.props.onChange) {
-      this.props.onChange({
+    if (this.props.onEdit) {
+      this.props.onEdit({
         ...this.props.task,
         tags: [...this.props.task.tags.filter((t) => t.id !== inputTag.id)],
       });
@@ -174,7 +174,9 @@ class Task extends React.PureComponent<Props, {}> {
   }
 }
 
-const Container = styled<{ active?: boolean; completed?: boolean }, 'li'>('li')`
+const Container = styled<{ active?: boolean; completed?: boolean }, 'div'>(
+  'div',
+)`
   overflow: hidden;
   box-sizing: border-box;
   position: relative;

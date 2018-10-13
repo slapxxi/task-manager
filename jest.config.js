@@ -9,6 +9,8 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|svg)$': 'identity-obj-proxy',
     '^@local/(.*)$': '<rootDir>/src/$1',
+    '^@lib$': '<rootDir>/src/lib/',
+    '^@lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   globals: {
     'ts-jest': {

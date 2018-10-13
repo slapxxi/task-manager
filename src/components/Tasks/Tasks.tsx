@@ -11,16 +11,22 @@ enum Mode {
   create,
 }
 
+interface RenderParams {
+  task: ITask;
+  expand: boolean;
+  onExpand: (expand: boolean) => void;
+}
+
 interface Props {
   tasks: ITask[];
-  onChange?: (task: ITask) => void;
-  onDelete?: (task: ITask) => void;
+  onCreate?: (task: ITask) => void;
+  renderTask?: (params: RenderParams) => React.ReactNode;
 }
 
 interface State {
   mode: Mode;
-  activeItem: number;
   newTask: ITask;
+  activeItem: number;
 }
 
 class Tasks extends React.Component<Props, State> {
@@ -35,7 +41,20 @@ class Tasks extends React.Component<Props, State> {
     };
   }
 
-  public handleCreateTask = () => {
+  public handleCreateTask = (task: ITask) => {
+    if (isValidTask(task)) {
+      this.setState(
+        { mode: Mode.default, activeItem: this.props.tasks.length },
+        () => {
+          if (this.props.onCreate) {
+            this.props.onCreate(task);
+          }
+        },
+      );
+    }
+  };
+
+  public handeEnableCreate = () => {
     this.lastActiveItem = this.state.activeItem;
     this.setState({
       mode: Mode.create,
@@ -48,16 +67,6 @@ class Tasks extends React.Component<Props, State> {
     this.setState({ mode: Mode.default, activeItem: this.lastActiveItem });
   };
 
-  public handleDeleteTask = (task: ITask) => {
-    if (this.props.onDelete) {
-      this.setState({ activeItem: NaN }, () => {
-        if (this.props.onDelete) {
-          this.props.onDelete(task);
-        }
-      });
-    }
-  };
-
   public handleExpand = (index: number, expand: boolean) => {
     if (expand === false) {
       return this.setState({ activeItem: NaN });
@@ -65,49 +74,35 @@ class Tasks extends React.Component<Props, State> {
     this.setState({ activeItem: index });
   };
 
-  public createTask = (task: ITask) => {
-    if (isValidTask(task)) {
-      this.setState(
-        { mode: Mode.default, activeItem: this.props.tasks.length },
-        () => {
-          if (this.props.onChange) {
-            this.props.onChange(task);
-          }
-        },
-      );
-    }
-  };
-
   public render() {
-    const { tasks, onChange } = this.props;
+    const { tasks, renderTask } = this.props;
     return (
       <>
         <ul className={styles.tasks}>
           {isEmpty(tasks) && <p>There are no tasks yet.</p>}
-          {tasks.map((t: ITask, index) => (
-            <Task
-              key={t.id}
-              task={t}
-              onChange={onChange}
-              onDelete={this.handleDeleteTask}
-              onExpand={(expand) => this.handleExpand(index, expand)}
-              confirmDelete={true}
-              expand={index === this.state.activeItem}
-            />
-          ))}
+          {tasks.map(
+            (t: ITask, index) =>
+              renderTask && (
+                <li key={t.id}>
+                  {renderTask({
+                    task: t,
+                    expand: index === this.state.activeItem,
+                    onExpand: (expand: boolean) =>
+                      this.handleExpand(index, expand),
+                  })}
+                </li>
+              ),
+          )}
           {this.state.mode === Mode.create && (
             <Task
               task={this.state.newTask}
-              onChange={this.createTask}
+              onEdit={this.handleCreateTask}
               expand={true}
-              data-testid="newTask"
             />
           )}
         </ul>
         {this.state.mode === Mode.default ? (
-          <Button onClick={this.handleCreateTask} data-testid="create">
-            Create Task
-          </Button>
+          <Button onClick={this.handeEnableCreate}>Create Task</Button>
         ) : (
           <Button onClick={this.handleCancel}>Cancel</Button>
         )}

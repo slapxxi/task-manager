@@ -1,17 +1,18 @@
-import { Tasks, TextArea } from '@local/components';
-import { Project as IProject, Task } from '@local/types';
+import { TextArea } from '@local/components';
+import { Project as IProject } from '@local/types';
 import * as React from 'react';
-import assignToProject from '../../lib/tasks/assignToProject';
 import styles from './styles.css';
+
+interface RenderParams {
+  project: IProject;
+}
 
 interface Props {
   project: IProject;
   onEdit?: (project: IProject) => void;
-  onEditTask?: (task: Task) => void;
-  onDeleteTask?: (task: Task) => void;
+  renderProject?: (params: RenderParams) => React.ReactNode;
 }
 
-// TODO Do not allow empty name when updating?
 class Project extends React.Component<Props, {}> {
   public handleChange = (value: string) => {
     if (this.props.onEdit) {
@@ -19,20 +20,8 @@ class Project extends React.Component<Props, {}> {
     }
   };
 
-  public handleChangeTask = (task: Task) => {
-    if (this.props.onEditTask) {
-      this.props.onEditTask(assignToProject(task, this.props.project));
-    }
-  };
-
-  public handleDeleteTask = (task: Task) => {
-    if (this.props.onDeleteTask) {
-      this.props.onDeleteTask(task);
-    }
-  };
-
   public render() {
-    const { project } = this.props;
+    const { project, renderProject } = this.props;
     if (project === undefined) {
       return null;
     }
@@ -43,13 +32,9 @@ class Project extends React.Component<Props, {}> {
           placeholder="Project Name..."
           onChange={this.handleChange}
           className={styles.name}
-          data-testid="name"
+          data-testid="project-name"
         />
-        <Tasks
-          tasks={project.tasks}
-          onChange={this.handleChangeTask}
-          onDelete={this.handleDeleteTask}
-        />
+        {renderProject && renderProject({ project })}
       </div>
     );
   }

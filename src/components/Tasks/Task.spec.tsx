@@ -12,39 +12,51 @@ it('calls `onExpand` when expand button clicked', () => {
   expect(spy).toHaveBeenCalled();
 });
 
-it('calls `onExpand` when title clicked', () => {
+it('expands when title clicked', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<Task task={task} onExpand={spy} />);
   fireEvent.click(getByTestId('title'));
-  expect(spy).toHaveBeenCalled();
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith(true);
 });
 
-it('calls `onExpand` with relevant value', () => {
+it('calls `onExpand` with `true` when not expanded', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(
+    <Task task={task} onExpand={spy} expand={false} />,
+  );
+  fireEvent.click(getByTestId('expand'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith(true);
+});
+
+it('calls `onExpand` with `false` when expanded', () => {
   const spy = jest.fn();
   const { getByTestId } = render(
     <Task task={task} onExpand={spy} expand={true} />,
   );
   fireEvent.click(getByTestId('expand'));
+  expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(false);
 });
 
 it('calls `onChange` when checkbox clicked', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(<Task task={task} onChange={spy} />);
+  const { getByTestId } = render(<Task task={task} onEdit={spy} />);
   fireEvent.click(getByTestId('checkbox'));
   expect(spy).toHaveBeenCalledWith({ ...task, completed: true });
 });
 
 it('calls `onChange` when title changes', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(<Task task={task} onChange={spy} />);
+  const { getByTestId } = render(<Task task={task} onEdit={spy} />);
   fireEvent.change(getByTestId('title'), { target: { value: 'new' } });
   expect(spy).toHaveBeenCalledWith({ ...task, title: 'new' });
 });
 
 it('calls `onChange` when description changes', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(<Task task={task} onChange={spy} />);
+  const { getByTestId } = render(<Task task={task} onEdit={spy} />);
   fireEvent.change(getByTestId('description'), { target: { value: 'new' } });
   expect(spy).toHaveBeenCalledWith({ ...task, description: 'new' });
 });

@@ -17,6 +17,7 @@
     "strict": true,
     "target": "es5",
     "paths": {
+      "@lib": ["lib"],
       "@local/types": ["types"],
       "@local/components": ["components/index"]
     }

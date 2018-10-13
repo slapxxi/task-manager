@@ -1,4 +1,4 @@
-import { Store, Tasks } from '@local/components';
+import { Store, Task, Tasks } from '@local/components';
 import * as React from 'react';
 
 function InboxPage() {
@@ -8,8 +8,16 @@ function InboxPage() {
         <div>
           <Tasks
             tasks={tasks}
-            onChange={actions.updateTask}
-            onDelete={actions.deleteTask}
+            onCreate={actions.updateTask}
+            renderTask={({ task, expand, onExpand }) => (
+              <Task
+                task={task}
+                onEdit={actions.updateTask}
+                onDelete={actions.deleteTask}
+                expand={expand}
+                onExpand={onExpand}
+              />
+            )}
           />
         </div>
       )}

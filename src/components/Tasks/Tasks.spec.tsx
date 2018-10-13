@@ -2,50 +2,48 @@ import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import { createTask } from '../../lib/tasks';
 import Tasks from './Tasks';
-const Task: jest.Mock = require('./Task');
 
-const tasks = [createTask({ title: 'Test Components' })];
+const tasks = [createTask({ title: 'first' }), createTask({ title: 'second' })];
 
-jest.mock('@local/components/Tasks/Task', () => {
-  return jest.fn((props) => (
-    <button
-      data-testid={props['data-testid']}
-      onClick={() =>
-        props.onChange(createTask({ id: 'new', title: 'New Task' }))
-      }
-    >
-      Task
+it('renders tasks', () => {
+  const { container } = render(
+    <Tasks tasks={tasks} renderTask={({ task }) => <MockTask task={task} />} />,
+  );
+  expect(container.firstChild).toMatchSnapshot();
+});
+
+it('renders information when tasks are empty', () => {
+  const { container } = render(<Tasks tasks={[]} />);
+  expect(container.firstChild).toMatchSnapshot();
+});
+
+it('does not expand tasks by default', () => {
+  const spy = jest.fn(() => 'task');
+  render(<Tasks tasks={tasks} renderTask={({ expand }) => spy(expand)} />);
+  expect(spy).toHaveBeenCalledTimes(tasks.length);
+  expect(spy).toHaveBeenCalledWith(false);
+});
+
+it('does not expand more than one item', () => {
+  const Item = jest.fn(({ task, expand, onExpand }) => (
+    <button onClick={onExpand} data-expand={expand}>
+      {task.title}
     </button>
   ));
-});
-
-beforeEach(() => {
-  Task.mockClear();
-});
-
-it('displays new task when in create mode', () => {
-  const { getByTestId } = render(<Tasks tasks={tasks} />);
-  fireEvent.click(getByTestId('create'));
-  expect(getByTestId('newTask')).not.toBeUndefined();
-});
-
-it('creates new task with correct params', () => {
-  const { getByTestId } = render(<Tasks tasks={tasks} />);
-  fireEvent.click(getByTestId('create'));
-  expect(Task).toHaveBeenLastCalledWith(
-    expect.objectContaining({
-      expand: true,
-      task: createTask({ id: 'unique-id-4' }),
-    }),
-    {},
+  const { container, getByText } = render(
+    <Tasks
+      tasks={tasks}
+      renderTask={({ task, expand, onExpand }) => (
+        // @ts-ignore
+        <Item task={task} expand={expand} onExpand={onExpand} />
+      )}
+    />,
   );
+  fireEvent.click(getByText('first'));
+  fireEvent.click(getByText('second'));
+  expect(container.firstChild).toMatchSnapshot();
 });
 
-it('calls `onChange` when creating task', () => {
-  const spy = jest.fn();
-  const newTask = createTask({ id: 'new', title: 'New Task' });
-  const { getByTestId } = render(<Tasks tasks={tasks} onChange={spy} />);
-  fireEvent.click(getByTestId('create'));
-  fireEvent.click(getByTestId('newTask'));
-  expect(spy).toHaveBeenCalledWith(newTask);
-});
+function MockTask({ task }: any) {
+  return <div>{task.title}</div>;
+}
