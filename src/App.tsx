@@ -8,13 +8,13 @@ import {
 import * as React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-// TODO Fix new task item remaining expanded when clicking existing task item
+// TODO Delete projects
+// TODO Sort projects
 // TODO Display sync icon when connecting to a server
-// TODO Add projects to organize tasks
 // TODO Higher order component for input behavior modification?
 // TODO Validate user input
-// TODO Handle Errors
-// TODO Delete tasks in project page
+// TODO Handle network errors
+// FIXME New task item remaining expanded when clicking existing task item
 class App extends React.Component<{}, {}> {
   public render() {
     return (

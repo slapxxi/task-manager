@@ -26,6 +26,7 @@ class StoreProvider extends React.Component<Props, State> {
     super(props);
     this.updateTask = this.updateTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.updateProject = this.updateProject.bind(this);
     this.state = {
       store: props.store || {
         tasks: [],

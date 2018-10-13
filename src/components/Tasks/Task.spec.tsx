@@ -12,7 +12,7 @@ it('calls `onExpand` when expand button clicked', () => {
   expect(spy).toHaveBeenCalled();
 });
 
-it('expands when title clicked', () => {
+it('calls `onExpand` when title clicked', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<Task task={task} onExpand={spy} />);
   fireEvent.click(getByTestId('title'));

@@ -68,8 +68,6 @@ declare global {
     name: string;
   }
 
-  // Various entities can refer to a project ID to be grouped under its
-  // umbrella.
   interface Project {
     id: ID;
     name: string;
