@@ -16,6 +16,7 @@ function InboxPage() {
                 onDelete={actions.deleteTask}
                 expand={expand}
                 onExpand={onExpand}
+                confirmDelete
               />
             )}
           />

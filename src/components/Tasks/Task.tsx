@@ -83,7 +83,7 @@ class Task extends React.PureComponent<Props, {}> {
   };
 
   public handleDelete = () => {
-    const { onDelete, confirmDelete } = this.props;
+    const { onExpand, onDelete, confirmDelete } = this.props;
     if (onDelete) {
       if (confirmDelete) {
         const result = confirm('Sure you want to delete this task?');
@@ -92,6 +92,9 @@ class Task extends React.PureComponent<Props, {}> {
         }
       } else {
         onDelete(this.props.task);
+      }
+      if (onExpand) {
+        onExpand(false);
       }
     }
   };

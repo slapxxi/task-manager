@@ -20,6 +20,16 @@ it('calls `onExpand` when title clicked', () => {
   expect(spy).toHaveBeenCalledWith(true);
 });
 
+it('calls `onExpand` with `false` when deleted', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(
+    <Task task={task} onExpand={spy} onDelete={() => null} />,
+  );
+  fireEvent.click(getByTestId('delete'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith(false);
+});
+
 it('calls `onExpand` with `true` when not expanded', () => {
   const spy = jest.fn();
   const { getByTestId } = render(
