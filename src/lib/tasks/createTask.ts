@@ -16,21 +16,21 @@ function createTask(params?: Params): Task {
   if (params) {
     return {
       id: params.id || id,
-      title: params.title || null,
+      title: params.title || '',
       tags: params.tags || [],
-      description: params.description || null,
-      project: params.project || null,
+      description: params.description || '',
+      project: params.project || '',
       completed: params.completed || false,
       createdAt: params.createdAt || Date.now(),
     };
   }
   return {
     id,
-    title: null,
+    title: '',
     completed: false,
     tags: [],
-    description: null,
-    project: null,
+    description: '',
+    project: '',
     createdAt: Date.now(),
   };
 }

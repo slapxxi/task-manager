@@ -1,8 +1,8 @@
-import { Task } from '@local/types';
+import { Tag, Task } from '@local/types';
 import firebase from 'firebase';
 import { find } from 'lodash';
 import uuid from 'uuid';
-import updateTag from './updateTag';
+import createDBTag from './createDBTag';
 
 function updateTask(task: Task, tags: Tag[]) {
   const id = task.id || uuid.v4();
@@ -18,12 +18,12 @@ function updateTask(task: Task, tags: Tag[]) {
 function updateWithTags(task: Task, tags: Tag[]) {
   return {
     ...task,
-    tags: matchTags(task.tags, tags),
+    tags: matchTags(task.tags as Tag[], tags),
   };
 }
 
 function matchTags(candidateTags: Tag[], existingTags: Tag[]) {
-  return candidateTags.reduce<any[]>(
+  return candidateTags.reduce<Tag[]>(
     (acc, current) => [
       ...acc,
       find(
@@ -33,7 +33,7 @@ function matchTags(candidateTags: Tag[], existingTags: Tag[]) {
             t.name.toLowerCase() === current.name.toLowerCase()) ||
           t.id === current.id,
       ) || {
-        id: updateTag({ id: undefined, name: current.name }),
+        id: createDBTag({ name: current.name }),
         name: current.name,
       },
     ],
@@ -47,7 +47,7 @@ function createTask(params: Task): APIResponse['tasks']['task'] {
     description: params.description || '',
     createdAt: params.createdAt || Date.now(),
     project: params.project || null,
-    tags: (params.tags || []).map((t) => t.id) as string[],
+    tags: ((params.tags || []) as Tag[]).map((t) => t.id) as string[],
     completed: params.completed || false,
   };
 }

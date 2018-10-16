@@ -11,5 +11,5 @@ it('generates ID', () => {
 
 it('provides empty values', () => {
   const task = createTask();
-  expect(task).toMatchObject({ title: null, description: null });
+  expect(task).toMatchObject({ title: '', description: '' });
 });

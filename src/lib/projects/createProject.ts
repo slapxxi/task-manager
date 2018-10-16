@@ -1,18 +1,18 @@
-import { Task } from '@local/types';
+import { ID, Task } from '@local/types';
 import uuid from 'uuid';
 
 interface Params {
   name: string;
+  id?: ID;
   tasks?: Task[];
 }
 
-// TODO Create nested projects
 function createProject(params: Params): Project {
-  if (params.name === '') {
+  if (params.name === undefined || params.name === '') {
     throw new Error('Name of a project cannot be empty.');
   }
   return {
-    id: uuid.v4(),
+    id: params.id || uuid.v4(),
     name: params.name,
     tasks: params.tasks || [],
   };

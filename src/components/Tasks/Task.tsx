@@ -1,4 +1,5 @@
-import { Task as ITask } from '@local/types';
+import { tagTask, toggleTask } from '@lib';
+import { Task as ITask, UserCreatedTag } from '@local/types';
 import { includes, isEmpty, isEqual } from 'lodash';
 import * as React from 'react';
 import posed from 'react-pose';
@@ -10,7 +11,6 @@ import flag from '../../assets/flag.svg';
 import list from '../../assets/list.svg';
 import tag from '../../assets/tag.svg';
 import trashbin from '../../assets/trashbin.svg';
-import { toggleTask } from '../../lib/tasks';
 import TextArea from '../TextArea/TextArea';
 import styles from './styles.css';
 
@@ -64,13 +64,16 @@ class Task extends React.Component<Props, {}> {
     }
   };
 
-  public handleAddTag = (name: string) => {
+  public handleAddTag = (newTag: UserCreatedTag) => {
     if (
-      !includes(this.props.task.tags.map((t) => t.name.toLowerCase()), name)
+      !includes(
+        this.props.task.tags.map((t) => t.name.toLowerCase()),
+        newTag.name,
+      )
     ) {
       if (this.props.onEdit) {
         const { task } = this.props;
-        this.props.onEdit({ ...task, tags: [...task.tags, { name }] });
+        this.props.onEdit(tagTask(task, newTag));
       }
     }
   };
@@ -79,7 +82,11 @@ class Task extends React.Component<Props, {}> {
     if (this.props.onEdit) {
       this.props.onEdit({
         ...this.props.task,
-        tags: [...this.props.task.tags.filter((t) => t.id !== inputTag.id)],
+        tags: [
+          ...(this.props.task.tags as Tag[]).filter(
+            (t) => t.id !== inputTag.id,
+          ),
+        ],
       });
     }
   };
@@ -156,7 +163,7 @@ class Task extends React.Component<Props, {}> {
             <footer className={styles.taskFooter}>
               <Tags
                 className={styles.footerTags}
-                tags={task.tags}
+                tags={task.tags as Tag[]}
                 onAddTag={this.handleAddTag}
                 onRemoveTag={this.handleRemoveTag}
               />

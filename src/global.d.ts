@@ -22,7 +22,7 @@ declare global {
   }
 
   interface Tag {
-    readonly id?: string;
+    readonly id: string;
     readonly name: string;
   }
 

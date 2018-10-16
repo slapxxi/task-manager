@@ -1,6 +1,6 @@
-import { Task } from '@local/types';
+import { Task, UserCreatedTag } from '@local/types';
 
-function tagTask(task: Task, tag: Tag) {
+function tagTask(task: Task, tag: Tag | UserCreatedTag): Task {
   if (tag.name === undefined) {
     throw new Error('Tag cannot be empty');
   }

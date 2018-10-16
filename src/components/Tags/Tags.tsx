@@ -1,3 +1,4 @@
+import { UserCreatedTag } from '@local/types';
 import { last } from 'lodash';
 import * as React from 'react';
 import Keys from '../../lib/keys';
@@ -5,7 +6,7 @@ import styles from './styles.css';
 
 interface Props {
   tags: Tag[];
-  onAddTag?: (name: string) => void;
+  onAddTag?: (tag: UserCreatedTag) => void;
   onRemoveTag?: (tag: Tag) => void;
   [prop: string]: any;
 }
@@ -15,7 +16,7 @@ class Tags extends React.Component<Props, {}> {
     if (this.props.onAddTag) {
       const value = e.target.value;
       if (value.match(/[a-zA-Z]+[ ,]$/)) {
-        this.props.onAddTag(value.replace(',', '').trim());
+        this.props.onAddTag({ name: value.replace(',', '').trim() });
         e.target.value = '';
       }
     }
@@ -26,7 +27,7 @@ class Tags extends React.Component<Props, {}> {
     if (key === Keys.enter) {
       if (e.currentTarget.value.trim() !== '') {
         if (this.props.onAddTag) {
-          this.props.onAddTag(e.currentTarget.value);
+          this.props.onAddTag({ name: e.currentTarget.value });
           e.currentTarget.value = '';
           return;
         }

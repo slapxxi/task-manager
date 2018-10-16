@@ -24,7 +24,7 @@ function normalizeTasks(tasks: APIResponse['tasks'], tags: Tag[]): Task[] {
       id: key,
       title: task.title || '',
       tags: matchTags(task, tags),
-      project: task.project || null,
+      project: task.project || '',
       description: task.description || '',
       completed: task.completed || false,
       createdAt: task.createdAt || Date.now(),

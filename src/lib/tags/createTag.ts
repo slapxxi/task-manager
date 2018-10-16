@@ -1,19 +1,18 @@
 import uuid from 'uuid';
 
 interface Params {
-  id?: Task['id'];
+  id?: Tag['id'];
   name: Tag['name'];
 }
 
-function createTag(params?: Params): Tag {
-  const id = uuid.v4();
-  if (params) {
-    return {
-      id: params.id || id,
-      name: params.name,
-    };
+function createTag(params: Params): Tag {
+  if (params.name === undefined || params.name === '') {
+    throw new Error('Name required');
   }
-  return { id, name: '' };
+  return {
+    id: params.id || uuid.v4(),
+    name: params.name,
+  };
 }
 
 export default createTag;

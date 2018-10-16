@@ -11,7 +11,7 @@ Date.now = () => 100;
 
 const initialState = {
   tasks: [createTask()],
-  tags: [createTag()],
+  tags: [createTag({ name: 'tag' })],
   projects: [],
 };
 

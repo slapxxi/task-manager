@@ -1,5 +1,5 @@
+import { themeToCSSVariables } from '@lib';
 import * as React from 'react';
-import { themeToCSSVariables } from '../../lib';
 
 interface Props {
   glyph: Glyph;
