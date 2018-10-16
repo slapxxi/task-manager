@@ -52,7 +52,8 @@ class TextArea extends React.PureComponent<Props, {}> {
     return (
       <Container
         {...this.props}
-        innerRef={this.ref}
+        // @ts-ignore
+        ref={this.ref}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
       />

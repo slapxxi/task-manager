@@ -1,5 +1,5 @@
 import { Task as ITask } from '@local/types';
-import { includes, isEmpty } from 'lodash';
+import { includes, isEmpty, isEqual } from 'lodash';
 import * as React from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
@@ -23,10 +23,12 @@ interface Props {
   onExpand?: (expand: boolean) => void;
 }
 
-class Task extends React.PureComponent<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { showDetails: this.props.expand ? true : false };
+class Task extends React.Component<Props, {}> {
+  public shouldComponentUpdate(nextProps: Props) {
+    if (isEqual(nextProps, this.props)) {
+      return false;
+    }
+    return true;
   }
 
   public handleToggle = () => {
