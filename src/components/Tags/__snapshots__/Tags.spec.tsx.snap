@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders tags 1`] = `
+<ul
+  class="tags"
+  data-testid="tags"
+>
+  <li
+    class="tag"
+  >
+    <div>
+      HTML
+    </div>
+  </li>
+  <li
+    class="tag"
+  >
+    <div>
+      CSS
+    </div>
+  </li>
+</ul>
+`;

@@ -1,4 +1,5 @@
 import combineClassNames from './combineClassNames';
+import Keys from './keys';
 import createProject from './projects/createProject';
 import createTag from './tags/createTag';
 import assignToProject from './tasks/assignToProject';
@@ -13,6 +14,7 @@ export {
   createProject,
   createTag,
   createTask,
+  Keys,
   tagTask,
   themeToCSSVariables,
   toggleTask,

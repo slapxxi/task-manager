@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div>
+  <ul
+    class="tags"
+    data-testid="tags"
+  >
+    <li
+      class="tag"
+    >
+      <input
+        class="checkbox"
+        data-testid="checkbox"
+        id="html"
+        type="checkbox"
+      />
+      <label
+        class="label"
+        for="html"
+      >
+        HTML
+      </label>
+    </li>
+    <li
+      class="tag"
+    >
+      <input
+        class="checkbox"
+        data-testid="checkbox"
+        id="css"
+        type="checkbox"
+      />
+      <label
+        class="label"
+        for="css"
+      >
+        CSS
+      </label>
+    </li>
+  </ul>
+  <input
+    class="input"
+    data-testid="input"
+    placeholder="Tag..."
+    type="text"
+  />
+</div>
+`;

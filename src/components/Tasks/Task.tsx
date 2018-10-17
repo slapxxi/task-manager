@@ -1,10 +1,10 @@
 import { tagTask, toggleTask } from '@lib';
-import { Task as ITask, UserCreatedTag } from '@local/types';
+import { Icon, TagsEditor } from '@local/components';
+import { Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import { includes, isEmpty, isEqual } from 'lodash';
 import * as React from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
-import { Icon, Tags } from '..';
 import arrow_down from '../../assets/arrow_down.svg';
 import arrow_up from '../../assets/arrow_up.svg';
 import flag from '../../assets/flag.svg';
@@ -91,6 +91,19 @@ class Task extends React.Component<Props, {}> {
     }
   };
 
+  public handleRemoveTags = (tags: Tag[]) => {
+    if (this.props.onEdit) {
+      this.props.onEdit({
+        ...this.props.task,
+        tags: [
+          ...(this.props.task.tags as Tag[]).filter(
+            (propTag) => !includes(tags.map((t) => t.id), propTag.id),
+          ),
+        ],
+      });
+    }
+  };
+
   public handleDelete = () => {
     const { onExpand, onDelete, confirmDelete } = this.props;
     if (onDelete) {
@@ -161,11 +174,12 @@ class Task extends React.Component<Props, {}> {
               />
             )}
             <footer className={styles.taskFooter}>
-              <Tags
+              <TagsEditor
                 className={styles.footerTags}
                 tags={task.tags as Tag[]}
                 onAddTag={this.handleAddTag}
                 onRemoveTag={this.handleRemoveTag}
+                onRemoveTags={this.handleRemoveTags}
               />
               {this.props.onDelete && (
                 <Icon

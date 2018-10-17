@@ -9,6 +9,7 @@ import Projects from './Project/Projects';
 import Store from './Store/Store';
 import StoreProvider from './Store/StoreProvider';
 import Tags from './Tags/Tags';
+import TagsEditor from './Tags/TagsEditor';
 import Task from './Tasks/Task';
 import Tasks from './Tasks/Tasks';
 import TextArea from './TextArea/TextArea';
@@ -25,6 +26,7 @@ export {
   Store,
   StoreProvider,
   Tags,
+  TagsEditor,
   Task,
   Tasks,
   TextArea,

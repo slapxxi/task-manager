@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`clicking does not change the attribute 1`] = `
+<div>
+  <input
+    class="checkbox"
+    data-testid="checkbox"
+    id="test"
+    type="checkbox"
+  />
+  <label
+    class="label"
+    for="test"
+  >
+    test
+  </label>
+</div>
+`;
+
+exports[`renders 1`] = `
+<div>
+  <input
+    class="checkbox"
+    data-testid="checkbox"
+    id="test"
+    type="checkbox"
+  />
+  <label
+    class="label"
+    for="test"
+  >
+    test
+  </label>
+</div>
+`;
