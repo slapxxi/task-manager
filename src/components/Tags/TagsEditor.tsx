@@ -1,6 +1,6 @@
 import { Keys } from '@lib';
 import { Tag as ITag, UserCreatedTag } from '@local/types';
-import { includes, last } from 'lodash';
+import { includes, isEmpty, last } from 'lodash';
 import * as React from 'react';
 import styles from './styles.css';
 import Tag from './Tag';
@@ -8,10 +8,9 @@ import Tags from './Tags';
 
 interface Props {
   tags: ITag[];
-  onAddTag?: (tag: UserCreatedTag) => void;
-  onRemoveTag?: (tag: ITag) => void;
-  onRemoveTags?: (tags: ITag[]) => void;
   className?: string;
+  onAddTag?: (tag: UserCreatedTag) => void;
+  onRemoveTags?: (tags: ITag[]) => void;
 }
 
 interface State {
@@ -62,30 +61,12 @@ class TagsEditor extends React.Component<Props, State> {
   };
 
   public handleRemove = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (this.isInputEmpty(e) && this.props.tags.length > 0) {
-      if (this.state.selectedTags.length > 1) {
-        if (this.props.onRemoveTags) {
-          const selectedTags = this.state.selectedTags;
-          return this.setState({ selectedTags: [] }, () => {
-            if (this.props.onRemoveTags) {
-              return this.props.onRemoveTags(
-                this.props.tags.filter((t) => includes(selectedTags, t.id)),
-              );
-            }
-          });
-        }
-      }
-    }
-    if (this.props.onRemoveTag) {
-      if (this.state.selectedTags.length === 1) {
-        const selectedTag = this.state.selectedTags[0];
-        return this.setState({ selectedTags: [] }, () =>
-          this.props.onRemoveTag!(
-            this.props.tags.filter((t) => t.id === selectedTag)[0],
-          ),
-        );
-      }
-      return this.props.onRemoveTag(last(this.props.tags)!);
+    const { onRemoveTags, tags } = this.props;
+    if (onRemoveTags && !isEmpty(tags) && this.isInputEmpty(e)) {
+      const selectedTags = this.state.selectedTags;
+      this.setState({ selectedTags: [] }, () => {
+        onRemoveTags(this.matchTagsToSelected(selectedTags));
+      });
     }
   };
 
@@ -112,6 +93,18 @@ class TagsEditor extends React.Component<Props, State> {
           data-testid="input"
         />
       </div>
+    );
+  }
+
+  private matchTagsToSelected(selectedTags: ID[]): ITag[] {
+    const { tags } = this.props;
+    if (isEmpty(selectedTags)) {
+      return [last(tags)!];
+    }
+    return tags.reduce(
+      (matched: ITag[], current: ITag) =>
+        includes(selectedTags, current.id) ? [...matched, current] : matched,
+      [],
     );
   }
 

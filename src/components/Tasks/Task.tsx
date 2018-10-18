@@ -78,19 +78,6 @@ class Task extends React.Component<Props, {}> {
     }
   };
 
-  public handleRemoveTag = (inputTag: Tag) => {
-    if (this.props.onEdit) {
-      this.props.onEdit({
-        ...this.props.task,
-        tags: [
-          ...(this.props.task.tags as Tag[]).filter(
-            (t) => t.id !== inputTag.id,
-          ),
-        ],
-      });
-    }
-  };
-
   public handleRemoveTags = (tags: Tag[]) => {
     if (this.props.onEdit) {
       this.props.onEdit({
@@ -178,7 +165,6 @@ class Task extends React.Component<Props, {}> {
                 className={styles.footerTags}
                 tags={task.tags as Tag[]}
                 onAddTag={this.handleAddTag}
-                onRemoveTag={this.handleRemoveTag}
                 onRemoveTags={this.handleRemoveTags}
               />
               {this.props.onDelete && (

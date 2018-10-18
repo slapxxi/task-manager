@@ -10,28 +10,30 @@ it('renders', () => {
   expect(container.firstChild).toMatchSnapshot();
 });
 
-it('invokes callback when tag removed', () => {
-  const spy = jest.fn();
-  const { getByTestId } = render(<TagsEditor tags={tags} onRemoveTag={spy} />);
-  fireEvent.keyDown(getByTestId('input'), { keyCode: Keys.backspace });
-  expect(spy).toHaveBeenCalledTimes(1);
+it('selects tags', () => {
+  const { getAllByTestId, getByText } = render(<TagsEditor tags={tags} />);
+  fireEvent.click(getByText('HTML'));
+  fireEvent.click(getByText('CSS'));
+  getAllByTestId('checkbox').forEach((checkbox: Partial<HTMLInputElement>) => {
+    expect(checkbox).toHaveProperty('checked', true);
+  });
 });
 
 it('removes last tag when no tags selected', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(<TagsEditor tags={tags} onRemoveTag={spy} />);
+  const { getByTestId } = render(<TagsEditor tags={tags} onRemoveTags={spy} />);
   fireEvent.keyDown(getByTestId('input'), { keyCode: Keys.backspace });
-  expect(spy).toHaveBeenCalledWith({ id: 'css', name: 'CSS' });
+  expect(spy).toHaveBeenCalledWith([{ id: 'css', name: 'CSS' }]);
 });
 
 it('removes selected tag', () => {
   const spy = jest.fn();
   const { getByText, getByTestId } = render(
-    <TagsEditor tags={tags} onRemoveTag={spy} />,
+    <TagsEditor tags={tags} onRemoveTags={spy} />,
   );
   fireEvent.click(getByText('HTML'));
   fireEvent.keyDown(getByTestId('input'), { keyCode: Keys.backspace });
-  expect(spy).toHaveBeenCalledWith({ id: 'html', name: 'HTML' });
+  expect(spy).toHaveBeenCalledWith([{ id: 'html', name: 'HTML' }]);
 });
 
 it('removes multiple selected tags', () => {
@@ -49,19 +51,23 @@ it('removes multiple selected tags', () => {
   ]);
 });
 
-it('does not invoke both callbacks', () => {
-  const singleRemoveSpy = jest.fn();
-  const multipleRemoveSpy = jest.fn();
-  const { getByText, getByTestId } = render(
-    <TagsEditor
-      tags={tags}
-      onRemoveTag={singleRemoveSpy}
-      onRemoveTags={multipleRemoveSpy}
-    />,
+it('does not remove tags when input is not empty', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(<TagsEditor tags={tags} onRemoveTags={spy} />);
+  fireEvent.change(getByTestId('input'), { target: { value: 'new' } });
+  fireEvent.keyDown(getByTestId('input'), { keyCode: Keys.backspace });
+  expect(spy).not.toHaveBeenCalled();
+});
+
+it('removes selection after removing selected tags', () => {
+  const spy = jest.fn();
+  const { getByText, getByTestId, getAllByTestId } = render(
+    <TagsEditor tags={tags} onRemoveTags={spy} />,
   );
   fireEvent.click(getByText('HTML'));
-  fireEvent.click(getByText('CSS'));
   fireEvent.keyDown(getByTestId('input'), { keyCode: Keys.backspace });
-  expect(singleRemoveSpy).not.toHaveBeenCalled();
-  expect(multipleRemoveSpy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledTimes(1);
+  getAllByTestId('checkbox').forEach((checkbox: Partial<HTMLInputElement>) => {
+    expect(checkbox).toHaveProperty('checked', false);
+  });
 });
