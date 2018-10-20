@@ -1,3 +1,4 @@
+import { ColorTheme } from '@local/types';
 import { Color } from 'csstype';
 import { isEmpty, kebabCase, map } from 'lodash';
 

@@ -1,4 +1,5 @@
 import { themeToCSSVariables } from '@lib';
+import { ColorTheme, Size } from '@local/types';
 import * as React from 'react';
 
 interface Props {

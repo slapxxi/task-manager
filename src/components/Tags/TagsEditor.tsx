@@ -1,5 +1,5 @@
-import { Keys } from '@lib';
-import { Tag as ITag, UserCreatedTag } from '@local/types';
+import { Keys, Regex } from '@lib';
+import { ID, Tag as ITag, UserCreatedTag } from '@local/types';
 import { includes, isEmpty, last } from 'lodash';
 import * as React from 'react';
 import styles from './styles.css';
@@ -121,7 +121,7 @@ class TagsEditor extends React.Component<Props, State> {
   }
 
   private isValidTagName(name: string) {
-    return name.match(/[a-zA-Z]+[ ,]$/g);
+    return name.match(Regex.tagName);
   }
 
   private normalizeTagName(name: string) {

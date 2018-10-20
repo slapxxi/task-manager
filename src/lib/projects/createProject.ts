@@ -1,11 +1,7 @@
-import { ID, Task } from '@local/types';
+import { Project } from '@local/types';
 import uuid from 'uuid';
 
-interface Params {
-  name: string;
-  id?: ID;
-  tasks?: Task[];
-}
+interface Params extends Partial<Project> {}
 
 function createProject(params: Params): Project {
   if (params.name === undefined || params.name === '') {

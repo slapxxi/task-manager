@@ -1,4 +1,19 @@
+import { Color } from 'csstype';
+
 type ID = string;
+
+type Size = number | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+
+interface ColorTheme {
+  primaryColor?: Color;
+  secondaryColor?: Color;
+  tertiaryColor?: Color;
+  [index: number]: Color;
+}
+
+interface DBEntry<T> {
+  [id: string]: T;
+}
 
 interface DBProject {
   readonly name: string;
@@ -25,6 +40,7 @@ interface Task {
   readonly createdAt: number;
   readonly completed: boolean;
   readonly project: ID;
+  readonly subtasks: Subtask[];
   readonly tags: Array<Tag | UserCreatedTag>;
 }
 
@@ -34,6 +50,7 @@ interface DBTask {
   readonly createdAt: number;
   readonly completed: boolean;
   readonly project: ID;
+  readonly subtasks: Subtask[];
   readonly tags: ID[];
 }
 
@@ -43,20 +60,53 @@ interface UserCreatedTask {
   readonly tags: UserCreatedTag[];
 }
 
+interface Subtask {
+  id: ID;
+  description: string;
+  completed: boolean;
+}
+
+interface UserCreatedSubtask {
+  description: string;
+  completed: boolean;
+}
+
 interface Project {
   readonly id: ID;
   readonly name: string;
   readonly tasks: Task[];
 }
 
+interface StoreState {
+  tasks: Task[];
+  tags: Tag[];
+  projects: Project[];
+}
+
+interface InnerStore extends StoreState {
+  actions: {
+    updateTask: (task: Task) => void;
+    updateProject: (project: Project) => void;
+    deleteTask: (task: Task) => void;
+  };
+}
+
 export {
+  ColorTheme,
+  DBEntry,
   DBProject,
   DBTag,
   DBTask,
+  Glyph,
   ID,
+  InnerStore,
   Project,
+  Size,
+  StoreState,
+  Subtask,
   Tag,
   Task,
+  UserCreatedSubtask,
   UserCreatedTag,
   UserCreatedTask,
 };

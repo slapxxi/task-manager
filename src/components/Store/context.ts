@@ -1,3 +1,4 @@
+import { InnerStore } from '@local/types';
 import { createContext } from 'react';
 
 const { Provider, Consumer } = createContext<InnerStore>({

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div>
+  <ul
+    class="subtasks"
+  >
+    <li
+      class="subtask"
+    >
+      <div
+        class="container"
+      >
+        <input
+          class="checkbox"
+          type="checkbox"
+        />
+        <input
+          class="input"
+          data-testid="input"
+          placeholder="What should be done..."
+          type="text"
+          value="first"
+        />
+      </div>
+    </li>
+    <li
+      class="subtask"
+    >
+      <div
+        class="container"
+      >
+        <input
+          class="checkbox"
+          type="checkbox"
+        />
+        <input
+          class="input"
+          data-testid="input"
+          placeholder="What should be done..."
+          type="text"
+          value="second"
+        />
+      </div>
+    </li>
+  </ul>
+</div>
+`;

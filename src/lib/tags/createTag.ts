@@ -1,9 +1,7 @@
+import { Tag } from '@local/types';
 import uuid from 'uuid';
 
-interface Params {
-  id?: Tag['id'];
-  name: Tag['name'];
-}
+interface Params extends Partial<Tag> {}
 
 function createTag(params: Params): Tag {
   if (params.name === undefined || params.name === '') {

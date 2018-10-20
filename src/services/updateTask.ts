@@ -1,4 +1,5 @@
-import { Tag, Task } from '@local/types';
+import { createTask } from '@lib';
+import { DBTask, Tag, Task } from '@local/types';
 import firebase from 'firebase';
 import { find } from 'lodash';
 import uuid from 'uuid';
@@ -12,7 +13,7 @@ function updateTask(task: Task, tags: Tag[]) {
   firebase
     .database()
     .ref(`/tasks/${id}`)
-    .set(createTask(task));
+    .set(taskToDBTask(task));
 }
 
 function updateWithTags(task: Task, tags: Tag[]) {
@@ -41,15 +42,13 @@ function matchTags(candidateTags: Tag[], existingTags: Tag[]) {
   );
 }
 
-function createTask(params: Task): APIResponse['tasks']['task'] {
-  return {
-    title: params.title || '',
-    description: params.description || '',
-    createdAt: params.createdAt || Date.now(),
-    project: params.project || null,
-    tags: ((params.tags || []) as Tag[]).map((t) => t.id) as string[],
-    completed: params.completed || false,
+function taskToDBTask(params: Task): DBTask {
+  const result = {
+    ...createTask(params),
+    tags: (params.tags as Tag[]).map((t) => t.id),
   };
+  delete result.id;
+  return result;
 }
 
 export default updateTask;

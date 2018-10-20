@@ -1,4 +1,4 @@
-import { Task, UserCreatedTag } from '@local/types';
+import { Tag, Task, UserCreatedTag } from '@local/types';
 
 function tagTask(task: Task, tag: Tag | UserCreatedTag): Task {
   if (tag.name === undefined) {

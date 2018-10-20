@@ -1,4 +1,4 @@
-import { Task } from '@local/types';
+import { Project, StoreState, Task } from '@local/types';
 import { isEqual } from 'lodash';
 import * as React from 'react';
 import {

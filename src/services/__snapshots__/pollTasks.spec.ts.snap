@@ -8,6 +8,7 @@ Array [
     "description": "",
     "id": "first-task",
     "project": "",
+    "subtasks": Array [],
     "tags": Array [],
     "title": "first",
   },
@@ -17,6 +18,7 @@ Array [
     "description": "",
     "id": "second-task",
     "project": "",
+    "subtasks": Array [],
     "tags": Array [],
     "title": "second",
   },
@@ -26,6 +28,7 @@ Array [
     "description": "",
     "id": "third-task",
     "project": "test",
+    "subtasks": Array [],
     "tags": Array [
       Object {
         "id": "html",

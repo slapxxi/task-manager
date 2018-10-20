@@ -1,3 +1,4 @@
+import { InnerStore } from '@local/types';
 import * as React from 'react';
 import { Consumer } from './context';
 

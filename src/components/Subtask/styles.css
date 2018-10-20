@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+}
+
+.description {
+  border: 1px solid transparent;
+  text-decoration: line-through;
+}
+
+.subtasks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.subtask {
+  font-size: 15px;
+  padding: 5px 0;
+}
+
+.checkbox {
+  margin-right: 10px;
+  composes: checkbox from '../Tasks/styles.css';
+}

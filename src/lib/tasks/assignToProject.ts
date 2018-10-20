@@ -1,4 +1,4 @@
-import { Task } from '@local/types';
+import { Project, Task } from '@local/types';
 
 function assignToProject(task: Task, project: Project) {
   if (project.id === undefined) {

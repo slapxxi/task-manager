@@ -1,6 +1,6 @@
 import { tagTask, toggleTask } from '@lib';
-import { Icon, TagsEditor } from '@local/components';
-import { Tag, Task as ITask, UserCreatedTag } from '@local/types';
+import { Icon, SubtasksEditor, TagsEditor } from '@local/components';
+import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import { includes, isEmpty, isEqual } from 'lodash';
 import * as React from 'react';
 import posed from 'react-pose';
@@ -14,6 +14,11 @@ import trashbin from '../../assets/trashbin.svg';
 import TextArea from '../TextArea/TextArea';
 import styles from './styles.css';
 
+enum Mode {
+  default,
+  editing,
+}
+
 interface Props {
   task: ITask;
   expand?: boolean;
@@ -23,12 +28,21 @@ interface Props {
   onExpand?: (expand: boolean) => void;
 }
 
-class Task extends React.Component<Props, {}> {
-  public shouldComponentUpdate(nextProps: Props) {
-    if (isEqual(nextProps, this.props)) {
-      return false;
+interface State {
+  mode: Mode;
+}
+
+class Task extends React.Component<Props, State> {
+  public state = { mode: Mode.default };
+
+  public shouldComponentUpdate(nextProps: Props, nextState: State) {
+    if (nextState !== this.state) {
+      return true;
     }
-    return true;
+    if (!isEqual(nextProps, this.props)) {
+      return true;
+    }
+    return false;
   }
 
   public handleToggle = () => {
@@ -108,6 +122,41 @@ class Task extends React.Component<Props, {}> {
     }
   };
 
+  public handleAddSubtask = (subtask: Subtask) => {
+    if (this.props.onEdit) {
+      this.props.onEdit({
+        ...this.props.task,
+        subtasks: [...this.props.task.subtasks, subtask],
+      });
+    }
+  };
+
+  public handleEditSubtask = (subtask: Subtask) => {
+    if (this.props.onEdit) {
+      this.props.onEdit({
+        ...this.props.task,
+        subtasks: this.props.task.subtasks.map(
+          (st) => (st.id === subtask.id ? subtask : st),
+        ),
+      });
+    }
+  };
+
+  public handleRemoveSubtask = (subtask: Subtask) => {
+    if (this.props.onEdit) {
+      this.props.onEdit({
+        ...this.props.task,
+        subtasks: this.props.task.subtasks.filter((st) => st.id !== subtask.id),
+      });
+    }
+  };
+
+  public handleChangeMode = () => {
+    this.setState({
+      mode: this.state.mode === Mode.default ? Mode.editing : Mode.default,
+    });
+  };
+
   public render() {
     const { task, expand } = this.props;
     return (
@@ -160,6 +209,16 @@ class Task extends React.Component<Props, {}> {
                 data-testid="description"
               />
             )}
+            <SubtasksEditor
+              subtasks={task.subtasks}
+              onCreate={this.handleAddSubtask}
+              onEdit={this.handleEditSubtask}
+              onRemove={this.handleRemoveSubtask}
+              focused={expand}
+              isEmpty={
+                this.state.mode === Mode.editing && isEmpty(task.subtasks)
+              }
+            />
             <footer className={styles.taskFooter}>
               <TagsEditor
                 className={styles.footerTags}
@@ -176,7 +235,14 @@ class Task extends React.Component<Props, {}> {
                   data-testid="delete"
                 />
               )}
-              <Icon glyph={list} size={16} className={styles.footerIcon} />
+              {isEmpty(task.subtasks) && (
+                <Icon
+                  glyph={list}
+                  size={16}
+                  className={styles.footerIcon}
+                  onClick={this.handleChangeMode}
+                />
+              )}
               <Icon glyph={flag} size={16} className={styles.footerIcon} />
             </footer>
           </Details>
