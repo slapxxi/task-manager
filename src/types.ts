@@ -1,5 +1,7 @@
 import { Color } from 'csstype';
 
+type EpochTime = number;
+
 type ID = string;
 
 type Size = number | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
@@ -41,6 +43,7 @@ interface Task {
   readonly completed: boolean;
   readonly project: ID;
   readonly subtasks: Subtask[];
+  readonly deadline?: Date;
   readonly tags: Array<Tag | UserCreatedTag>;
 }
 
@@ -51,6 +54,7 @@ interface DBTask {
   readonly completed: boolean;
   readonly project: ID;
   readonly subtasks: Subtask[];
+  readonly deadline: EpochTime;
   readonly tags: ID[];
 }
 
@@ -97,6 +101,7 @@ export {
   DBProject,
   DBTag,
   DBTask,
+  EpochTime,
   Glyph,
   ID,
   InnerStore,

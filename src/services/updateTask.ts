@@ -1,4 +1,4 @@
-import { createTask } from '@lib';
+import { createTask, toEpochTime } from '@lib';
 import { DBTask, Tag, Task } from '@local/types';
 import firebase from 'firebase';
 import { find } from 'lodash';
@@ -45,6 +45,7 @@ function matchTags(candidateTags: Tag[], existingTags: Tag[]) {
 function taskToDBTask(params: Task): DBTask {
   const result = {
     ...createTask(params),
+    deadline: params.deadline ? toEpochTime(params.deadline) : 0,
     tags: (params.tags as Tag[]).map((t) => t.id),
   };
   delete result.id;

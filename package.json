@@ -47,6 +47,7 @@
     "polished": "^2.3.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-day-picker": "^7.2.4",
     "react-pose": "^3.3.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

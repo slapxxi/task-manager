@@ -36,7 +36,7 @@ class Tasks extends React.Component<Props, State> {
     super(props);
     this.state = {
       mode: Mode.default,
-      newTask: createTask(),
+      newTask: createTask({}),
       activeItem: NaN,
     };
   }
@@ -58,7 +58,7 @@ class Tasks extends React.Component<Props, State> {
     this.lastActiveItem = this.state.activeItem;
     this.setState({
       mode: Mode.create,
-      newTask: createTask(),
+      newTask: createTask({}),
       activeItem: NaN,
     });
   };

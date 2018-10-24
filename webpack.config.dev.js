@@ -37,6 +37,7 @@ const developmentConfiguration = {
             options: {
               modules: true,
               namedExport: true,
+              camelCase: true,
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
             },
           },

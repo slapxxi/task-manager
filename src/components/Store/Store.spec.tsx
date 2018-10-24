@@ -10,13 +10,13 @@ import StoreProvider from './StoreProvider';
 Date.now = () => 100;
 
 const initialState = {
-  tasks: [createTask()],
+  tasks: [createTask({})],
   tags: [createTag({ name: 'tag' })],
   projects: [],
 };
 
 const remoteState = {
-  tasks: [createTask()],
+  tasks: [createTask({})],
   tags: [createTag({ name: 'test' })],
   projects: [],
 };

@@ -1,4 +1,4 @@
-import { createTask } from '@lib';
+import { createTask, fromEpochTime } from '@lib';
 import {
   DBEntry,
   DBProject,
@@ -35,6 +35,8 @@ function normalizeTasks(tasks: DBEntry<DBTask>, tags: Tag[]): Task[] {
         ...task,
         id: key,
         tags: matchTags(task, tags),
+        deadline:
+          task.deadline === 0 ? undefined : fromEpochTime(task.deadline),
       }),
     ),
     'createdAt',

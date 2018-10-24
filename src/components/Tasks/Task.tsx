@@ -1,5 +1,11 @@
-import { tagTask, toggleTask } from '@lib';
-import { Icon, SubtasksEditor, TagsEditor } from '@local/components';
+import { setDeadline, tagTask, toggleTask } from '@lib';
+import {
+  Calendar,
+  DateTime,
+  Icon,
+  SubtasksEditor,
+  TagsEditor,
+} from '@local/components';
 import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import { includes, isEmpty, isEqual } from 'lodash';
 import * as React from 'react';
@@ -30,10 +36,11 @@ interface Props {
 
 interface State {
   mode: Mode;
+  showCalendar: boolean;
 }
 
 class Task extends React.Component<Props, State> {
-  public state = { mode: Mode.default };
+  public state = { mode: Mode.default, showCalendar: false };
 
   public shouldComponentUpdate(nextProps: Props, nextState: State) {
     if (nextState !== this.state) {
@@ -76,6 +83,10 @@ class Task extends React.Component<Props, State> {
     if (this.props.onExpand) {
       this.props.onExpand(true);
     }
+  };
+
+  public handleToggleCalendar = () => {
+    this.setState((state) => ({ showCalendar: !state.showCalendar }));
   };
 
   public handleAddTag = (newTag: UserCreatedTag) => {
@@ -157,6 +168,14 @@ class Task extends React.Component<Props, State> {
     });
   };
 
+  public handleSelectDeadline = (date: Date) => {
+    this.setState({ showCalendar: false }, () => {
+      if (this.props.onEdit) {
+        this.props.onEdit(setDeadline(this.props.task, date));
+      }
+    });
+  };
+
   public render() {
     const { task, expand } = this.props;
     return (
@@ -220,6 +239,9 @@ class Task extends React.Component<Props, State> {
               }
             />
             <footer className={styles.taskFooter}>
+              {this.props.task.deadline ? (
+                <DateTime date={this.props.task.deadline} />
+              ) : null}
               <TagsEditor
                 className={styles.footerTags}
                 tags={task.tags as Tag[]}
@@ -243,7 +265,15 @@ class Task extends React.Component<Props, State> {
                   onClick={this.handleChangeMode}
                 />
               )}
-              <Icon glyph={flag} size={16} className={styles.footerIcon} />
+              <Icon
+                glyph={flag}
+                size={16}
+                className={styles.footerIcon}
+                onClick={this.handleToggleCalendar}
+              />
+              {this.state.showCalendar && (
+                <Calendar onSelectDate={this.handleSelectDeadline} />
+              )}
             </footer>
           </Details>
         </AnimatedDetails>
