@@ -7,6 +7,7 @@ import createTag from './tags/createTag';
 import assignToProject from './tasks/assignToProject';
 import createSubtask from './tasks/createSubtask';
 import createTask from './tasks/createTask';
+import resetDeadline from './tasks/resetDeadline';
 import setDeadline from './tasks/setDeadline';
 import tagTask from './tasks/tagTask';
 import toggleTask from './tasks/toggleTask';
@@ -23,6 +24,7 @@ export {
   fromEpochTime,
   Keys,
   Regex,
+  resetDeadline,
   setDeadline,
   tagTask,
   themeToCSSVariables,

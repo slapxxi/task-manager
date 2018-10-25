@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.deadline {
+  padding: 5px;
+  border: 1px solid hsl(200, 5%, 90%);
+  border-radius: 3px;
+}
+
+.deadline:hover {
+  border-right-color: transparent;
+  border-color: hsl(200, 5%, 80%);
+}
+
+.deadline:hover .reset {
+  visibility: visible;
+}
+
+.reset {
+  --primary-color: hsl(200, 5%, 50%);
+  visibility: collapse;
+  margin-left: 5px;
+  border: 0;
+}
+
+.reset:hover {
+  --primary-color: hsl(0, 70%, 70%);
+}
+
+.daysLeft {
+  margin-left: 10px;
+  color: hsl(200, 5%, 70%);
+}

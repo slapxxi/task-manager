@@ -1,4 +1,6 @@
-<svg viewBox="0 0 90 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
-	<path d="M100,47.5c0,-5.523 -4.477,-10 -10,-10c-19.16,0 -60.84,0 -80,0c-5.523,0 -10,4.477 -10,10c0,1.647 0,3.353 0,5c0,5.523 4.477,10 10,10c19.16,0 60.84,0 80,0c5.523,0 10,-4.477 10,-10c0,-1.647 0,-3.353 0,-5Z" transform="rotate(45 50 50)" fill="#fff" />
-	<path d="M100,47.5c0,-5.523 -4.477,-10 -10,-10c-19.16,0 -60.84,0 -80,0c-5.523,0 -10,4.477 -10,10c0,1.647 0,3.353 0,5c0,5.523 4.477,10 10,10c19.16,0 60.84,0 80,0c5.523,0 10,-4.477 10,-10c0,-1.647 0,-3.353 0,-5Z" transform="rotate(-45 50 50)" fill="#fff" />
+<svg viewBox="0 -1 101 101" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+	<g fill="#fff" style="fill: var(--primary-color, #fff)">
+		<path d="M100,47.5c0,-5.523 -4.477,-10 -10,-10c-19.16,0 -60.84,0 -80,0c-5.523,0 -10,4.477 -10,10c0,1.647 0,3.353 0,5c0,5.523 4.477,10 10,10c19.16,0 60.84,0 80,0c5.523,0 10,-4.477 10,-10c0,-1.647 0,-3.353 0,-5Z" transform="rotate(45 50 50)" />
+		<path d="M100,47.5c0,-5.523 -4.477,-10 -10,-10c-19.16,0 -60.84,0 -80,0c-5.523,0 -10,4.477 -10,10c0,1.647 0,3.353 0,5c0,5.523 4.477,10 10,10c19.16,0 60.84,0 80,0c5.523,0 10,-4.477 10,-10c0,-1.647 0,-3.353 0,-5Z" transform="rotate(-45 50 50)" />
+	</g>
 </svg>

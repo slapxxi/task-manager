@@ -1,6 +1,7 @@
 import Button from './Button/Button';
 import Calendar from './Calendar/Calendar';
 import DateTime from './DateTime/DateTime';
+import Deadline from './Deadline/Deadline';
 import Icon from './Icon/Icon';
 import Input from './Input/Input';
 import Menu from './Menu/Menu';
@@ -23,6 +24,7 @@ export {
   Button,
   Calendar,
   DateTime,
+  Deadline,
   Icon,
   InboxPage,
   Input,

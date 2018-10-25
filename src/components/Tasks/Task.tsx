@@ -1,7 +1,7 @@
-import { setDeadline, tagTask, toggleTask } from '@lib';
+import { resetDeadline, setDeadline, tagTask, toggleTask } from '@lib';
 import {
   Calendar,
-  DateTime,
+  Deadline,
   Icon,
   SubtasksEditor,
   TagsEditor,
@@ -176,6 +176,12 @@ class Task extends React.Component<Props, State> {
     });
   };
 
+  public handleResetDeadline = () => {
+    if (this.props.onEdit) {
+      this.props.onEdit(resetDeadline(this.props.task));
+    }
+  };
+
   public render() {
     const { task, expand } = this.props;
     return (
@@ -239,8 +245,12 @@ class Task extends React.Component<Props, State> {
               }
             />
             <footer className={styles.taskFooter}>
-              {this.props.task.deadline ? (
-                <DateTime date={this.props.task.deadline} />
+              {task.deadline && !this.state.showCalendar ? (
+                <Deadline
+                  deadline={task.deadline}
+                  onChange={this.handleToggleCalendar}
+                  onReset={this.handleResetDeadline}
+                />
               ) : null}
               <TagsEditor
                 className={styles.footerTags}
@@ -272,7 +282,10 @@ class Task extends React.Component<Props, State> {
                 onClick={this.handleToggleCalendar}
               />
               {this.state.showCalendar && (
-                <Calendar onSelectDate={this.handleSelectDeadline} />
+                <Calendar
+                  selected={task.deadline}
+                  onSelectDate={this.handleSelectDeadline}
+                />
               )}
             </footer>
           </Details>
