@@ -1,7 +1,7 @@
 import { Keys, Regex } from '@lib';
 import { ID, Tag as ITag, UserCreatedTag } from '@local/types';
-import { includes, isEmpty, last } from 'lodash';
-import * as React from 'react';
+import { includes, isEmpty, last, pull } from 'lodash';
+import React, { useState } from 'react';
 import styles from './styles.css';
 import Tag from './Tag';
 import Tags from './Tags';
@@ -13,120 +13,104 @@ interface Props {
   onRemoveTags?: (tags: ITag[]) => void;
 }
 
-interface State {
-  selectedTags: ID[];
-}
+function TagsEditor({ tags, onAddTag, onRemoveTags, className }: Props) {
+  const [selectedTags, setSelectedTags] = useState<ID[]>([]);
 
-class TagsEditor extends React.Component<Props, State> {
-  public state = { selectedTags: [] };
+  function handleSelect(isSelected: boolean, tag: ITag) {
+    if (isSelected) {
+      setSelectedTags([...selectedTags, tag.id]);
+    } else {
+      setSelectedTags(pull(selectedTags, tag.id));
+    }
+  }
 
-  public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { onAddTag } = this.props;
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (onAddTag) {
-      const value = e.target.value;
-      if (this.isValidTagName(value)) {
-        onAddTag({ name: this.normalizeTagName(value) });
+      const tagName = e.target.value;
+      if (isValidTagName(tagName)) {
+        onAddTag({ name: normalizeTagName(tagName) });
         e.target.value = '';
       }
     }
-  };
+  }
 
-  public handleSelect = (isSelected: boolean, tag: ITag) => {
-    if (isSelected) {
-      this.setState({ selectedTags: [...this.state.selectedTags, tag.id] });
-    } else {
-      this.setState({
-        selectedTags: this.state.selectedTags.filter(
-          (selectedID) => selectedID !== tag.id,
-        ),
-      });
+  function handleRemove(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (onRemoveTags && !isEmpty(tags) && isInputEmpty(e)) {
+      onRemoveTags(matchTagsToSelected(selectedTags, tags));
+      setSelectedTags([]);
     }
-  };
+  }
 
-  public handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     const key = e.keyCode || e.charCode;
     if (key === Keys.enter) {
-      // TODO test for various space chars
       if (e.currentTarget.value.trim() !== '') {
-        if (this.props.onAddTag) {
-          this.props.onAddTag({ name: e.currentTarget.value });
-          this.resetInput(e);
+        if (onAddTag) {
+          onAddTag({ name: e.currentTarget.value });
+          resetInput(e);
           return;
         }
       }
     }
     if (key === Keys.backspace) {
-      return this.handleRemove(e);
+      handleRemove(e);
+      return;
     }
-  };
-
-  public handleRemove = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { onRemoveTags, tags } = this.props;
-    if (onRemoveTags && !isEmpty(tags) && this.isInputEmpty(e)) {
-      const selectedTags = this.state.selectedTags;
-      this.setState({ selectedTags: [] }, () => {
-        onRemoveTags(this.matchTagsToSelected(selectedTags));
-      });
-    }
-  };
-
-  public render() {
-    const { tags, className } = this.props;
-    return (
-      <div className={className}>
-        <Tags
-          tags={tags}
-          renderTag={({ tag }) => (
-            <Tag
-              tag={tag}
-              selected={this.isTagSelected(tag)}
-              onSelect={this.handleSelect}
-            />
-          )}
-        />
-        <input
-          placeholder="Tag..."
-          type="text"
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyPress}
-          className={styles.input}
-          data-testid="input"
-        />
-      </div>
-    );
   }
 
-  private matchTagsToSelected(selectedTags: ID[]): ITag[] {
-    const { tags } = this.props;
-    if (isEmpty(selectedTags)) {
-      return [last(tags)!];
-    }
-    return tags.reduce(
-      (matched: ITag[], current: ITag) =>
-        includes(selectedTags, current.id) ? [...matched, current] : matched,
-      [],
-    );
-  }
-
-  private isTagSelected(tag: ITag) {
-    return includes(this.state.selectedTags, tag.id);
-  }
-
-  private isInputEmpty(e: React.KeyboardEvent<HTMLInputElement>) {
-    return e.currentTarget.value === '';
-  }
-
-  private resetInput(e: React.KeyboardEvent<HTMLInputElement>) {
-    e.currentTarget.value = '';
-  }
-
-  private isValidTagName(name: string) {
-    return name.match(Regex.tagName);
-  }
-
-  private normalizeTagName(name: string) {
-    return name.trim().replace(',', '');
-  }
+  return (
+    <div className={className}>
+      <Tags
+        tags={tags}
+        renderTag={({ tag }) => (
+          <Tag
+            tag={tag}
+            selected={isTagSelected(tag, selectedTags)}
+            onSelect={handleSelect}
+          />
+        )}
+      />
+      <input
+        placeholder="Tag..."
+        type="text"
+        onChange={handleChange}
+        onKeyDown={handleKeyPress}
+        className={styles.input}
+        data-testid="input"
+      />
+    </div>
+  );
 }
 
-export default TagsEditor;
+function normalizeTagName(name: string) {
+  return name.trim().replace(',', '');
+}
+
+function isValidTagName(name: string) {
+  return name.match(Regex.tagName);
+}
+
+function isTagSelected(tag: ITag, selectedTags: ID[]) {
+  return includes(selectedTags, tag.id);
+}
+
+function matchTagsToSelected(selectedTags: ID[], tags: ITag[]) {
+  if (isEmpty(selectedTags)) {
+    return [last(tags)!];
+  }
+  return tags.reduce(
+    (matched: ITag[], current: ITag) =>
+      includes(selectedTags, current.id) ? [...matched, current] : matched,
+    [],
+  );
+}
+
+function resetInput(e: React.KeyboardEvent<HTMLInputElement>) {
+  e.currentTarget.value = '';
+}
+
+function isInputEmpty(e: React.KeyboardEvent<HTMLInputElement>) {
+  return e.currentTarget.value === '';
+}
+
+export default React.memo(TagsEditor);

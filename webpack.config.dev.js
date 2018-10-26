@@ -22,6 +22,7 @@ const developmentConfiguration = {
             loader: 'ts-loader',
             options: {
               onlyCompileBundledFiles: true,
+              reportFiles: ['!src/components/Hooker/Hooker.tsx'],
             },
           },
         ],

@@ -1,14 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders a project 1`] = `
+exports[`renders project 1`] = `
 <div>
-  <textarea
-    class="name sc-bwzfXH cdcvxu"
-    data-testid="project-name"
-    placeholder="Project Name..."
+  <div
+    class="title"
   >
-    Test Project
-  </textarea>
-  project
+    <div>
+      <div
+        class="container"
+        style="height: 25px;"
+      >
+        <input
+          class="input"
+          type="checkbox"
+        />
+        <svg
+          height="25"
+          viewBox="0 0 100 100"
+          width="25"
+        >
+          <circle
+            cx="50"
+            cy="50"
+            fill="none"
+            r="44"
+            stroke="#99a"
+            stroke-width="8"
+          />
+          <path
+            d="M NaN NaN A 33 33 0 1 0 50 17 L 50 50 L NaN NaN Z"
+            fill="#aab"
+            stroke="none"
+            stroke-width="6"
+          />
+          /&gt;
+        </svg>
+      </div>
+    </div>
+    <textarea
+      class="name sc-htpNat kylDPf"
+      data-testid="project-name"
+      placeholder="Project Name..."
+    >
+      Test Project
+    </textarea>
+  </div>
 </div>
 `;

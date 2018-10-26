@@ -1,43 +1,45 @@
-import { TextArea } from '@local/components';
+import { ProgressCheckbox, TextArea } from '@local/components';
 import { Project as IProject } from '@local/types';
 import * as React from 'react';
 import styles from './styles.css';
 
-interface RenderParams {
-  project: IProject;
-}
-
 interface Props {
   project: IProject;
+  children?: React.ReactNode;
   onEdit?: (project: IProject) => void;
-  renderProject?: (params: RenderParams) => React.ReactNode;
 }
 
-class Project extends React.Component<Props, {}> {
-  public handleChange = (value: string) => {
-    if (this.props.onEdit) {
-      this.props.onEdit({ ...this.props.project, name: value });
-    }
-  };
+function Project({ project, onEdit, children }: Props) {
+  if (project === undefined) {
+    return null;
+  }
 
-  public render() {
-    const { project, renderProject } = this.props;
-    if (project === undefined) {
-      return null;
+  function handleChange(value: string) {
+    if (onEdit) {
+      onEdit({ ...project, name: value });
     }
-    return (
-      <div>
+  }
+
+  return (
+    <div>
+      <div className={styles.title}>
+        <ProgressCheckbox
+          size={25}
+          progress={
+            project.tasks.filter((t) => t.completed).length / project.tasks.length
+          }
+        />
         <TextArea
-          value={project.name}
-          placeholder="Project Name..."
-          onChange={this.handleChange}
           className={styles.name}
+          placeholder="Project Name..."
+          value={project.name}
+          onChange={handleChange}
           data-testid="project-name"
         />
-        {renderProject && renderProject({ project })}
       </div>
-    );
-  }
+      {children}
+    </div>
+  );
 }
 
-export default Project;
+export default React.memo(Project);

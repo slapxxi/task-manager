@@ -1,3 +1,4 @@
+import { Tag } from '@local/types';
 import firebase from 'firebase';
 import { map } from 'lodash';
 

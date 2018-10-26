@@ -1,34 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`does not expand more than one item 1`] = `
-<ul
-  class="tasks"
->
-  <li>
-    <button
-      data-expand="false"
-    >
-      first
-    </button>
-  </li>
-  <li>
-    <button
-      data-expand="true"
-    >
-      second
-    </button>
-  </li>
-</ul>
-`;
-
 exports[`renders information when tasks are empty 1`] = `
-<ul
-  class="tasks"
->
-  <p>
-    There are no tasks yet.
-  </p>
-</ul>
+<p>
+  There are no tasks yet.
+</p>
 `;
 
 exports[`renders tasks 1`] = `

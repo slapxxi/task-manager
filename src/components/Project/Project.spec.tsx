@@ -9,21 +9,9 @@ const project = {
   tasks: [],
 };
 
-it('renders a project', () => {
-  const spy = jest.fn(() => 'project');
-  const { container } = render(
-    <Project project={project} renderProject={() => spy()} />,
-  );
+it('renders project', () => {
+  const { container } = render(<Project project={project} />);
   expect(container.firstChild).toMatchSnapshot();
-});
-
-it('passes project to render prop', () => {
-  const spy = jest.fn(() => 'project');
-  render(
-    <Project project={project} renderProject={({ project: p }) => spy(p)} />,
-  );
-  expect(spy).toHaveBeenCalledTimes(1);
-  expect(spy).toHaveBeenCalledWith(project);
 });
 
 it('calls `onEdit` when project is modified', () => {

@@ -7,7 +7,7 @@
 
 .taskHeader {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .taskTitle {
@@ -40,18 +40,6 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 30px 0 0;
-}
-
-.checkbox {
-  position: relative;
-  width: 22px;
-  height: 22px;
-  outline: none;
-  border: 0;
-  background: none;
-  cursor: pointer;
-
-  appearance: none;
 }
 
 .indicator {
@@ -91,20 +79,6 @@
 
 .footerIconDangerous:hover {
   --primary-color: tomato;
-}
-
-.checkbox::after {
-  position: absolute;
-  top: 0;
-  width: 22px;
-  height: 22px;
-  background: url('../../assets/roundcheckbox.svg') no-repeat;
-  background-position: center center;
-  content: '';
-}
-
-.checkbox:checked::after {
-  background: url('../../assets/roundcheckbox_checked.svg') no-repeat;
 }
 
 .footerTags {

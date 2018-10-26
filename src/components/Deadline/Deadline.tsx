@@ -1,6 +1,6 @@
 import { DateTime, Icon } from '@local/components';
 import { differenceInCalendarDays, differenceInCalendarMonths } from 'date-fns';
-import * as React from 'react';
+import React from 'react';
 import cross from '../../assets/cross.svg';
 import styles from './styles.css';
 
@@ -11,17 +11,18 @@ interface Props {
 }
 
 function Deadline({ deadline, onChange, onReset }: Props) {
+  function handleReset(e: React.MouseEvent) {
+    e.stopPropagation();
+    if (onReset) {
+      onReset(deadline);
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <div
-        className={styles.deadline}
-        onClick={() => onChange && onChange(deadline)}
-      >
+      <div className={styles.deadline} onClick={() => onChange && onChange(deadline)}>
         Deadline: <DateTime date={deadline} />
-        <button
-          className={styles.reset}
-          onClick={() => onReset && onReset(deadline)}
-        >
+        <button className={styles.reset} onClick={handleReset}>
           <Icon glyph={cross} size={13} />
         </button>
       </div>
@@ -58,5 +59,4 @@ function pluralize(n: number, word: string): string {
   return `${word}s`;
 }
 
-// @ts-ignore
 export default React.memo(Deadline);

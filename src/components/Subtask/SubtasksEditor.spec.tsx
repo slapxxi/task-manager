@@ -1,6 +1,6 @@
 import { createSubtask, Keys } from '@lib';
 import React from 'react';
-import { fireEvent, render, wait } from 'react-testing-library';
+import { fireEvent, render } from 'react-testing-library';
 import uuid from 'uuid';
 import SubtasksEditor from './SubtasksEditor';
 
@@ -23,9 +23,7 @@ it('renders', () => {
 
 it('invokes callback when subtask created', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(
-    <SubtasksEditor subtasks={[]} onCreate={spy} isEmpty />,
-  );
+  const { getByTestId } = render(<SubtasksEditor subtasks={[]} onCreate={spy} isEmpty />);
   fireEvent.change(getByTestId('input'), { target: { value: 'new' } });
   expect(spy).toHaveBeenCalledWith({
     id: 'unique-id-0',
@@ -49,26 +47,5 @@ it('creates new task when subtask submitted', () => {
     id: 'unique-id-0',
     description: '',
     completed: false,
-  });
-});
-
-it('focuses next item when previous item submitted', async () => {
-  const cb = jest.fn();
-  const { rerender, getByValue } = render(
-    <SubtasksEditor subtasks={subtasks} onCreate={cb} />,
-  );
-  fireEvent.keyDown(getByValue('second'), {
-    keyCode: Keys.enter,
-  });
-  rerender(
-    <SubtasksEditor
-      subtasks={[...subtasks, createSubtask({ description: 'new' })]}
-      focused
-    />,
-  );
-  const spy = spyOn(getByValue('new'), 'focus');
-  await wait(() => {
-    expect(cb).toHaveBeenCalledTimes(1);
-    expect(spy).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  align-items: center;
 }
 
 .description {
@@ -20,5 +21,22 @@
 
 .checkbox {
   margin-right: 10px;
-  composes: checkbox from '../Tasks/styles.css';
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.trashbin {
+  --primary-color: hsl(230, 10%, 60%);
+}
+
+@media (min-width: 768px) {
+  .trashbin {
+    visibility: hidden;
+  }
+
+  .subtask:hover .trashbin {
+    visibility: visible;
+  }
 }

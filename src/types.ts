@@ -6,6 +6,11 @@ type ID = string;
 
 type Size = number | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
+interface Action<T> {
+  type: T;
+  payload?: any;
+}
+
 interface ColorTheme {
   primaryColor?: Color;
   secondaryColor?: Color;
@@ -96,6 +101,7 @@ interface InnerStore extends StoreState {
 }
 
 export {
+  Action,
   ColorTheme,
   DBEntry,
   DBProject,

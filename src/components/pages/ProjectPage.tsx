@@ -1,5 +1,6 @@
 import { assignToProject } from '@lib';
-import { Project, Store, Task, Tasks } from '@local/components';
+import { Project, TasksEditor } from '@local/components';
+import { useStore } from '@local/hooks';
 import { ID } from '@local/types';
 import * as React from 'react';
 
@@ -8,33 +9,23 @@ interface Props {
 }
 
 function ProjectPage({ projectID }: Props) {
+  const { projects, actions } = useStore();
+  const project = projects.filter((p) => p.id === projectID)[0];
+
+  if (project === undefined) {
+    return null;
+  }
+
   return (
     <div>
-      <Store>
-        {({ projects, actions }) => (
-          <Project
-            project={projects.filter((p) => p.id === projectID)[0]}
-            onEdit={actions.updateProject}
-            renderProject={({ project }) => (
-              <Tasks
-                tasks={project.tasks}
-                onCreate={(t) =>
-                  actions.updateTask(assignToProject(t, project))
-                }
-                renderTask={({ task, expand, onExpand }) => (
-                  <Task
-                    task={task}
-                    expand={expand}
-                    onExpand={onExpand}
-                    onEdit={actions.updateTask}
-                    onDelete={actions.deleteTask}
-                  />
-                )}
-              />
-            )}
-          />
-        )}
-      </Store>
+      <Project project={project} onEdit={actions.updateProject}>
+        <TasksEditor
+          tasks={project.tasks}
+          onCreate={(t) => actions.updateTask(assignToProject(t, project))}
+          onEdit={actions.updateTask}
+          onDelete={actions.deleteTask}
+        />
+      </Project>
     </div>
   );
 }

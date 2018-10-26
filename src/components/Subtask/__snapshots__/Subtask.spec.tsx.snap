@@ -4,16 +4,51 @@ exports[`renders 1`] = `
 <div
   class="container"
 >
-  <input
+  <div
     class="checkbox"
-    type="checkbox"
-  />
+  >
+    <div
+      style="position: relative; display: flex; align-items: center; height: 15px;"
+    >
+      <input
+        class="input"
+        type="checkbox"
+      />
+      <svg
+        clip-rule="evenodd"
+        height="15"
+        preserveAspectRatio="none"
+        viewBox="0 0 100 100"
+        width="15"
+      >
+        <circle
+          cx="50"
+          cy="50"
+          fill="none"
+          r="44"
+          stroke="#99a"
+          stroke-width="8"
+        />
+      </svg>
+    </div>
+  </div>
   <input
-    class="input"
+    class="sc-bwzfXH PGmuR"
     data-testid="input"
     placeholder="What should be done..."
     type="text"
     value="test"
   />
+  <svg
+    class="trashbin"
+    height="16"
+    viewBox="viewBox"
+    width="16"
+  >
+    <use
+      id="icon-id"
+      xlink:href="#id"
+    />
+  </svg>
 </div>
 `;

@@ -5,7 +5,6 @@ export const indicator: string;
 export const taskDescription: string;
 export const taskDescriptionCompleted: string;
 export const taskFooter: string;
-export const checkbox: string;
 export const icon: string;
 export const tagIcon: string;
 export const detailsIcon: string;

@@ -1,14 +1,16 @@
 import { resetDeadline, setDeadline, tagTask, toggleTask } from '@lib';
 import {
   Calendar,
+  Checkbox,
   Deadline,
   Icon,
+  ProgressCheckbox,
   SubtasksEditor,
   TagsEditor,
 } from '@local/components';
 import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import { includes, isEmpty, isEqual } from 'lodash';
-import * as React from 'react';
+import React, { useState } from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
 import arrow_down from '../../assets/arrow_down.svg';
@@ -34,283 +36,239 @@ interface Props {
   onExpand?: (expand: boolean) => void;
 }
 
-interface State {
-  mode: Mode;
-  showCalendar: boolean;
-}
+function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props) {
+  const [mode, setMode] = useState(Mode.default);
+  const [showCalendar, setShowCalendar] = useState(false);
 
-class Task extends React.Component<Props, State> {
-  public state = { mode: Mode.default, showCalendar: false };
-
-  public shouldComponentUpdate(nextProps: Props, nextState: State) {
-    if (nextState !== this.state) {
-      return true;
-    }
-    if (!isEqual(nextProps, this.props)) {
-      return true;
-    }
-    return false;
-  }
-
-  public handleToggle = () => {
-    const { task, onEdit } = this.props;
+  function handleToggle() {
     if (onEdit) {
       onEdit(toggleTask(task));
     }
-  };
+  }
 
-  public handleChangeDescription = (value: string) => {
-    const { task, onEdit } = this.props;
+  function handleChangeDescription(value: string) {
     if (onEdit) {
       onEdit({ ...task, description: value });
     }
-  };
+  }
 
-  public handleChangeTitle = (title: string) => {
-    const { task, onEdit } = this.props;
+  function handleChangeTitle(title: string) {
     if (onEdit) {
       onEdit({ ...task, title });
     }
-  };
+  }
 
-  public handleToggleDetails = () => {
-    if (this.props.onExpand) {
-      this.props.onExpand(!this.props.expand);
+  function handleToggleDetails() {
+    if (onExpand) {
+      onExpand(!expand);
     }
-  };
+  }
 
-  public handleExpand = () => {
-    if (this.props.onExpand) {
-      this.props.onExpand(true);
+  function handleExpand() {
+    if (onExpand) {
+      onExpand(true);
     }
-  };
+  }
 
-  public handleToggleCalendar = () => {
-    this.setState((state) => ({ showCalendar: !state.showCalendar }));
-  };
+  function handleToggleCalendar() {
+    setShowCalendar((show) => !show);
+  }
 
-  public handleAddTag = (newTag: UserCreatedTag) => {
-    if (
-      !includes(
-        this.props.task.tags.map((t) => t.name.toLowerCase()),
-        newTag.name,
-      )
-    ) {
-      if (this.props.onEdit) {
-        const { task } = this.props;
-        this.props.onEdit(tagTask(task, newTag));
+  function handleAddTag(newTag: UserCreatedTag) {
+    if (!includes(task.tags.map((t) => t.name.toLowerCase()), newTag.name)) {
+      if (onEdit) {
+        onEdit(tagTask(task, newTag));
       }
     }
-  };
+  }
 
-  public handleRemoveTags = (tags: Tag[]) => {
-    if (this.props.onEdit) {
-      this.props.onEdit({
-        ...this.props.task,
+  function handleRemoveTags(tags: Tag[]) {
+    if (onEdit) {
+      onEdit({
+        ...task,
         tags: [
-          ...(this.props.task.tags as Tag[]).filter(
+          ...(task.tags as Tag[]).filter(
             (propTag) => !includes(tags.map((t) => t.id), propTag.id),
           ),
         ],
       });
     }
-  };
+  }
 
-  public handleDelete = () => {
-    const { onExpand, onDelete, confirmDelete } = this.props;
+  function handleDelete() {
     if (onDelete) {
       if (confirmDelete) {
         const result = confirm('Sure you want to delete this task?');
         if (result) {
-          onDelete(this.props.task);
+          onDelete(task);
         }
       } else {
-        onDelete(this.props.task);
+        onDelete(task);
       }
       if (onExpand) {
         onExpand(false);
       }
     }
-  };
+  }
 
-  public handleAddSubtask = (subtask: Subtask) => {
-    if (this.props.onEdit) {
-      this.props.onEdit({
-        ...this.props.task,
-        subtasks: [...this.props.task.subtasks, subtask],
+  function handleAddSubtask(subtask: Subtask) {
+    if (onEdit) {
+      onEdit({
+        ...task,
+        subtasks: [...task.subtasks, subtask],
       });
     }
-  };
+  }
 
-  public handleEditSubtask = (subtask: Subtask) => {
-    if (this.props.onEdit) {
-      this.props.onEdit({
-        ...this.props.task,
-        subtasks: this.props.task.subtasks.map(
-          (st) => (st.id === subtask.id ? subtask : st),
-        ),
+  function handleEditSubtask(subtask: Subtask) {
+    if (onEdit) {
+      onEdit(addSubtask(task, subtask));
+    }
+  }
+
+  function handleRemoveSubtask(subtask: Subtask) {
+    if (onEdit) {
+      onEdit({
+        ...task,
+        subtasks: task.subtasks.filter((st) => st.id !== subtask.id),
       });
     }
-  };
+  }
 
-  public handleRemoveSubtask = (subtask: Subtask) => {
-    if (this.props.onEdit) {
-      this.props.onEdit({
-        ...this.props.task,
-        subtasks: this.props.task.subtasks.filter((st) => st.id !== subtask.id),
-      });
+  function handleChangeMode() {
+    setMode(mode === Mode.default ? Mode.editing : Mode.default);
+  }
+
+  function handleSelectDeadline(date: Date) {
+    if (onEdit) {
+      onEdit(setDeadline(task, date));
     }
-  };
+    setShowCalendar(false);
+  }
 
-  public handleChangeMode = () => {
-    this.setState({
-      mode: this.state.mode === Mode.default ? Mode.editing : Mode.default,
-    });
-  };
-
-  public handleSelectDeadline = (date: Date) => {
-    this.setState({ showCalendar: false }, () => {
-      if (this.props.onEdit) {
-        this.props.onEdit(setDeadline(this.props.task, date));
-      }
-    });
-  };
-
-  public handleResetDeadline = () => {
-    if (this.props.onEdit) {
-      this.props.onEdit(resetDeadline(this.props.task));
+  function handleResetDeadline() {
+    if (onEdit) {
+      onEdit(resetDeadline(task));
     }
-  };
+  }
 
-  public render() {
-    const { task, expand } = this.props;
-    return (
-      <Container active={expand} completed={task.completed}>
-        <header className={styles.taskHeader}>
-          <input
-            type="checkbox"
-            className={styles.checkbox}
-            checked={task.completed}
-            onChange={this.handleToggle}
+  return (
+    <Container active={expand} completed={task.completed}>
+      <header className={styles.taskHeader}>
+        {task.subtasks.length > 0 ? (
+          <ProgressCheckbox
+            value={task.completed}
+            progress={
+              task.subtasks.filter((st) => st.completed).length / task.subtasks.length
+            }
+            size={22}
+          />
+        ) : (
+          <Checkbox
+            size={22}
+            value={task.completed}
+            onToggle={handleToggle}
             data-testid="checkbox"
           />
-          <Title
-            active={expand}
-            completed={task.completed}
-            className={styles.taskTitle}
-            value={task.title || ''}
-            placeholder="Title..."
-            onClick={this.handleExpand}
-            onChange={this.handleChangeTitle}
-            autoFocus={expand}
-            data-testid="title"
+        )}
+        <Title
+          active={expand}
+          completed={task.completed}
+          className={styles.taskTitle}
+          value={task.title || ''}
+          placeholder="Title..."
+          onClick={handleExpand}
+          onChange={handleChangeTitle}
+          autoFocus={expand}
+          data-testid="title"
+        />
+        {!expand && !isEmpty(task.tags) ? (
+          <Icon glyph={tag} size={18} className={styles.tagIcon} />
+        ) : null}
+        <Icon
+          glyph={expand ? arrow_up : arrow_down}
+          style={{ marginLeft: 10 }}
+          className={styles.detailsIcon}
+          onClick={handleToggleDetails}
+          data-testid="expand"
+        />
+      </header>
+      <AnimatedDetails pose={expand ? 'open' : 'closed'} style={{ overflow: 'hidden' }}>
+        <Details>
+          <TextArea
+            className={styles.taskDescription}
+            placeholder="Notes..."
+            value={task.description || ''}
+            onChange={handleChangeDescription}
+            data-testid="description"
           />
-          {!expand && !isEmpty(task.tags) ? (
-            <Icon glyph={tag} size={18} className={styles.tagIcon} />
-          ) : null}
-          <Icon
-            glyph={expand ? arrow_up : arrow_down}
-            style={{ marginLeft: 10 }}
-            className={styles.detailsIcon}
-            onClick={this.handleToggleDetails}
-            data-testid="expand"
+          <SubtasksEditor
+            subtasks={task.subtasks}
+            onCreate={handleAddSubtask}
+            onEdit={handleEditSubtask}
+            onRemove={handleRemoveSubtask}
+            focused={expand}
+            isEmpty={mode === Mode.editing && isEmpty(task.subtasks)}
           />
-        </header>
-        <AnimatedDetails
-          pose={expand ? 'open' : 'closed'}
-          style={{ overflow: 'hidden' }}
-        >
-          <Details>
-            {task.completed ? (
-              <pre className={styles.taskDescriptionCompleted}>
-                {task.description || 'There are no notes.'}
-              </pre>
-            ) : (
-              <TextArea
-                className={styles.taskDescription}
-                placeholder="Notes..."
-                value={task.description || ''}
-                onChange={this.handleChangeDescription}
-                data-testid="description"
+          <footer className={styles.taskFooter}>
+            {task.deadline && !showCalendar ? (
+              <Deadline
+                deadline={task.deadline}
+                onChange={handleToggleCalendar}
+                onReset={handleResetDeadline}
+              />
+            ) : null}
+            <TagsEditor
+              className={styles.footerTags}
+              tags={task.tags as Tag[]}
+              onAddTag={handleAddTag}
+              onRemoveTags={handleRemoveTags}
+            />
+            {onDelete && (
+              <Icon
+                glyph={trashbin}
+                size={16}
+                className={styles.footerIconDangerous}
+                onClick={handleDelete}
+                data-testid="delete"
               />
             )}
-            <SubtasksEditor
-              subtasks={task.subtasks}
-              onCreate={this.handleAddSubtask}
-              onEdit={this.handleEditSubtask}
-              onRemove={this.handleRemoveSubtask}
-              focused={expand}
-              isEmpty={
-                this.state.mode === Mode.editing && isEmpty(task.subtasks)
-              }
-            />
-            <footer className={styles.taskFooter}>
-              {task.deadline && !this.state.showCalendar ? (
-                <Deadline
-                  deadline={task.deadline}
-                  onChange={this.handleToggleCalendar}
-                  onReset={this.handleResetDeadline}
-                />
-              ) : null}
-              <TagsEditor
-                className={styles.footerTags}
-                tags={task.tags as Tag[]}
-                onAddTag={this.handleAddTag}
-                onRemoveTags={this.handleRemoveTags}
-              />
-              {this.props.onDelete && (
-                <Icon
-                  glyph={trashbin}
-                  size={16}
-                  className={styles.footerIconDangerous}
-                  onClick={this.handleDelete}
-                  data-testid="delete"
-                />
-              )}
-              {isEmpty(task.subtasks) && (
-                <Icon
-                  glyph={list}
-                  size={16}
-                  className={styles.footerIcon}
-                  onClick={this.handleChangeMode}
-                />
-              )}
+            {isEmpty(task.subtasks) && (
               <Icon
-                glyph={flag}
+                glyph={list}
                 size={16}
                 className={styles.footerIcon}
-                onClick={this.handleToggleCalendar}
+                onClick={handleChangeMode}
               />
-              {this.state.showCalendar && (
-                <Calendar
-                  selected={task.deadline}
-                  onSelectDate={this.handleSelectDeadline}
-                />
-              )}
-            </footer>
-          </Details>
-        </AnimatedDetails>
-      </Container>
-    );
-  }
+            )}
+            <Icon
+              glyph={flag}
+              size={16}
+              className={styles.footerIcon}
+              onClick={handleToggleCalendar}
+            />
+            {showCalendar && (
+              <Calendar selected={task.deadline} onSelectDate={handleSelectDeadline} />
+            )}
+          </footer>
+        </Details>
+      </AnimatedDetails>
+    </Container>
+  );
 }
 
-const Container = styled<{ active?: boolean; completed?: boolean }, 'div'>(
-  'div',
-)`
+const Container = styled<{ active?: boolean; completed?: boolean }, 'div'>('div')`
   overflow: hidden;
   box-sizing: border-box;
   position: relative;
   padding: 15px 10px;
   background-color: ${({ active }) => (active ? '#fff' : 'transparent')};
   color: ${({ completed }) => (completed ? 'lightgrey' : '#334')};
-  box-shadow: ${({ active }) =>
-    active ? '0 1px 3px 2px rgba(0,0,0,0.1)' : 'none'};
+  box-shadow: ${({ active }) => (active ? '0 1px 3px 2px rgba(0,0,0,0.1)' : 'none')};
 `;
 
 const Title = styled(TextArea)`
-  text-decoration: ${({ completed }: any) =>
-    completed ? 'line-through' : 'none'};
+  text-decoration: ${({ completed }: any) => (completed ? 'line-through' : 'none')};
   color: ${({ active }: any) => (active ? '#112' : '#445')};
   color: ${({ completed }: any) => (completed ? '#b3b3bb' : null)};
 `;
@@ -339,4 +297,11 @@ const Details = styled.div`
   padding: 10px 0 0;
 `;
 
-export default Task;
+function addSubtask(task: ITask, subtask: Subtask): ITask {
+  return {
+    ...task,
+    subtasks: task.subtasks.map((st) => (st.id === subtask.id ? subtask : st)),
+  };
+}
+
+export default React.memo(Task, (prevProps, nextProps) => isEqual(prevProps, nextProps));

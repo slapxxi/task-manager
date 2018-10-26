@@ -1,107 +1,88 @@
 import { createSubtask } from '@lib';
 import { Subtask as ISubtask } from '@local/types';
-import { isEqual } from 'lodash';
-import * as React from 'react';
+import React, { useRef } from 'react';
 import Subtask from './Subtask';
 import Subtasks from './Subtasks';
 
 interface Props {
   subtasks: ISubtask[];
-  isEmpty?: boolean;
   focused?: boolean;
+  isEmpty?: boolean;
   onCreate?: (subtask: ISubtask) => void;
   onEdit?: (subtask: ISubtask) => void;
   onRemove?: (subtask: ISubtask) => void;
 }
 
-class SubtasksEditor extends React.PureComponent<Props> {
-  public lastFocused =
-    this.props.subtasks.length - 1 >= 0 ? this.props.subtasks.length - 1 : 0;
+function SubtasksEditor({
+  subtasks,
+  focused,
+  isEmpty,
+  onCreate,
+  onEdit,
+  onRemove,
+}: Props) {
+  const lastFocusedRef = useRef<number>();
 
-  public ref = React.createRef<HTMLInputElement>();
-
-  public componentDidUpdate(prevProps: Props) {
-    if (
-      this.props.focused &&
-      !isEqual(prevProps.subtasks, this.props.subtasks)
-    ) {
-      this.focus();
+  function handleEdit(subtask: ISubtask) {
+    if (onEdit) {
+      onEdit(subtask);
     }
   }
 
-  public handleEdit = (subtask: ISubtask) => {
-    if (this.props.onEdit) {
-      this.props.onEdit(subtask);
+  function handleCreate(subtask: ISubtask) {
+    if (onCreate) {
+      onCreate(createSubtask(subtask));
     }
-  };
+  }
 
-  public handleCreate = (subtask: ISubtask) => {
-    if (this.props.onCreate) {
-      this.props.onCreate(createSubtask(subtask));
+  function handleAdd() {
+    if (onCreate) {
+      onCreate(createSubtask({}));
+      lastFocusedRef.current = subtasks.length;
     }
-  };
+  }
 
-  public handleAdd = () => {
-    if (this.props.onCreate) {
-      this.props.onCreate(createSubtask({}));
-      this.lastFocused = this.props.subtasks.length;
-    }
-  };
-
-  public handleRemove = (subtask: ISubtask) => {
-    if (this.props.onRemove) {
-      if (this.props.subtasks.length === 1) {
-        this.lastFocused = 0;
+  function handleRemove(subtask: ISubtask) {
+    if (onRemove) {
+      if (subtasks.length === 1) {
+        lastFocusedRef.current = 0;
       } else {
-        this.lastFocused -= 1;
+        lastFocusedRef.current -= 1;
       }
-      this.props.onRemove(subtask);
+      onRemove(subtask);
     }
-  };
-
-  public handleFocus = (index: number) => {
-    this.lastFocused = index;
-  };
-
-  public handleBlur = () => {
-    this.lastFocused = NaN;
-  };
-
-  public focus = () => {
-    if (this.ref.current !== null) {
-      requestAnimationFrame(() => this.ref.current!.focus());
-    }
-  };
-
-  public render() {
-    const { subtasks, isEmpty } = this.props;
-    return (
-      <div>
-        <Subtasks
-          subtasks={isEmpty ? [...subtasks, createSubtask({})] : subtasks}
-          render={({ subtask, index }) =>
-            isEmpty && index === subtasks.length ? (
-              <Subtask subtask={subtask} onEdit={this.handleCreate} />
-            ) : (
-              <Subtask
-                ref={
-                  (this.lastFocused === index && this.ref) as React.Ref<
-                    HTMLInputElement
-                  >
-                }
-                subtask={subtask}
-                onEdit={this.handleEdit}
-                onFocus={() => this.handleFocus(index)}
-                onBlur={this.handleBlur}
-                onRemove={this.handleRemove}
-                onSubmit={this.handleAdd}
-              />
-            )
-          }
-        />
-      </div>
-    );
   }
+
+  function handleFocus(index: number) {
+    lastFocusedRef.current = index;
+  }
+
+  function handleBlur() {
+    lastFocusedRef.current = NaN;
+  }
+
+  return (
+    <div>
+      <Subtasks
+        subtasks={isEmpty ? [...subtasks, createSubtask({})] : subtasks}
+        render={({ subtask, index }) =>
+          isEmpty && index === subtasks.length ? (
+            <Subtask subtask={subtask} onEdit={handleCreate} />
+          ) : (
+            <Subtask
+              focus={focused && lastFocusedRef.current === index}
+              subtask={subtask}
+              onEdit={handleEdit}
+              onFocus={() => handleFocus(index)}
+              onBlur={handleBlur}
+              onRemove={handleRemove}
+              onSubmit={handleAdd}
+            />
+          )
+        }
+      />
+    </div>
+  );
 }
 
-export default SubtasksEditor;
+export default React.memo(SubtasksEditor);

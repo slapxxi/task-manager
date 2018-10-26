@@ -32,9 +32,7 @@ it('calls `onExpand` with `false` when deleted', () => {
 
 it('calls `onExpand` with `true` when not expanded', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(
-    <Task task={task} onExpand={spy} expand={false} />,
-  );
+  const { getByTestId } = render(<Task task={task} onExpand={spy} expand={false} />);
   fireEvent.click(getByTestId('expand'));
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(true);
@@ -42,9 +40,7 @@ it('calls `onExpand` with `true` when not expanded', () => {
 
 it('calls `onExpand` with `false` when expanded', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(
-    <Task task={task} onExpand={spy} expand={true} />,
-  );
+  const { getByTestId } = render(<Task task={task} onExpand={spy} expand={true} />);
   fireEvent.click(getByTestId('expand'));
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(false);
@@ -78,9 +74,7 @@ it('requires confirmation when deleting on `confirmDelete`', () => {
     <Task task={task} onDelete={spy} confirmDelete={true} />,
   );
   fireEvent.click(getByTestId('delete'));
-  expect(window.confirm).toHaveBeenCalledWith(
-    'Sure you want to delete this task?',
-  );
+  expect(window.confirm).toHaveBeenCalledWith('Sure you want to delete this task?');
   expect(spy).toHaveBeenCalledWith(task);
 });
 

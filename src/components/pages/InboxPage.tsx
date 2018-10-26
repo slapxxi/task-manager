@@ -1,28 +1,18 @@
-import { Store, Task, Tasks } from '@local/components';
+import { TasksEditor } from '@local/components';
+import { useStore } from '@local/hooks';
 import * as React from 'react';
 
 function InboxPage() {
+  const { tasks, actions } = useStore();
   return (
-    <Store>
-      {({ tasks, actions }) => (
-        <div>
-          <Tasks
-            tasks={tasks}
-            onCreate={actions.updateTask}
-            renderTask={({ task, expand, onExpand }) => (
-              <Task
-                task={task}
-                onEdit={actions.updateTask}
-                onDelete={actions.deleteTask}
-                expand={expand}
-                onExpand={onExpand}
-                confirmDelete
-              />
-            )}
-          />
-        </div>
-      )}
-    </Store>
+    <div>
+      <TasksEditor
+        tasks={tasks}
+        onEdit={actions.updateTask}
+        onDelete={actions.deleteTask}
+        onCreate={actions.updateTask}
+      />
+    </div>
   );
 }
 

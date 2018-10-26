@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from './styles.css';
+import styled from 'styled-components';
 
 interface Props {
   value: string;
@@ -7,12 +7,17 @@ interface Props {
   [prop: string]: any;
 }
 
-class Input extends React.Component<Props> {
-  public render() {
-    const { forwardedRef, ...rest } = this.props;
-    return <input className={styles.input} ref={forwardedRef} {...rest} />;
-  }
+function Input({ forwardedRef, ...rest }: Props) {
+  return <StyledInput ref={forwardedRef} {...rest} />;
 }
+
+const StyledInput = styled.input`
+  box-sizing: border-box;
+  width: 100%;
+  margin-right: 2px;
+  border: 0;
+  appearance: none;
+`;
 
 export default React.forwardRef((props: Props, ref) => (
   <Input {...props} forwardedRef={ref} />

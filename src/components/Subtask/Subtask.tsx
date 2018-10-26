@@ -1,12 +1,13 @@
 import { Keys } from '@lib';
-import { Input } from '@local/components';
+import { Checkbox, Icon, Input } from '@local/components';
 import { Subtask as ISubtask } from '@local/types';
-import * as React from 'react';
+import React, { useEffect, useRef } from 'react';
+import trash from '../../assets/trashbin.svg';
 import styles from './styles.css';
 
 interface Props {
   subtask: ISubtask;
-  forwardedRef?: React.Ref<any>;
+  focus?: boolean;
   onEdit?: (subtask: ISubtask) => void;
   onFocus?: (subtask: ISubtask) => void;
   onBlur?: (subtask: ISubtask) => void;
@@ -14,79 +15,83 @@ interface Props {
   onRemove?: (subtask: ISubtask) => void;
 }
 
-class Subtask extends React.PureComponent<Props> {
-  public handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { subtask, onEdit } = this.props;
-    if (onEdit) {
-      onEdit({ ...subtask, completed: e.currentTarget.checked });
-    }
-  };
+function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }: Props) {
+  const inputRef = useRef<HTMLInputElement>();
 
-  public handleEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { subtask, onEdit } = this.props;
+  useEffect(
+    () => {
+      if (focus) {
+        inputRef.current.focus();
+      }
+    },
+    [focus],
+  );
+
+  function handleToggle(value: boolean) {
+    if (onEdit) {
+      onEdit({ ...subtask, completed: value });
+    }
+  }
+
+  function handleFocus() {
+    if (onFocus) {
+      onFocus(subtask);
+    }
+  }
+
+  function handleBlur() {
+    if (onBlur) {
+      onBlur(subtask);
+    }
+  }
+
+  function handleEdit(e: React.ChangeEvent<HTMLInputElement>) {
     if (onEdit) {
       onEdit({ ...subtask, description: e.currentTarget.value });
     }
-  };
-
-  public handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const keyCode = e.keyCode || e.charCode;
-    if (
-      this.props.onRemove &&
-      keyCode === Keys.backspace &&
-      e.currentTarget.value === ''
-    ) {
-      this.props.onRemove(this.props.subtask);
-      return;
-    }
-    if (this.props.onSubmit && keyCode === Keys.enter) {
-      this.props.onSubmit(this.props.subtask);
-      return;
-    }
-  };
-
-  public handleFocus = () => {
-    if (this.props.onFocus) {
-      this.props.onFocus(this.props.subtask);
-    }
-  };
-
-  public handleBlur = () => {
-    if (this.props.onBlur) {
-      this.props.onBlur(this.props.subtask);
-    }
-  };
-
-  public render() {
-    const { subtask, forwardedRef } = this.props;
-    return (
-      <div className={styles.container}>
-        <input
-          type="checkbox"
-          className={styles.checkbox}
-          checked={subtask.completed}
-          onChange={this.handleCheck}
-        />
-        {subtask.completed ? (
-          <div className={styles.description}>{subtask.description}</div>
-        ) : (
-          <Input
-            type="text"
-            value={subtask.description}
-            placeholder="What should be done..."
-            onFocus={this.handleFocus}
-            onBlur={this.handleBlur}
-            onChange={this.handleEdit}
-            onKeyDown={this.handleKeyDown}
-            ref={forwardedRef}
-            data-testid="input"
-          />
-        )}
-      </div>
-    );
   }
+
+  function handleRemove() {
+    if (onRemove) {
+      onRemove(subtask);
+    }
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    const keyCode = e.keyCode || e.charCode;
+    if (e.currentTarget.value === '' && keyCode === Keys.backspace) {
+      handleRemove();
+      return;
+    }
+    if (keyCode === Keys.enter && onSubmit) {
+      onSubmit(subtask);
+      return;
+    }
+  }
+
+  return (
+    <div className={styles.container}>
+      <Checkbox
+        value={subtask.completed}
+        size={15}
+        onToggle={handleToggle}
+        className={styles.checkbox}
+      />
+      <Input
+        type="text"
+        className={subtask.completed && styles.completed}
+        value={subtask.description}
+        placeholder="What should be done..."
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onChange={handleEdit}
+        onKeyDown={handleKeyDown}
+        ref={inputRef}
+        data-testid="input"
+      />
+      <Icon glyph={trash} size={16} onClick={handleRemove} className={styles.trashbin} />
+    </div>
+  );
 }
 
-export default React.forwardRef((props: Props, ref) => {
-  return <Subtask {...props} forwardedRef={ref} />;
-});
+export default React.memo(Subtask);
