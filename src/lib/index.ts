@@ -4,6 +4,7 @@ import fromEpochTime from './fromEpochTime';
 import Keys from './keys';
 import polarToCartesian from './polarToCartesian';
 import createProject from './projects/createProject';
+import getProjectProgress from './projects/getProjectProgress';
 import Regex from './regex';
 import createTag from './tags/createTag';
 import assignToProject from './tasks/assignToProject';
@@ -23,7 +24,9 @@ export {
   createSubtask,
   createTag,
   createTask,
+  describeArc,
   fromEpochTime,
+  getProjectProgress,
   Keys,
   polarToCartesian,
   Regex,
@@ -31,7 +34,6 @@ export {
   setDeadline,
   tagTask,
   themeToCSSVariables,
-  describeArc,
   toEpochTime,
   toggleTask,
 };

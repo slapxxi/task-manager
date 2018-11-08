@@ -6,14 +6,8 @@ interface Props {
   children: (store: InnerStore) => React.ReactNode;
 }
 
-class Store extends React.PureComponent<Props, {}> {
-  public renderChildren = (value: InnerStore) => {
-    return this.props.children(value);
-  };
-
-  public render() {
-    return <Consumer>{this.renderChildren}</Consumer>;
-  }
+function Store({ children }: Props) {
+  return <Consumer>{(store) => children(store)}</Consumer>;
 }
 
 export default Store;

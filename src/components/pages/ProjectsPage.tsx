@@ -1,7 +1,6 @@
-import { createProject } from '@lib';
+import { createProject, getProjectProgress } from '@lib';
 import { Button, ProgressCheckbox } from '@local/components';
 import { useStore } from '@local/hooks';
-import { Project } from '@local/types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.css';
@@ -30,10 +29,6 @@ function ProjectsPage() {
       </>
     </div>
   );
-}
-
-function getProjectProgress(project: Project) {
-  return project.tasks.filter((t) => t.completed).length / project.tasks.length;
 }
 
 export default ProjectsPage;

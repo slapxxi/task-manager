@@ -1,3 +1,4 @@
+import { getProjectProgress } from '@lib';
 import { ProgressCheckbox, TextArea } from '@local/components';
 import { Project as IProject } from '@local/types';
 import * as React from 'react';
@@ -23,12 +24,7 @@ function Project({ project, onEdit, children }: Props) {
   return (
     <div>
       <div className={styles.title}>
-        <ProgressCheckbox
-          size={25}
-          progress={
-            project.tasks.filter((t) => t.completed).length / project.tasks.length
-          }
-        />
+        <ProgressCheckbox size={25} progress={getProjectProgress(project)} />
         <TextArea
           className={styles.name}
           placeholder="Project Name..."

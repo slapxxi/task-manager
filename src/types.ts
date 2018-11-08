@@ -1,5 +1,7 @@
 import { Color } from 'csstype';
 
+type Percentage = number;
+
 type EpochTime = number;
 
 type ID = string;
@@ -111,6 +113,7 @@ export {
   Glyph,
   ID,
   InnerStore,
+  Percentage,
   Project,
   Size,
   StoreState,

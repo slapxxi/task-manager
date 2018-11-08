@@ -28,7 +28,7 @@ exports[`renders project 1`] = `
             stroke-width="8"
           />
           <path
-            d="M NaN NaN A 33 33 0 1 0 50 17 L 50 50 L NaN NaN Z"
+            d="M 50 17 A 33 33 0 0 0 50 17 L 50 50 L 50 17 Z"
             fill="#aab"
             stroke="none"
             stroke-width="6"
