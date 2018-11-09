@@ -16,11 +16,11 @@ interface Props {
 }
 
 function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }: Props) {
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(
     () => {
-      if (focus) {
+      if (focus && inputRef.current) {
         inputRef.current.focus();
       }
     },

@@ -21,7 +21,7 @@ function SubtasksEditor({
   onEdit,
   onRemove,
 }: Props) {
-  const lastFocusedRef = useRef<number>();
+  const lastFocusedRef = useRef<number>(NaN);
 
   function handleEdit(subtask: ISubtask) {
     if (onEdit) {

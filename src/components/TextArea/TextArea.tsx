@@ -8,7 +8,7 @@ interface Props {
 }
 
 function Textarea({ value, onChange, ...rest }: Props) {
-  const textareaRef = useRef<HTMLTextAreaElement>();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(adjustHeight, [value]);
 
@@ -21,17 +21,21 @@ function Textarea({ value, onChange, ...rest }: Props) {
   function handleFocus() {
     const length = value ? value.length * 2 : 0;
     setTimeout(() => {
-      textareaRef.current.setSelectionRange(length, length);
+      if (textareaRef.current) {
+        textareaRef.current.setSelectionRange(length, length);
+      }
     }, 1);
   }
 
   function adjustHeight() {
     const ref = textareaRef.current;
-    if (ref.scrollHeight === 0) {
-      return;
+    if (ref) {
+      if (ref.scrollHeight === 0) {
+        return;
+      }
+      ref.style.height = '1px';
+      ref.style.height = `${ref.scrollHeight}px`;
     }
-    ref.style.height = '1px';
-    ref.style.height = `${ref.scrollHeight}px`;
   }
 
   return (
