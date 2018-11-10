@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import pollDatabase from './pollTasks';
+import pollDatabase from './pollDatabase';
 
 beforeEach(() => {
   // @ts-ignore

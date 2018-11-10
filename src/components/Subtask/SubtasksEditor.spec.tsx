@@ -32,7 +32,7 @@ it('invokes callback when subtask created', () => {
   });
 });
 
-it('creates new task when subtask submitted', () => {
+it('invokes callback when subtask submitted', () => {
   const spy = jest.fn();
   const { getByTestId } = render(
     <SubtasksEditor

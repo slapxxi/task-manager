@@ -1,5 +1,5 @@
-import { InnerStore, Project, Tag, Task } from '@local/types';
-import React, { useEffect, useState } from 'react';
+import { InnerStore, Project, StoreState, Task } from '@local/types';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   deleteTask,
   pollDatabase,
@@ -14,42 +14,45 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface State {
-  tasks: Task[];
-  tags: Tag[];
-  projects: Project[];
-  isLoading: boolean;
+function StoreProvider({ children }: Props) {
+  const store = useStore();
+  return <Provider value={store}>{children}</Provider>;
 }
 
-function StoreProvider({ children }: Props) {
-  const [state, setState] = useState<State>({
-    tasks: [],
+function useStore() {
+  const db = useDatabase();
+  const store = useMemo<InnerStore>(
+    () => ({
+      tasks: db.tasks,
+      tags: db.tags,
+      projects: db.projects,
+      isLoading: false,
+      actions: {
+        updateProject: (project: Project) => updateProject(project),
+        updateTask: (task: Task) => updateTask(task, db.tags),
+        deleteTask: (task: Task) => deleteTask(task),
+      },
+    }),
+    [db],
+  );
+  return store;
+}
+
+function useDatabase() {
+  const [database, setDatabase] = useState<StoreState>({
     tags: [],
     projects: [],
-    isLoading: true,
+    tasks: [],
   });
 
-  const value = {
-    ...state,
-    actions: {
-      updateTask: (task: Task) => {
-        updateTask(task, state.tags);
-      },
-      updateProject: (project: Project) => {
-        updateProject(project);
-      },
-      deleteTask: (task: Task) => {
-        deleteTask(task);
-      },
-    },
-  };
-
   useEffect(() => {
-    const fn = pollDatabase((database) => setState({ ...database, isLoading: false }));
+    const fn = pollDatabase((db) => {
+      setDatabase(db);
+    });
     return () => stopPolling(fn);
   }, []);
 
-  return <Provider value={value}>{children}</Provider>;
+  return database;
 }
 
 export default StoreProvider;

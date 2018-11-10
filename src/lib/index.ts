@@ -10,6 +10,7 @@ import createTag from './tags/createTag';
 import assignToProject from './tasks/assignToProject';
 import createSubtask from './tasks/createSubtask';
 import createTask from './tasks/createTask';
+import getTaskProgress from './tasks/getTaskProgress';
 import resetDeadline from './tasks/resetDeadline';
 import setDeadline from './tasks/setDeadline';
 import tagTask from './tasks/tagTask';
@@ -27,6 +28,7 @@ export {
   describeArc,
   fromEpochTime,
   getProjectProgress,
+  getTaskProgress,
   Keys,
   polarToCartesian,
   Regex,

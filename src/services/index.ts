@@ -1,5 +1,5 @@
 import deleteTask from './deleteTask';
-import pollDatabase from './pollTasks';
+import pollDatabase from './pollDatabase';
 import stopPolling from './stopPolling';
 import updateProject from './updateProject';
 import updateTask from './updateTask';

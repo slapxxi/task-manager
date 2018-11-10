@@ -1,4 +1,5 @@
 import { resetDeadline, setDeadline, tagTask, toggleTask } from '@lib';
+import { addSubtask, getTaskProgress, removeSubtask } from '@lib/tasks';
 import {
   Calendar,
   Checkbox,
@@ -75,7 +76,9 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
   }
 
   function handleAddTag(newTag: UserCreatedTag) {
-    if (!includes(task.tags.map((t) => t.name.toLowerCase()), newTag.name)) {
+    if (
+      !includes(task.tags.map((t) => t.name.toLowerCase()), newTag.name.toLowerCase())
+    ) {
       if (onEdit) {
         onEdit(tagTask(task, newTag));
       }
@@ -128,10 +131,7 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
 
   function handleRemoveSubtask(subtask: Subtask) {
     if (onEdit) {
-      onEdit({
-        ...task,
-        subtasks: task.subtasks.filter((st) => st.id !== subtask.id),
-      });
+      onEdit(removeSubtask(task, subtask));
     }
   }
 
@@ -158,9 +158,7 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
         {task.subtasks.length > 0 ? (
           <ProgressCheckbox
             value={task.completed}
-            progress={
-              task.subtasks.filter((st) => st.completed).length / task.subtasks.length
-            }
+            progress={getTaskProgress(task)}
             size={22}
           />
         ) : (
@@ -296,12 +294,5 @@ const Details = styled.div`
   margin-left: calc(1em + 20px);
   padding: 10px 0 0;
 `;
-
-function addSubtask(task: ITask, subtask: Subtask): ITask {
-  return {
-    ...task,
-    subtasks: task.subtasks.map((st) => (st.id === subtask.id ? subtask : st)),
-  };
-}
 
 export default React.memo(Task, (prevProps, nextProps) => isEqual(prevProps, nextProps));

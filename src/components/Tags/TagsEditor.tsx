@@ -1,6 +1,6 @@
 import { Keys, Regex } from '@lib';
 import { ID, Tag as ITag, UserCreatedTag } from '@local/types';
-import { includes, isEmpty, last, pull } from 'lodash';
+import { includes, isEmpty, last, without } from 'lodash';
 import React, { useState } from 'react';
 import styles from './styles.css';
 import Tag from './Tag';
@@ -20,7 +20,7 @@ function TagsEditor({ tags, onAddTag, onRemoveTags, className }: Props) {
     if (isSelected) {
       setSelectedTags([...selectedTags, tag.id]);
     } else {
-      setSelectedTags(pull(selectedTags, tag.id));
+      setSelectedTags(without(selectedTags, tag.id));
     }
   }
 

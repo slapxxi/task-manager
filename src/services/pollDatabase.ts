@@ -17,8 +17,8 @@ function pollDatabase(fn: (state: StoreState) => void) {
     .database()
     .ref('/')
     .on('value', (snapshot) => {
-      if (snapshot) {
-        const response = snapshot.val();
+      const response = snapshot && snapshot.val();
+      if (response) {
         const tags = normalizeTags(response.tags);
         const tasks = normalizeTasks(response.tasks, tags);
         const projects = normalizeProjects(response.projects, tasks);

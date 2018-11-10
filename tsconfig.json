@@ -20,8 +20,10 @@
     "target": "es5",
     "paths": {
       "@lib": ["lib"],
+      "@lib/*": ["lib/*"],
       "@local/hooks": ["hooks"],
       "@local/types": ["types"],
+      "@local/components": ["components"],
       "@local/components/*": ["components/*"]
     }
   },

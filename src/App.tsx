@@ -1,12 +1,12 @@
+import Menu from '@local/components/Menu/Menu';
+import StoreProvider from '@local/components/Store/StoreProvider';
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Menu from './components/Menu/Menu';
-import StoreProvider from './components/Store/StoreProvider';
 
-const InboxPage = React.lazy(() => import('./components/pages/InboxPage'));
-const ProjectsPage = React.lazy(() => import('./components/pages/ProjectsPage'));
-const ProjectPage = React.lazy(() => import('./components/pages/ProjectPage'));
-const TagsPage = React.lazy(() => import('./components/pages/TagsPage'));
+const InboxPage = React.lazy(() => import('@local/components/pages/InboxPage'));
+const ProjectsPage = React.lazy(() => import('@local/components/pages/ProjectsPage'));
+const ProjectPage = React.lazy(() => import('@local/components/pages/ProjectPage'));
+const TagsPage = React.lazy(() => import('@local/components/pages/TagsPage'));
 
 function App() {
   return (

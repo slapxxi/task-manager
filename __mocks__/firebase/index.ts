@@ -2,7 +2,39 @@ import { set } from 'lodash';
 
 Date.now = () => 69;
 
-let databaseMock;
+let databaseMock = {
+  tasks: {
+    'first-task': {
+      title: 'first',
+      deadline: 0,
+      createdAt: 1,
+    },
+    'second-task': {
+      title: 'second',
+      deadline: 2668,
+      createdAt: 2,
+    },
+    'third-task': {
+      title: 'third',
+      tags: ['html'],
+      deadline: 0,
+      project: 'test',
+    },
+  },
+  tags: {
+    html: {
+      name: 'HTML',
+    },
+    css: {
+      name: 'CSS',
+    },
+  },
+  projects: {
+    test: {
+      name: 'Test Project',
+    },
+  },
+};
 
 const snapshot = {
   val() {
