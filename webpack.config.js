@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const dotenv = require('dotenv');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
@@ -13,15 +14,31 @@ const defaultConfiguration = {
       '@local': path.resolve(__dirname, 'src'),
     },
   },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       styles: {
+  //         name: 'styles',
+  //         test: /\.css$/,
+  //         chunks: 'all',
+  //         enforce: true,
+  //       },
+  //     },
+  //   },
+  // },
   optimization: {
     splitChunks: {
       cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'initial',
         },
+        // default: {
+        //   minChunks: 2,
+        //   priority: -20,
+        //   reuseExistingChunk: true,
+        // },
       },
     },
   },
@@ -29,7 +46,7 @@ const defaultConfiguration = {
     react: 'React',
     'react-dom': 'ReactDOM',
   },
-  plugins: [new SpriteLoaderPlugin()],
+  plugins: [new SpriteLoaderPlugin(), new webpack.HashedModuleIdsPlugin()],
 };
 
 module.exports = defaultConfiguration;

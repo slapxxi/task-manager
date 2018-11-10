@@ -1,11 +1,16 @@
 import { TasksEditor } from '@local/components';
 import { useStore } from '@local/hooks';
-import * as React from 'react';
+import React from 'react';
+import styles from './styles.css';
 
 function InboxPage() {
-  const { tasks, actions } = useStore();
+  const { tasks, actions, isLoading } = useStore();
+  if (isLoading) {
+    return <div>Loading State...</div>;
+  }
   return (
-    <div>
+    <div className={styles.inboxPage}>
+      <PageTitle className={styles.title}>Inbox</PageTitle>
       <TasksEditor
         tasks={tasks}
         onEdit={actions.updateTask}
@@ -14,6 +19,16 @@ function InboxPage() {
       />
     </div>
   );
+}
+
+function PageTitle({
+  children,
+  ...rest
+}: {
+  children: React.ReactNode;
+  [prop: string]: any;
+}) {
+  return <h1 {...rest}>{children}</h1>;
 }
 
 export default InboxPage;

@@ -3,34 +3,38 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const defaultConfiguration = require('./webpack.config');
 
+const sourceFolderPath = path.resolve(__dirname, 'src');
+const assetsFolderPath = path.resolve(__dirname, 'src', 'assets');
+
 const developmentConfiguration = {
   ...defaultConfiguration,
   mode: 'development',
   devtool: 'source-map',
   output: {
-    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
-    chunkFilename: '[name].bundle.js',
+    publicPath: '/',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].[contenthash].chunk.js',
   },
   module: {
     rules: [
       {
         test: /\.(t|j)sx?$/,
+        include: sourceFolderPath,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'ts-loader',
             options: {
               onlyCompileBundledFiles: true,
-              reportFiles: ['!src/components/Hooker/Hooker.tsx'],
             },
           },
         ],
-        exclude: /node_modules/,
       },
       {
         test: /\.(sa|sc|c)ss$/,
-        include: path.resolve(__dirname, 'src'),
+        include: sourceFolderPath,
+        exclude: /node_modules/,
         use: [
           { loader: 'style-loader' },
           {
@@ -44,10 +48,10 @@ const developmentConfiguration = {
           },
           { loader: 'postcss-loader' },
         ],
-        exclude: /node_modules/,
       },
       {
         test: /\.svg$/,
+        include: assetsFolderPath,
         use: [
           {
             loader: 'svg-sprite-loader',

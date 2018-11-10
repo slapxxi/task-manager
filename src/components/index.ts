@@ -12,7 +12,6 @@ import ProjectsPage from './pages/ProjectsPage';
 import ProgressCheckbox from './ProgressCheckbox/ProgressCheckbox';
 import Project from './Project/Project';
 import Projects from './Project/Projects';
-import Store from './Store/Store';
 import StoreProvider from './Store/StoreProvider';
 import Subtasks from './Subtask/Subtasks';
 import SubtasksEditor from './Subtask/SubtasksEditor';
@@ -38,7 +37,6 @@ export {
   ProjectPage,
   Projects,
   ProjectsPage,
-  Store,
   StoreProvider,
   Subtasks,
   SubtasksEditor,

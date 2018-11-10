@@ -1,4 +1,4 @@
-import { Task } from '@local/types';
+import { Project, Task } from '@local/types';
 import assignToProject from './assignToProject';
 
 it('assigns task to project', () => {
@@ -7,7 +7,5 @@ it('assigns task to project', () => {
 });
 
 it('throws when ID missing in project', () => {
-  expect(() => assignToProject({} as Task, {} as Project)).toThrow(
-    'Missing project ID',
-  );
+  expect(() => assignToProject({} as Task, {} as Project)).toThrow('Missing project ID');
 });

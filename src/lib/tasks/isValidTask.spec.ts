@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import isValidTask from './isValidTask';
 
 it('returns `false` if `title` is empty', () => {

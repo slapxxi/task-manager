@@ -14,6 +14,7 @@ it('selects tags', () => {
   const { getAllByTestId, getByText } = render(<TagsEditor tags={tags} />);
   fireEvent.click(getByText('HTML'));
   fireEvent.click(getByText('CSS'));
+  // @ts-ignore
   getAllByTestId('checkbox').forEach((checkbox: Partial<HTMLInputElement>) => {
     expect(checkbox).toHaveProperty('checked', true);
   });
@@ -67,6 +68,7 @@ it('removes selection after removing selected tags', () => {
   fireEvent.click(getByText('HTML'));
   fireEvent.keyDown(getByTestId('input'), { keyCode: Keys.backspace });
   expect(spy).toHaveBeenCalledTimes(1);
+  // @ts-ignore
   getAllByTestId('checkbox').forEach((checkbox: Partial<HTMLInputElement>) => {
     expect(checkbox).toHaveProperty('checked', false);
   });

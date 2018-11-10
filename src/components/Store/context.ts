@@ -3,9 +3,11 @@ import { createContext } from 'react';
 
 const Context = createContext<InnerStore>({
   tasks: [],
+  projects: [],
   tags: [],
-  actions: {},
-} as any);
+  isLoading: false,
+  actions: {} as any,
+});
 
 const { Provider, Consumer } = Context;
 

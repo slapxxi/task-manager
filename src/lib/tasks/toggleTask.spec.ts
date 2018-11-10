@@ -1,3 +1,4 @@
+import { Task } from '@local/types';
 import toggleTask from './toggleTask';
 
 it('completes a task if not completed', () => {

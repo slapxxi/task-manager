@@ -1,6 +1,6 @@
 import { themeToCSSVariables } from '@lib';
 import { ColorTheme, Size } from '@local/types';
-import * as React from 'react';
+import React from 'react';
 
 interface Props {
   glyph: Glyph;
@@ -51,4 +51,4 @@ function determineSize(size: Size) {
   }
 }
 
-export default Icon;
+export default React.memo(Icon);

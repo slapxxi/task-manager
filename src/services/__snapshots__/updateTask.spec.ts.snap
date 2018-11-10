@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reuses existing tags 1`] = `
+Object {
+  "projects": Object {
+    "test": Object {
+      "name": "Test Project",
+    },
+  },
+  "tags": Object {
+    "css": Object {
+      "name": "CSS",
+    },
+    "html": Object {
+      "name": "HTML",
+    },
+    "unique-id-1": Object {
+      "name": "ruby",
+    },
+  },
+  "tasks": Object {
+    "first-task": Object {
+      "createdAt": 1,
+      "deadline": 0,
+      "title": "first",
+    },
+    "second-task": Object {
+      "createdAt": 2,
+      "deadline": 2668,
+      "title": "second",
+    },
+    "third-task": Object {
+      "deadline": 0,
+      "project": "test",
+      "tags": Array [
+        "html",
+      ],
+      "title": "third",
+    },
+    "unique-id-0": Object {
+      "completed": false,
+      "createdAt": 69,
+      "deadline": 0,
+      "description": "",
+      "project": "",
+      "subtasks": Array [],
+      "tags": Array [
+        "css",
+        "html",
+        "unique-id-1",
+      ],
+      "title": "task",
+    },
+  },
+}
+`;
+
+exports[`updates task 1`] = `
+Object {
+  "projects": Object {
+    "test": Object {
+      "name": "Test Project",
+    },
+  },
+  "tags": Object {
+    "css": Object {
+      "name": "CSS",
+    },
+    "html": Object {
+      "name": "HTML",
+    },
+  },
+  "tasks": Object {
+    "first-task": Object {
+      "createdAt": 1,
+      "deadline": 0,
+      "title": "first",
+    },
+    "second-task": Object {
+      "createdAt": 2,
+      "deadline": 2668,
+      "title": "second",
+    },
+    "third-task": Object {
+      "deadline": 0,
+      "project": "test",
+      "tags": Array [
+        "html",
+      ],
+      "title": "third",
+    },
+    "unique-id-0": Object {
+      "completed": false,
+      "createdAt": 69,
+      "deadline": 0,
+      "description": "",
+      "project": "",
+      "subtasks": Array [],
+      "tags": Array [],
+      "title": "task",
+    },
+  },
+}
+`;

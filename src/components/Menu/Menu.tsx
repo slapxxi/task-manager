@@ -1,12 +1,12 @@
 import { Location } from 'history';
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Icon } from '..';
 import arrowDown from '../../assets/arrow_down.svg';
 import briefcase from '../../assets/briefcase.svg';
 import cross from '../../assets/cross.svg';
 import inbox from '../../assets/inbox.svg';
 import tag from '../../assets/tag.svg';
+import Icon from '../Icon/Icon';
 import styles from './styles.css';
 
 interface Props {
@@ -49,7 +49,7 @@ function Menu({ location }: Props) {
             </li>
             <li className={styles.listItem}>
               <Icon glyph={tag} size={iconSize} className={styles.tagIcon} />
-              <Link to="/" className={styles.link}>
+              <Link to="/tags" className={styles.link}>
                 Tags
               </Link>
             </li>
@@ -57,6 +57,12 @@ function Menu({ location }: Props) {
               <Icon glyph={briefcase} size={iconSize} className={styles.icon} />
               <Link to="/projects" className={styles.link}>
                 Projects
+              </Link>
+            </li>
+            <li className={styles.listItem}>
+              <Icon glyph={briefcase} size={iconSize} className={styles.icon} />
+              <Link to="/settings" className={styles.link}>
+                Settings
               </Link>
             </li>
           </ul>

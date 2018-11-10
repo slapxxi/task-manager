@@ -1,3 +1,4 @@
+export const inboxPage: string;
 export const title: string;
 export const list: string;
 export const listItem: string;

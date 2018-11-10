@@ -35,8 +35,7 @@ function normalizeTasks(tasks: DBEntry<DBTask>, tags: Tag[]): Task[] {
         ...task,
         id: key,
         tags: matchTags(task, tags),
-        deadline:
-          task.deadline === 0 ? undefined : fromEpochTime(task.deadline),
+        deadline: task.deadline === 0 ? undefined : fromEpochTime(task.deadline),
       }),
     ),
     'createdAt',
@@ -57,10 +56,7 @@ function normalizeTags(tags: DBEntry<DBTag>): Tag[] {
   }));
 }
 
-function normalizeProjects(
-  projects: DBEntry<DBProject>,
-  tasks: Task[],
-): Project[] {
+function normalizeProjects(projects: DBEntry<DBProject>, tasks: Task[]): Project[] {
   return map(projects, (item, key) => ({
     id: key,
     name: item.name,

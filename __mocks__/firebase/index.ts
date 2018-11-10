@@ -81,9 +81,7 @@ const mock = {
             }, 1);
           },
           once(event) {
-            return new Promise((resolve) => {
-              resolve(snapshot.tags);
-            });
+            return new Promise((resolve) => resolve(snapshot));
           },
           set(value) {
             const objectPath = path.replace(/\//g, '.').slice(1);

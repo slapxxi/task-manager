@@ -1,6 +1,5 @@
-import { Project, StoreState, Task } from '@local/types';
-import { isEqual } from 'lodash';
-import * as React from 'react';
+import { InnerStore, Project, Tag, Task } from '@local/types';
+import React, { useEffect, useState } from 'react';
 import {
   deleteTask,
   pollDatabase,
@@ -11,76 +10,46 @@ import {
 import { Provider } from './context';
 
 interface Props {
-  store?: StoreState;
+  store?: InnerStore;
   children: React.ReactNode;
 }
 
 interface State {
-  store: StoreState;
+  tasks: Task[];
+  tags: Tag[];
+  projects: Project[];
+  isLoading: boolean;
 }
 
-class StoreProvider extends React.Component<Props, State> {
-  public fn: (params: any) => void = () => null;
+function StoreProvider({ children }: Props) {
+  const [state, setState] = useState<State>({
+    tasks: [],
+    tags: [],
+    projects: [],
+    isLoading: true,
+  });
 
-  constructor(props: Props) {
-    super(props);
-    this.updateTask = this.updateTask.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
-    this.updateProject = this.updateProject.bind(this);
-    this.state = {
-      store: props.store || {
-        tasks: [],
-        tags: [],
-        projects: [],
+  const value = {
+    ...state,
+    actions: {
+      updateTask: (task: Task) => {
+        updateTask(task, state.tags);
       },
-    };
-  }
+      updateProject: (project: Project) => {
+        updateProject(project);
+      },
+      deleteTask: (task: Task) => {
+        deleteTask(task);
+      },
+    },
+  };
 
-  public shouldComponentUpdate(_: Props, nextState: State) {
-    if (isEqual(this.state.store, nextState.store)) {
-      return false;
-    }
-    return true;
-  }
+  useEffect(() => {
+    const fn = pollDatabase((database) => setState({ ...database, isLoading: false }));
+    return () => stopPolling(fn);
+  }, []);
 
-  public updateProject(project: Project) {
-    updateProject(project);
-  }
-
-  public updateTask(task: Task) {
-    updateTask(task, this.state.store.tags);
-  }
-
-  public deleteTask(task: Task) {
-    deleteTask(task);
-  }
-
-  public componentDidMount() {
-    this.fn = pollDatabase((database) =>
-      this.setState({ store: { ...this.state.store, ...database } }),
-    );
-  }
-
-  public componentWillUnmount() {
-    stopPolling(this.fn);
-  }
-
-  public render() {
-    return (
-      <Provider
-        value={{
-          ...this.state.store,
-          actions: {
-            updateTask: this.updateTask,
-            updateProject: this.updateProject,
-            deleteTask: this.deleteTask,
-          },
-        }}
-      >
-        {this.props.children}
-      </Provider>
-    );
-  }
+  return <Provider value={value}>{children}</Provider>;
 }
 
 export default StoreProvider;

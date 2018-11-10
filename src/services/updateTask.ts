@@ -24,21 +24,19 @@ function updateWithTags(task: Task, tags: Tag[]) {
 }
 
 function matchTags(candidateTags: Tag[], existingTags: Tag[]) {
-  return candidateTags.reduce<Tag[]>(
-    (acc, current) => [
-      ...acc,
-      find(
-        existingTags,
-        (t) =>
-          (current.name &&
-            t.name.toLowerCase() === current.name.toLowerCase()) ||
-          t.id === current.id,
-      ) || {
-        id: createDBTag({ name: current.name }),
-        name: current.name,
-      },
-    ],
-    [],
+  return candidateTags.reduce((acc: Tag[], candidate) => {
+    const foundTag = findTag(existingTags, candidate);
+    if (foundTag) {
+      return [...acc, foundTag];
+    }
+    return [...acc, { name: candidate.name, id: createDBTag({ name: candidate.name }) }];
+  }, []);
+}
+
+function findTag(parent: Tag[], child: Tag) {
+  return find(
+    parent,
+    (c) => c.name.toLowerCase() === child.name.toLowerCase() || c.id === child.id,
   );
 }
 

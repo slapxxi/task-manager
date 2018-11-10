@@ -94,7 +94,11 @@ interface StoreState {
   projects: Project[];
 }
 
-interface InnerStore extends StoreState {
+interface InnerStore {
+  tasks: Task[];
+  tags: Tag[];
+  projects: Project[];
+  isLoading: boolean;
   actions: {
     updateTask: (task: Task) => void;
     updateProject: (project: Project) => void;

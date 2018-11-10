@@ -1,6 +1,9 @@
+.inboxPage {
+}
+
 .title {
   font-weight: 500;
-  margin-left: 10px;
+  margin: 0 0 0 10px;
 }
 
 .list {
