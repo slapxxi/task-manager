@@ -1,6 +1,8 @@
 import { ColorTheme } from '@local/types';
 import { Color } from 'csstype';
-import { isEmpty, kebabCase, map } from 'lodash';
+import isEmpty from 'lodash-es/isEmpty';
+import kebabCase from 'lodash-es/kebabCase';
+import map from 'lodash-es/map';
 
 function themeToCSSVariables(theme: ColorTheme) {
   if (isEmpty(theme)) {

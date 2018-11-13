@@ -1,5 +1,5 @@
 import { Task as ITask } from '@local/types';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash-es/isEmpty';
 import React from 'react';
 import styles from './styles.css';
 

@@ -1,5 +1,5 @@
 import { Tag } from '@local/types';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 function updateTag(tag: Tag) {
   firebase

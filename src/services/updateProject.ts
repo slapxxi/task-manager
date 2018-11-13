@@ -1,5 +1,5 @@
 import { Project } from '@local/types';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 function updateProject(project: Project) {
   firebase

@@ -1,6 +1,6 @@
 import { createTag } from '@lib';
 import { DBTag } from '@local/types';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 interface Params {
   name: string;

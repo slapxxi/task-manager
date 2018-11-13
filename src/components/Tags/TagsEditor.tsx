@@ -1,6 +1,9 @@
 import { Keys, Regex } from '@lib';
 import { ID, Tag as ITag, UserCreatedTag } from '@local/types';
-import { includes, isEmpty, last, without } from 'lodash';
+import includes from 'lodash-es/includes';
+import isEmpty from 'lodash-es/isEmpty';
+import last from 'lodash-es/last';
+import without from 'lodash-es/without';
 import React, { useState } from 'react';
 import styles from './styles.css';
 import Tag from './Tag';

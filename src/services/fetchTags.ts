@@ -1,6 +1,6 @@
 import { Tag } from '@local/types';
-import firebase from 'firebase';
-import { map } from 'lodash';
+import firebase from 'firebase/app';
+import map from 'lodash-es/map';
 
 async function fetchTags() {
   const snapshot = await firebase

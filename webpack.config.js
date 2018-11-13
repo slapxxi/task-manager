@@ -14,18 +14,6 @@ const defaultConfiguration = {
       '@local': path.resolve(__dirname, 'src'),
     },
   },
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       styles: {
-  //         name: 'styles',
-  //         test: /\.css$/,
-  //         chunks: 'all',
-  //         enforce: true,
-  //       },
-  //     },
-  //   },
-  // },
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -34,11 +22,12 @@ const defaultConfiguration = {
           name: 'vendors',
           chunks: 'initial',
         },
-        // default: {
-        //   minChunks: 2,
-        //   priority: -20,
-        //   reuseExistingChunk: true,
-        // },
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
       },
     },
   },

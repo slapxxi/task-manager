@@ -1,4 +1,4 @@
-import { flow } from 'lodash';
+import flow from 'lodash-es/flow';
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import { Keys } from '.';
@@ -7,11 +7,7 @@ import handleEmptyBackspace from './handleEmptyBackspace';
 it('invokes callback when input is empty', () => {
   const spy = jest.fn();
   const { getByTestId } = render(
-    <input
-      type="text"
-      onKeyDown={handleEmptyBackspace(spy)}
-      data-testid="input"
-    />,
+    <input type="text" onKeyDown={handleEmptyBackspace(spy)} data-testid="input" />,
   );
   fireEvent.keyDown(getByTestId('input'), {
     keyCode: Keys.backspace,
@@ -23,11 +19,7 @@ it('invokes callback when input is empty', () => {
 it('does not invoke callback when input is not empty', () => {
   const spy = jest.fn();
   const { getByTestId } = render(
-    <input
-      type="text"
-      onKeyDown={handleEmptyBackspace(spy)}
-      data-testid="input"
-    />,
+    <input type="text" onKeyDown={handleEmptyBackspace(spy)} data-testid="input" />,
   );
   fireEvent.keyDown(getByTestId('input'), {
     keyCode: Keys.backspace,

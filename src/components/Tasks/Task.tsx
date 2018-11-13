@@ -10,7 +10,9 @@ import {
   TagsEditor,
 } from '@local/components';
 import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
-import { includes, isEmpty, isEqual } from 'lodash';
+import includes from 'lodash-es/includes';
+import isEmpty from 'lodash-es/isEmpty';
+import isEqual from 'lodash-es/isEqual';
 import React, { useState } from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';

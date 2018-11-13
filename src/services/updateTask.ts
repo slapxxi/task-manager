@@ -1,7 +1,7 @@
 import { createTask, toEpochTime } from '@lib';
 import { DBTask, Tag, Task } from '@local/types';
-import firebase from 'firebase';
-import { find } from 'lodash';
+import firebase from 'firebase/app';
+import find from 'lodash-es/find';
 import uuid from 'uuid';
 import createDBTag from './createDBTag';
 

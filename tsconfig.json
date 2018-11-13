@@ -17,7 +17,7 @@
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es5",
+    "target": "esnext",
     "paths": {
       "@lib": ["lib"],
       "@lib/*": ["lib/*"],

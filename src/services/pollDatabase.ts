@@ -9,8 +9,10 @@ import {
   Tag,
   Task,
 } from '@local/types';
-import firebase from 'firebase';
-import { compact, map, sortBy } from 'lodash';
+import firebase from 'firebase/app';
+import compact from 'lodash-es/compact';
+import map from 'lodash-es/map';
+import sortBy from 'lodash-es/sortBy';
 
 function pollDatabase(fn: (state: StoreState) => void) {
   return firebase
