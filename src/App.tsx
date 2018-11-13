@@ -3,10 +3,18 @@ import StoreProvider from '@local/components/Store/StoreProvider';
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-const InboxPage = React.lazy(() => import('@local/components/pages/InboxPage'));
-const ProjectsPage = React.lazy(() => import('@local/components/pages/ProjectsPage'));
-const ProjectPage = React.lazy(() => import('@local/components/pages/ProjectPage'));
-const TagsPage = React.lazy(() => import('@local/components/pages/TagsPage'));
+const InboxPage = React.lazy(() =>
+  import(/* webpackChunkName: "inbox" */ '@local/components/pages/InboxPage'),
+);
+const ProjectsPage = React.lazy(() =>
+  import(/* webpackChunkName: "projects" */ '@local/components/pages/ProjectsPage'),
+);
+const ProjectPage = React.lazy(() =>
+  import(/* webpackChunkName: "project" */ '@local/components/pages/ProjectPage'),
+);
+const TagsPage = React.lazy(() =>
+  import(/* webpackChunkName: "tags" */ '@local/components/pages/TagsPage'),
+);
 
 function App() {
   return (

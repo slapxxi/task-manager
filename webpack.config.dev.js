@@ -26,6 +26,7 @@ const developmentConfiguration = {
           {
             loader: 'ts-loader',
             options: {
+              transpileOnly: true,
               onlyCompileBundledFiles: true,
             },
           },

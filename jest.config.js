@@ -14,7 +14,7 @@ module.exports = {
   },
   globals: {
     'ts-jest': {
-      diagnostics: false,
+      diagnostics: { pathRegex: '\\.(spec|test)\\.(ts|tsx)' },
     },
   },
 };

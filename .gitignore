@@ -1,4 +1,9 @@
+### Webpack ###
+# Build output
 dist
+
+# Stats
+stats.json
 
 ### macOS ###
 # General
