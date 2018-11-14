@@ -1,22 +1,19 @@
 import { Project as IProject } from '@local/types';
-import * as React from 'react';
+import React from 'react';
 import Project from './Project';
 
 interface Props {
   projects: IProject[];
 }
 
-class Projects extends React.Component<Props, {}> {
-  public render() {
-    const { projects } = this.props;
-    return (
-      <div>
-        {projects.map((p) => (
-          <Project project={p} key={p.id} />
-        ))}
-      </div>
-    );
-  }
+function Projects({ projects }: Props) {
+  return (
+    <div>
+      {projects.map((project) => (
+        <Project project={project} key={project.id} />
+      ))}
+    </div>
+  );
 }
 
 export default Projects;

@@ -2,7 +2,7 @@ import { assignToProject } from '@lib';
 import { Project, TasksEditor } from '@local/components';
 import { useStore } from '@local/hooks';
 import { ID } from '@local/types';
-import * as React from 'react';
+import React from 'react';
 
 interface Props {
   projectID: ID;

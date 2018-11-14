@@ -1,5 +1,5 @@
 import { Subtask as ISubtask } from '@local/types';
-import * as React from 'react';
+import React from 'react';
 import styles from './styles.css';
 
 interface Props {
