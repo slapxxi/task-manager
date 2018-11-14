@@ -10,7 +10,9 @@ function Button(props: Props) {
 }
 
 const Container = styled.button`
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   width: 100%;
   border: 0;

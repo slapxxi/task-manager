@@ -1,6 +1,7 @@
 import { createTask } from '@lib';
-import { Action, Task as ITask } from '@local/types';
-import React, { useReducer } from 'react';
+import { Action, ID, Task as ITask } from '@local/types';
+import includes from 'lodash-es/includes';
+import React, { useEffect, useReducer } from 'react';
 import { Button } from '../';
 import { isValidTask } from '../../lib/tasks';
 import Task from './Task';
@@ -13,6 +14,7 @@ enum Mode {
 
 enum Actions {
   create,
+  invalidate,
   finish,
   expand,
   hide,
@@ -28,20 +30,27 @@ interface Props {
 
 interface State {
   mode: Mode;
-  activeIndex: number;
-  lastActiveIndex: number;
+  activeId: ID;
+  lastActiveId: ID;
 }
 
 function TasksEditor({ tasks, onEdit, onDelete, onCreate }: Props) {
   const [state, dispatch] = useReducer(tasksReducer, {
     mode: Mode.default,
-    activeIndex: NaN,
-    lastActiveIndex: NaN,
+    activeId: '',
+    lastActiveId: '',
   });
+
+  useEffect(
+    () => {
+      dispatch({ type: Actions.invalidate, payload: tasks.map((t) => t.id) });
+    },
+    [tasks.length],
+  );
 
   function handleCreateTask(task: ITask) {
     if (isValidTask(task)) {
-      dispatch({ type: Actions.finish, payload: tasks.length });
+      dispatch({ type: Actions.finish, payload: task.id });
       if (onCreate) {
         onCreate(task);
       }
@@ -68,12 +77,12 @@ function TasksEditor({ tasks, onEdit, onDelete, onCreate }: Props) {
     dispatch({ type: Actions.cancel });
   }
 
-  function handleExpand(index: number, expand: boolean) {
+  function handleExpand(id: ID, expand: boolean) {
     if (expand === false) {
       dispatch({ type: Actions.hide });
       return;
     }
-    dispatch({ type: Actions.expand, payload: index });
+    dispatch({ type: Actions.expand, payload: id });
   }
 
   return (
@@ -85,45 +94,51 @@ function TasksEditor({ tasks, onEdit, onDelete, onCreate }: Props) {
           ) : (
             <Task
               task={task}
-              expand={index === state.activeIndex}
+              expand={task.id === state.activeId}
               onEdit={handleEdit}
               onDelete={handleDelete}
-              onExpand={(expand) => handleExpand(index, expand)}
+              onExpand={(expand) => handleExpand(task.id, expand)}
               confirmDelete
             />
           )
         }
       </Tasks>
-      {state.mode === Mode.default ? (
-        <Button onClick={handleEnableCreate}>Create Task</Button>
-      ) : (
-        <Button onClick={handleCancel}>Cancel</Button>
-      )}
+      {onCreate ? (
+        state.mode === Mode.default ? (
+          <Button onClick={handleEnableCreate}>Create Task</Button>
+        ) : (
+          <Button onClick={handleCancel}>Cancel</Button>
+        )
+      ) : null}
     </>
   );
 }
 
-function tasksReducer(state: State, action: Action<Actions>) {
+function tasksReducer(state: State, action: Action<Actions>): State {
   switch (action.type) {
     case Actions.create:
       return {
         ...state,
         mode: Mode.create,
-        lastActiveIndex: state.activeIndex,
-        activeIndex: NaN,
+        lastActiveId: state.activeId,
+        activeId: '',
       };
+    case Actions.invalidate:
+      return includes(action.payload, state.activeId)
+        ? state
+        : { ...state, activeId: '' };
     case Actions.finish:
-      return { ...state, mode: Mode.default, activeIndex: action.payload };
+      return { ...state, mode: Mode.default, activeId: action.payload };
     case Actions.expand:
-      return { ...state, mode: Mode.default, activeIndex: action.payload };
+      return { ...state, mode: Mode.default, activeId: action.payload };
     case Actions.hide:
-      return { ...state, activeIndex: NaN };
+      return { ...state, activeId: '' };
     case Actions.cancel:
       return {
         ...state,
         mode: Mode.default,
-        activeIndex: state.lastActiveIndex,
-        lastActiveIndex: NaN,
+        activeId: state.lastActiveId,
+        lastActiveId: '',
       };
     default:
       return state;

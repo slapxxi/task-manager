@@ -10,7 +10,7 @@ interface Props {
 
 function Tasks({ tasks, children }: Props) {
   if (isEmpty(tasks)) {
-    return <p>There are no tasks yet.</p>;
+    return <p>Tasks are empty.</p>;
   }
   return (
     <ul className={styles.tasks}>

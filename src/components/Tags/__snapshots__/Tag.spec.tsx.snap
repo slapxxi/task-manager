@@ -5,12 +5,12 @@ exports[`clicking does not change the attribute 1`] = `
   <input
     class="checkbox"
     data-testid="checkbox"
-    id="test"
+    id="-test"
     type="checkbox"
   />
   <label
     class="label"
-    for="test"
+    for="-test"
   >
     test
   </label>
@@ -22,12 +22,12 @@ exports[`renders 1`] = `
   <input
     class="checkbox"
     data-testid="checkbox"
-    id="test"
+    id="-test"
     type="checkbox"
   />
   <label
     class="label"
-    for="test"
+    for="-test"
   >
     test
   </label>

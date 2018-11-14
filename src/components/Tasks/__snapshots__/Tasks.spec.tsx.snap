@@ -2,7 +2,7 @@
 
 exports[`renders information when tasks are empty 1`] = `
 <p>
-  There are no tasks yet.
+  Tasks are empty.
 </p>
 `;
 

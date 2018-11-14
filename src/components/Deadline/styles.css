@@ -3,6 +3,17 @@
   align-items: center;
 }
 
+.today {
+  --primary-color: var(--golden);
+  display: flex;
+  align-items: center;
+}
+
+.today > *:first-child {
+  margin-right: 5px;
+  transform: translateY(-1px);
+}
+
 .deadline {
   padding: 5px;
   border: 1px solid hsl(200, 5%, 90%);

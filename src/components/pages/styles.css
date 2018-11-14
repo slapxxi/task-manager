@@ -36,6 +36,12 @@
   align-items: center;
   padding: 0 10px;
   margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.tags {
+  margin-top: 10px;
+  flex-basis: 100%;
 }
 
 .title {

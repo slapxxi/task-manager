@@ -6,6 +6,7 @@ export const logbookPage: string;
 export const settingsPage: string;
 export const trashPage: string;
 export const header: string;
+export const tags: string;
 export const title: string;
 export const list: string;
 export const listItem: string;

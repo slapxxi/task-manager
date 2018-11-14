@@ -1,5 +1,11 @@
 import { resetDeadline, setDeadline, tagTask, toggleTask } from '@lib';
 import { addSubtask, getTaskProgress, removeSubtask } from '@lib/tasks';
+import arrow_down from '@local/assets/arrow_down.svg';
+import arrow_up from '@local/assets/arrow_up.svg';
+import flag from '@local/assets/flag.svg';
+import list from '@local/assets/list.svg';
+import tag from '@local/assets/tag.svg';
+import trashbin from '@local/assets/trashbin.svg';
 import {
   Calendar,
   Checkbox,
@@ -9,6 +15,7 @@ import {
   SubtasksEditor,
   TagsEditor,
 } from '@local/components';
+import TextArea from '@local/components/TextArea/TextArea';
 import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import includes from 'lodash-es/includes';
 import isEmpty from 'lodash-es/isEmpty';
@@ -16,13 +23,6 @@ import isEqual from 'lodash-es/isEqual';
 import React, { useState } from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
-import arrow_down from '../../assets/arrow_down.svg';
-import arrow_up from '../../assets/arrow_up.svg';
-import flag from '../../assets/flag.svg';
-import list from '../../assets/list.svg';
-import tag from '../../assets/tag.svg';
-import trashbin from '../../assets/trashbin.svg';
-import TextArea from '../TextArea/TextArea';
 import styles from './styles.css';
 
 enum Mode {
@@ -257,7 +257,7 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
   );
 }
 
-const Container = styled<{ active?: boolean; completed?: boolean }, 'div'>('div')`
+const Container = styled<{ active: boolean; completed: boolean }, 'div'>('div')`
   overflow: hidden;
   box-sizing: border-box;
   position: relative;

@@ -12,12 +12,12 @@ exports[`renders 1`] = `
       <input
         class="checkbox"
         data-testid="checkbox"
-        id="html"
+        id="-html"
         type="checkbox"
       />
       <label
         class="label"
-        for="html"
+        for="-html"
       >
         HTML
       </label>
@@ -28,12 +28,12 @@ exports[`renders 1`] = `
       <input
         class="checkbox"
         data-testid="checkbox"
-        id="css"
+        id="-css"
         type="checkbox"
       />
       <label
         class="label"
-        for="css"
+        for="-css"
       >
         CSS
       </label>

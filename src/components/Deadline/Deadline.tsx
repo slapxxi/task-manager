@@ -1,7 +1,9 @@
-import { DateTime, Icon } from '@local/components';
-import { differenceInCalendarDays, differenceInCalendarMonths } from 'date-fns';
+import cross from '@local/assets/cross.svg';
+import star from '@local/assets/star.svg';
+import { DateTime } from '@local/components';
+import Icon from '@local/components/Icon/Icon';
+import { differenceInCalendarDays, differenceInCalendarMonths, isToday } from 'date-fns';
 import React from 'react';
-import cross from '../../assets/cross.svg';
 import styles from './styles.css';
 
 interface Props {
@@ -18,13 +20,28 @@ function Deadline({ deadline, onChange, onReset }: Props) {
     }
   }
 
+  function handleChange() {
+    if (onChange) {
+      onChange(deadline);
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.deadline} onClick={() => onChange && onChange(deadline)}>
-        Deadline: <DateTime date={deadline} />
-        <button className={styles.reset} onClick={handleReset}>
-          <Icon glyph={cross} size={13} />
-        </button>
+      <div className={styles.deadline} onClick={handleChange}>
+        {isToday(deadline) ? (
+          <div className={styles.today}>
+            <Icon glyph={star} size={16} />
+            Today
+          </div>
+        ) : (
+          <>
+            Deadline: <DateTime date={deadline} />
+            <button className={styles.reset} onClick={handleReset}>
+              <Icon glyph={cross} size={13} />
+            </button>
+          </>
+        )}
       </div>
       {renderDaysLeft(deadline)}
     </div>

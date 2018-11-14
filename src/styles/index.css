@@ -1,5 +1,9 @@
 @import 'reset.css';
 
+:root {
+  --golden: hsl(50, 100%, 50%);
+}
+
 body {
   background-color: #f9fafa;
   font-size: 16px;

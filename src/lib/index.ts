@@ -11,6 +11,7 @@ import assignToProject from './tasks/assignToProject';
 import createSubtask from './tasks/createSubtask';
 import createTask from './tasks/createTask';
 import getTaskProgress from './tasks/getTaskProgress';
+import matchTasksByTags from './tasks/matchTasksByTags';
 import resetDeadline from './tasks/resetDeadline';
 import setDeadline from './tasks/setDeadline';
 import tagTask from './tasks/tagTask';
@@ -30,6 +31,7 @@ export {
   getProjectProgress,
   getTaskProgress,
   Keys,
+  matchTasksByTags,
   polarToCartesian,
   Regex,
   resetDeadline,
