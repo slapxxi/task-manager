@@ -1,0 +1,38 @@
+:root {
+  --fill-color: hsl(230, 10%, 91%);
+}
+
+.container {
+  padding: 10px;
+}
+
+.boxContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  fill: var(--fill-color);
+}
+
+.boxContainer:nth-child(2) {
+  margin-right: 10px;
+}
+
+.boxContainer:last-child {
+  margin-right: 10px;
+}
+
+.boxContainer svg {
+  width: 24px;
+  margin-right: 16px;
+}
+
+.box {
+  overflow: hidden;
+  margin-right: 10px;
+  background-color: var(--fill-color);
+  color: var(--fill-color);
+}
+
+.box:last-child {
+  margin-right: 0;
+}

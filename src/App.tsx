@@ -1,4 +1,5 @@
 import Menu from '@local/components/Menu/Menu';
+import Placeholder from '@local/components/Placeholder/Placeholder';
 import StoreProvider from '@local/components/Store/StoreProvider';
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -28,10 +29,10 @@ const TagsPage = React.lazy(() =>
   import(/* webpackChunkName: "tags" */ '@local/components/pages/TagsPage'),
 );
 const SettingsPage = React.lazy(() =>
-  import(/* webpackChunkName: "tags" */ '@local/components/pages/SettingsPage'),
+  import(/* webpackChunkName: "settings" */ '@local/components/pages/SettingsPage'),
 );
 const TrashPage = React.lazy(() =>
-  import(/* webpackChunkName: "tags" */ '@local/components/pages/TrashPage'),
+  import(/* webpackChunkName: "trash" */ '@local/components/pages/TrashPage'),
 );
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
       <Router>
         <div>
           <Menu />
-          <Suspense fallback={<div>Loading Page...</div>}>
+          <Suspense fallback={<Placeholder />}>
             <Switch>
               <Route path="/" exact render={() => <InboxPage />} />
               <Route path="/today" render={() => <TodayPage />} />
