@@ -1,0 +1,6 @@
+<svg viewBox="0 0 100 100">
+	<g fill="none" stroke="#000" style="fill: var(--secondary-color, none); stroke: var(--primary-color, #000)" stroke-width="8">
+		<ellipse cx="50" cy="14.87" rx="35.74" ry="9.966" style="fill: none" />
+		<path d="M85.74,14.87l-5.629,68.324c0,6.569 -12.94,11.903 -30.111,11.903c-17.171,0 -30.111,-5.334 -30.111,-11.903l-5.629,-68.324c0,5.501 16.015,9.966 35.74,9.966c19.725,0 35.74,-4.465 35.74,-9.966" />
+	</g>
+</svg>

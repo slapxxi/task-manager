@@ -1,4 +1,41 @@
 .inboxPage {
+  --primary-color: hsl(200, 100%, 50%);
+}
+
+.todayPage {
+  --primary-color: hsl(50, 100%, 50%);
+}
+
+.upcomingPage {
+  --primary-color: hsl(340, 100%, 50%);
+}
+
+.somedayPage {
+  --primary-color: hsl(50, 40%, 50%);
+  --secondary-color: hsl(50, 40%, 70%);
+}
+
+.logbookPage {
+  --secondary-color: hsl(130, 50%, 50%);
+  --primary-color: hsl(130, 50%, 50%);
+  /* --primary-color: hsl(130, 10%, 10%); */
+  --tertiary-color: hsl(350, 100%, 50%);
+}
+
+.settingsPage {
+  --primary-color: hsl(200, 10%, 50%);
+}
+
+.trashPage {
+  --primary-color: hsl(210, 10%, 75%);
+  --secondary-color: hsl(210, 10%, 80%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  margin: 20px 0;
 }
 
 .title {

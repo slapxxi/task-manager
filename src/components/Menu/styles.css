@@ -1,5 +1,5 @@
 :root {
-  --base-color: hsl(216, 10%, 70%);
+  --base-color: hsl(230, 15%, 70%);
 }
 
 .menu {
@@ -47,6 +47,7 @@
 
 .icon {
   --primary-color: var(--base-color);
+  --tertiary-color: var(--base-color);
   margin-right: 0.5em;
 }
 

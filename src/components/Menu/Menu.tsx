@@ -1,12 +1,18 @@
+import arrowDown from '@local/assets/arrow_down.svg';
+import book from '@local/assets/book.svg';
+import box from '@local/assets/box.svg';
+import briefcase from '@local/assets/briefcase.svg';
+import cross from '@local/assets/cross.svg';
+import inbox from '@local/assets/inbox.svg';
+import settings from '@local/assets/settings.svg';
+import star from '@local/assets/star.svg';
+import tag from '@local/assets/tag.svg';
+import trash from '@local/assets/trash.svg';
+import CalendarIcon from '@local/components/CalendarIcon/CalendarIcon';
+import Icon from '@local/components/Icon/Icon';
 import { Location } from 'history';
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import arrowDown from '../../assets/arrow_down.svg';
-import briefcase from '../../assets/briefcase.svg';
-import cross from '../../assets/cross.svg';
-import inbox from '../../assets/inbox.svg';
-import tag from '../../assets/tag.svg';
-import Icon from '../Icon/Icon';
 import styles from './styles.css';
 
 interface Props {
@@ -48,6 +54,24 @@ function Menu({ location }: Props) {
               </Link>
             </li>
             <li className={styles.listItem}>
+              <Icon glyph={star} size={iconSize} className={styles.icon} />
+              <Link to="/today" className={styles.link}>
+                Today
+              </Link>
+            </li>
+            <li className={styles.listItem}>
+              <Icon glyph={box} size={iconSize} className={styles.icon} />
+              <Link to="/someday" className={styles.link}>
+                Someday
+              </Link>
+            </li>
+            <li className={styles.listItem}>
+              <CalendarIcon date={new Date()} size={iconSize} className={styles.icon} />
+              <Link to="/upcoming" className={styles.link}>
+                Upcoming
+              </Link>
+            </li>
+            <li className={styles.listItem}>
               <Icon glyph={tag} size={iconSize} className={styles.tagIcon} />
               <Link to="/tags" className={styles.link}>
                 Tags
@@ -60,7 +84,19 @@ function Menu({ location }: Props) {
               </Link>
             </li>
             <li className={styles.listItem}>
-              <Icon glyph={briefcase} size={iconSize} className={styles.icon} />
+              <Icon glyph={book} size={iconSize} className={styles.icon} />
+              <Link to="/logbook" className={styles.link}>
+                Logbook
+              </Link>
+            </li>
+            <li className={styles.listItem}>
+              <Icon glyph={trash} size={iconSize} className={styles.icon} />
+              <Link to="/trash" className={styles.link}>
+                Trash
+              </Link>
+            </li>
+            <li className={styles.listItem}>
+              <Icon glyph={settings} size={iconSize} className={styles.icon} />
               <Link to="/settings" className={styles.link}>
                 Settings
               </Link>

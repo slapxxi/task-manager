@@ -1,16 +1,16 @@
-import inbox from '@local/assets/inbox.svg';
-import { Icon, TasksEditor } from '@local/components';
+import { TasksEditor } from '@local/components';
+import CalendarIcon from '@local/components/CalendarIcon/CalendarIcon';
 import { useStore } from '@local/hooks';
 import React from 'react';
 import styles from './styles.css';
 
-function InboxPage() {
+function UpcomingPage() {
   const { tasks, actions } = useStore();
   return (
-    <div className={styles.inboxPage}>
+    <div className={styles.upcomingPage}>
       <header className={styles.header}>
-        <Icon glyph={inbox} size={30} />
-        <PageTitle className={styles.title}>Inbox</PageTitle>
+        <CalendarIcon date={new Date()} size={30} />
+        <PageTitle className={styles.title}>Upcoming</PageTitle>
       </header>
       <TasksEditor
         tasks={tasks}
@@ -32,4 +32,4 @@ function PageTitle({
   return <h1 {...rest}>{children}</h1>;
 }
 
-export default InboxPage;
+export default UpcomingPage;
