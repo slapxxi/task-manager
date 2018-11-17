@@ -41,6 +41,8 @@ exports[`renders project 1`] = `
       class="name sc-htpNat kylDPf"
       data-testid="project-name"
       placeholder="Project Name..."
+      rows="1"
+      style="overflow-x: hidden; word-wrap: break-word; overflow-y: hidden;"
     >
       Test Project
     </textarea>

@@ -1,56 +1,38 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import TextareaAutosize from 'react-autosize-textarea';
 import styled from 'styled-components';
 
 interface Props {
   value?: string;
+  className?: string;
+  placeholder?: string;
+  onClick?: (e: any) => void;
   onChange?: (value: string) => void;
+  'data-testid'?: string;
   [prop: string]: any;
 }
 
-function Textarea({ value, onChange, ...rest }: Props) {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(adjustHeight, [value]);
-
+function Textarea({ value, onChange, className, onClick, placeholder, ...rest }: Props) {
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     if (onChange) {
       onChange(e.target.value);
     }
   }
 
-  function handleFocus() {
-    const length = value ? value.length * 2 : 0;
-    setTimeout(() => {
-      if (textareaRef.current) {
-        textareaRef.current.setSelectionRange(length, length);
-      }
-    }, 1);
-  }
-
-  function adjustHeight() {
-    const ref = textareaRef.current;
-    if (ref) {
-      if (ref.scrollHeight === 0) {
-        return;
-      }
-      ref.style.height = '1px';
-      ref.style.height = `${ref.scrollHeight}px`;
-    }
-  }
-
   return (
     <StyledTextarea
       value={value}
+      className={className}
       onChange={handleChange}
-      onFocus={handleFocus}
-      // @ts-ignore
-      ref={textareaRef}
-      {...rest}
+      onClick={onClick}
+      placeholder={placeholder}
+      data-testid={rest['data-testid']}
     />
   );
 }
 
-const StyledTextarea = styled.textarea`
+// @ts-ignore
+const StyledTextarea = styled(TextareaAutosize)`
   overflow: visible;
   box-sizing: border-box;
   width: 100%;
