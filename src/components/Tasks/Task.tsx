@@ -1,5 +1,11 @@
 import { resetDeadline, setDeadline, tagTask, toggleTask } from '@lib';
-import { addSubtask, getTaskProgress, removeSubtask } from '@lib/tasks';
+import {
+  addSubtask,
+  completeTask,
+  getTaskProgress,
+  removeSubtask,
+  resetTaskCompletion,
+} from '@lib/tasks';
 import arrow_down from '@local/assets/arrow_down.svg';
 import arrow_up from '@local/assets/arrow_up.svg';
 import flag from '@local/assets/flag.svg';
@@ -46,6 +52,16 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
   function handleToggle() {
     if (onEdit) {
       onEdit(toggleTask(task));
+    }
+  }
+
+  function handleToggleProgress(checked: boolean) {
+    if (onEdit) {
+      if (checked) {
+        onEdit(completeTask(task));
+      } else {
+        onEdit(resetTaskCompletion(task));
+      }
     }
   }
 
@@ -162,6 +178,7 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
             value={task.completed}
             progress={getTaskProgress(task)}
             size={22}
+            onToggle={handleToggleProgress}
           />
         ) : (
           <Checkbox

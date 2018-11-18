@@ -47,7 +47,7 @@ function ProgressCheckbox({
           {...rest}
         />
         <svg viewBox="0 0 100 100" width={size} height={size}>
-          {value || animatedProgress === 1 ? (
+          {animatedProgress === 1 ? (
             <>
               <circle cx="50" cy="50" r="44" fill="#17f" stroke="#16f" strokeWidth="8" />
               <path

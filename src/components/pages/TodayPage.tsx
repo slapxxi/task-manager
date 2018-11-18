@@ -18,7 +18,7 @@ function TodayPage() {
   const { tasks, actions } = useStore();
   const [selectedTags, setSelectedTags] = useState<ITag[]>([]);
   const todayTasks = tasks.filter((t) => t.deadline && isToday(t.deadline));
-  const tags = sortBy(
+  const todayTags = sortBy(
     uniqBy(flatten(todayTasks.map((t) => t.tags)), 'id') as ITag[],
     'name',
   );
@@ -42,7 +42,7 @@ function TodayPage() {
   }
 
   function selectAllTags() {
-    setSelectedTags(tags);
+    setSelectedTags(todayTags);
   }
 
   function selectTag(tag: ITag) {
@@ -64,7 +64,7 @@ function TodayPage() {
         <PageTitle className={styles.title}>Today</PageTitle>
         <div className={styles.tags}>
           <Tags
-            tags={[createTag({ id: 'all', name: 'All' }), ...tags]}
+            tags={[createTag({ id: 'all', name: 'All' }), ...todayTags]}
             renderTag={({ tag }) => (
               <Tag
                 tag={tag}
@@ -72,7 +72,7 @@ function TodayPage() {
                 onSelect={handleSelectTag}
                 selected={
                   tag.id === 'all'
-                    ? selectedTags.length === tags.length
+                    ? selectedTags.length === todayTags.length
                     : includes(selectedTags.map((t) => t.id), tag.id)
                 }
               />
