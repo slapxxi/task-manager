@@ -1,8 +1,9 @@
 import { Keys } from '@lib';
-import { Checkbox, Icon, Input } from '@local/components';
+import Checkbox from '@local/components/Checkbox/Checkbox';
+import IconSystem from '@local/components/IconSystem/IconSystem';
+import Input from '@local/components/Input/Input';
 import { Subtask as ISubtask } from '@local/types';
 import React, { useEffect, useRef } from 'react';
-import trash from '../../assets/trashbin.svg';
 import styles from './styles.css';
 
 interface Props {
@@ -89,7 +90,12 @@ function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }
         ref={inputRef}
         data-testid="input"
       />
-      <Icon glyph={trash} size={16} onClick={handleRemove} className={styles.trashbin} />
+      <IconSystem
+        name="trashbin"
+        size={16}
+        onClick={handleRemove}
+        className={styles.trashbin}
+      />
     </div>
   );
 }

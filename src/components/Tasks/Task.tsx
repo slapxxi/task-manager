@@ -6,21 +6,15 @@ import {
   removeSubtask,
   resetTaskCompletion,
 } from '@lib/tasks';
-import arrow_down from '@local/assets/arrow_down.svg';
-import arrow_up from '@local/assets/arrow_up.svg';
-import flag from '@local/assets/flag.svg';
-import list from '@local/assets/list.svg';
-import tag from '@local/assets/tag.svg';
-import trashbin from '@local/assets/trashbin.svg';
 import {
   Calendar,
   Checkbox,
   Deadline,
-  Icon,
   ProgressCheckbox,
   SubtasksEditor,
   TagsEditor,
 } from '@local/components';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import TextArea from '@local/components/TextArea/TextArea';
 import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import includes from 'lodash-es/includes';
@@ -200,10 +194,10 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
           data-testid="title"
         />
         {!expand && !isEmpty(task.tags) ? (
-          <Icon glyph={tag} size={18} className={styles.tagIcon} />
+          <IconSystem name="tag" size={18} className={styles.tagIcon} />
         ) : null}
-        <Icon
-          glyph={expand ? arrow_up : arrow_down}
+        <IconSystem
+          name={expand ? 'arrow-up' : 'arrow-down'}
           style={{ marginLeft: 10 }}
           className={styles.detailsIcon}
           onClick={handleToggleDetails}
@@ -242,8 +236,8 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
               onRemoveTags={handleRemoveTags}
             />
             {onDelete && (
-              <Icon
-                glyph={trashbin}
+              <IconSystem
+                name="trashbin"
                 size={16}
                 className={styles.footerIconDangerous}
                 onClick={handleDelete}
@@ -251,15 +245,15 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
               />
             )}
             {isEmpty(task.subtasks) && (
-              <Icon
-                glyph={list}
+              <IconSystem
+                name="list"
                 size={16}
                 className={styles.footerIcon}
                 onClick={handleChangeMode}
               />
             )}
-            <Icon
-              glyph={flag}
+            <IconSystem
+              name="flag"
               size={16}
               className={styles.footerIcon}
               onClick={handleToggleCalendar}

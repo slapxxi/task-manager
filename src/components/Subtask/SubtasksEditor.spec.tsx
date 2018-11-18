@@ -6,6 +6,8 @@ import SubtasksEditor from './SubtasksEditor';
 
 window.requestAnimationFrame = (fn) => setTimeout(fn, 10);
 
+jest.mock('@local/components/IconSystem/IconSystem');
+
 const subtasks = [
   { id: 'first', description: 'first', completed: false },
   { id: 'second', description: 'second', completed: false },

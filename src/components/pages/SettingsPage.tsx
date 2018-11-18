@@ -1,5 +1,4 @@
-import settings from '@local/assets/settings.svg';
-import { Icon } from '@local/components';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import React from 'react';
 import styles from './styles.css';
 
@@ -7,7 +6,7 @@ function SettingsPage() {
   return (
     <div className={styles.settingsPage}>
       <header className={styles.header}>
-        <Icon glyph={settings} size={30} />
+        <IconSystem name="settings" size={30} />
         <PageTitle className={styles.title}>Settings</PageTitle>
       </header>
     </div>

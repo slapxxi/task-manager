@@ -1,7 +1,6 @@
 import '!style-loader!css-loader!react-day-picker/lib/style.css';
-import star from '@local/assets/star.svg';
 import Button from '@local/components/Button/Button';
-import Icon from '@local/components/Icon/Icon';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import React from 'react';
 import DayPicker from 'react-day-picker';
 import styles from './styles.css';
@@ -20,7 +19,7 @@ function Calendar({ selected, onSelectDate }: Props) {
     <div className={styles.container}>
       <header>
         <Button onClick={handleSelectToday}>
-          <Icon glyph={star} size={20} className={styles.icon} /> Today
+          <IconSystem name="star" size={20} className={styles.icon} /> Today
         </Button>
       </header>
       <DayPicker

@@ -33,22 +33,19 @@ exports[`renders 1`] = `
     </div>
   </div>
   <input
-    class="sc-bwzfXH PGmuR"
+    class="sc-bdVaJa btPypT"
     data-testid="input"
     placeholder="What should be done..."
     type="text"
     value="test"
   />
-  <svg
+  <div
     class="trashbin"
-    height="16"
-    viewBox="viewBox"
-    width="16"
+    name="trashbin"
+    size="16"
   >
-    <use
-      id="icon-id"
-      xlink:href="#id"
-    />
-  </svg>
+    icon-
+    trashbin
+  </div>
 </div>
 `;

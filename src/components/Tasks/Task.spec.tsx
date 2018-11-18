@@ -3,6 +3,8 @@ import { fireEvent, render } from 'react-testing-library';
 import { createTask } from '../../lib/tasks';
 import Task from './Task';
 
+jest.mock('@local/components/IconSystem/IconSystem');
+
 const task = createTask({ id: 'test', title: 'test' });
 
 it('calls `onExpand` when expand button clicked', () => {

@@ -2,6 +2,8 @@ import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import Subtask from './Subtask';
 
+jest.mock('@local/components/IconSystem/IconSystem');
+
 const subtask = { id: 'test', description: 'test', completed: false };
 
 it('renders', () => {

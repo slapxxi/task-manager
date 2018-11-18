@@ -1,5 +1,5 @@
-import box from '@local/assets/box.svg';
-import { Icon, TasksEditor } from '@local/components';
+import { TasksEditor } from '@local/components';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import { useStore } from '@local/hooks';
 import React from 'react';
 import styles from './styles.css';
@@ -9,8 +9,8 @@ function SomedayPage() {
   return (
     <div className={styles.somedayPage}>
       <header className={styles.header}>
-        <Icon glyph={box} size={30} />
-        <PageTitle className={styles.title}>Someday</PageTitle>
+        <IconSystem name="box" size={30} />
+        <h1 className={styles.title}>Someday</h1>
       </header>
       <TasksEditor
         tasks={tasks}
@@ -20,16 +20,6 @@ function SomedayPage() {
       />
     </div>
   );
-}
-
-function PageTitle({
-  children,
-  ...rest
-}: {
-  children: React.ReactNode;
-  [prop: string]: any;
-}) {
-  return <h1 {...rest}>{children}</h1>;
 }
 
 export default SomedayPage;

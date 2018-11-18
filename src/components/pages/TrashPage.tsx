@@ -1,5 +1,4 @@
-import trash from '@local/assets/trash.svg';
-import { Icon } from '@local/components';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import React from 'react';
 import styles from './styles.css';
 
@@ -7,7 +6,7 @@ function TrashPage() {
   return (
     <div className={styles.trashPage}>
       <header className={styles.header}>
-        <Icon glyph={trash} size={30} />
+        <IconSystem name="trash" size={30} />
         <PageTitle className={styles.title}>Trash</PageTitle>
       </header>
     </div>

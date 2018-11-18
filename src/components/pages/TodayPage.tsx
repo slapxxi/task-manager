@@ -1,6 +1,6 @@
 import { createTag, matchTasksByTags } from '@lib';
-import star from '@local/assets/star.svg';
-import { Icon, TasksEditor } from '@local/components';
+import { TasksEditor } from '@local/components';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import Tag from '@local/components/Tags/Tag';
 import Tags from '@local/components/Tags/Tags';
 import { useStore } from '@local/hooks';
@@ -60,7 +60,7 @@ function TodayPage() {
   return (
     <div className={styles.todayPage}>
       <header className={styles.header}>
-        <Icon glyph={star} size={30} />
+        <IconSystem name="star" size={30} />
         <PageTitle className={styles.title}>Today</PageTitle>
         <div className={styles.tags}>
           <Tags

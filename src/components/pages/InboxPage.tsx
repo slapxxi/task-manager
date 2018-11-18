@@ -1,5 +1,5 @@
-import inbox from '@local/assets/inbox.svg';
-import { Icon, TasksEditor } from '@local/components';
+import { TasksEditor } from '@local/components';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import { useStore } from '@local/hooks';
 import React from 'react';
 import styles from './styles.css';
@@ -9,7 +9,7 @@ function InboxPage() {
   return (
     <div className={styles.inboxPage}>
       <header className={styles.header}>
-        <Icon glyph={inbox} size={30} />
+        <IconSystem name="inbox" size={30} />
         <PageTitle className={styles.title}>Inbox</PageTitle>
       </header>
       <TasksEditor

@@ -1,7 +1,5 @@
-import cross from '@local/assets/cross.svg';
-import star from '@local/assets/star.svg';
 import { DateTime } from '@local/components';
-import Icon from '@local/components/Icon/Icon';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import { differenceInCalendarDays, differenceInCalendarMonths, isToday } from 'date-fns';
 import React from 'react';
 import styles from './styles.css';
@@ -31,14 +29,14 @@ function Deadline({ deadline, onChange, onReset }: Props) {
       <div className={styles.deadline} onClick={handleChange}>
         {isToday(deadline) ? (
           <div className={styles.today}>
-            <Icon glyph={star} size={16} />
+            <IconSystem name="star" size={16} />
             Today
           </div>
         ) : (
           <>
             Deadline: <DateTime date={deadline} />
             <button className={styles.reset} onClick={handleReset}>
-              <Icon glyph={cross} size={13} />
+              <IconSystem name="cross" size={13} />
             </button>
           </>
         )}

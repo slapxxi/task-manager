@@ -1,5 +1,4 @@
-import book from '@local/assets/book.svg';
-import Icon from '@local/components/Icon/Icon';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import React from 'react';
 import styles from './styles.css';
 
@@ -7,21 +6,11 @@ function LogbookPage() {
   return (
     <div className={styles.logbookPage}>
       <header className={styles.header}>
-        <Icon glyph={book} size={30} />
-        <PageTitle className={styles.title}>Logbook</PageTitle>
+        <IconSystem name="book" size={30} />
+        <h1 className={styles.title}>Logbook</h1>
       </header>
     </div>
   );
-}
-
-function PageTitle({
-  children,
-  ...rest
-}: {
-  children: React.ReactNode;
-  [prop: string]: any;
-}) {
-  return <h1 {...rest}>{children}</h1>;
 }
 
 export default LogbookPage;
