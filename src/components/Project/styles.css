@@ -1,12 +1,20 @@
+.title {
+  --primary-color: hsl(225, 20%, 70%);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.subtitle {
+  padding: 0 10px;
+  color: hsl(225, 20%, 70%);
+}
+
 .name {
   margin-left: 10px;
   margin-right: 10px;
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 28px;
   font-weight: 500;
-}
-
-.title {
-  display: flex;
-  align-items: center;
+  color: hsl(225, 30%, 30%);
 }

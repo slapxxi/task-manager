@@ -1,8 +1,13 @@
 .tasks {
-  max-width: 640px;
   margin: 0 auto;
   padding: 0;
   list-style: none;
+}
+
+.task {
+  margin-left: 30px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .taskHeader {
@@ -85,4 +90,16 @@
   flex: 1;
   flex-basis: 100%;
   composes: tags from '../Tags/styles.css';
+}
+
+.footer {
+  margin-top: 40px;
+}
+
+.button {
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  color: var(--light-grey);
 }

@@ -1,5 +1,7 @@
 import { getProjectProgress } from '@lib';
 import { ProgressCheckbox, TextArea } from '@local/components';
+import Button from '@local/components/Button/Button';
+import IconSystem from '@local/components/IconSystem/IconSystem';
 import { Project as IProject } from '@local/types';
 import React from 'react';
 import styles from './styles.css';
@@ -24,7 +26,7 @@ function Project({ project, onEdit, children }: Props) {
   return (
     <div>
       <div className={styles.title}>
-        <ProgressCheckbox size={25} progress={getProjectProgress(project)} />
+        <ProgressCheckbox size={22} progress={getProjectProgress(project)} />
         <TextArea
           className={styles.name}
           placeholder="Project Name..."
@@ -32,7 +34,11 @@ function Project({ project, onEdit, children }: Props) {
           onChange={handleChange}
           data-testid="project-name"
         />
+        <Button>
+          <IconSystem name="dots" size={22} />
+        </Button>
       </div>
+      <div className={styles.subtitle}>{project.tasks.length} tasks</div>
       {children}
     </div>
   );

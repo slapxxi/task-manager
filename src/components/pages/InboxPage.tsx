@@ -11,13 +11,16 @@ function InboxPage() {
       <header className={styles.header}>
         <IconSystem name="inbox" size={30} />
         <PageTitle className={styles.title}>Inbox</PageTitle>
+        <IconSystem name="dots" size={20} className={styles.menu} />
       </header>
-      <TasksEditor
-        tasks={tasks}
-        onEdit={actions.updateTask}
-        onDelete={actions.deleteTask}
-        onCreate={actions.updateTask}
-      />
+      <div className={styles.content}>
+        <TasksEditor
+          tasks={tasks}
+          onEdit={actions.updateTask}
+          onDelete={actions.deleteTask}
+          onCreate={actions.updateTask}
+        />
+      </div>
     </div>
   );
 }

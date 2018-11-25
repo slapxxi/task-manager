@@ -5,6 +5,7 @@ import styles from './styles.css';
 
 interface Props {
   progress: number;
+  animate?: boolean;
   value?: boolean;
   size?: number;
   className?: string;
@@ -17,9 +18,11 @@ function ProgressCheckbox({
   onToggle,
   className,
   size = 20,
+  animate = true,
   ...rest
 }: Props) {
   const [animatedProgress, setAnimatedProgress] = useAnimatedValue(progress);
+  const actualProgress = animate ? animatedProgress : progress;
 
   useEffect(
     () => {
@@ -47,7 +50,7 @@ function ProgressCheckbox({
           {...rest}
         />
         <svg viewBox="0 0 100 100" width={size} height={size}>
-          {animatedProgress === 1 ? (
+          {actualProgress === 1 ? (
             <>
               <circle cx="50" cy="50" r="44" fill="#17f" stroke="#16f" strokeWidth="8" />
               <path
@@ -64,7 +67,7 @@ function ProgressCheckbox({
                   y: 50,
                   radius: 33,
                   startAngle: 0,
-                  endAngle: 360 * animatedProgress,
+                  endAngle: 360 * actualProgress,
                 })}
                 stroke="none"
                 fill="#aab"

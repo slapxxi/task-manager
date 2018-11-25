@@ -1,5 +1,7 @@
-<svg viewBox="0 0 80 20" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
-	<circle cx="10" cy="10" r="9" style="fill: var(--primary-color, #000)" />
-	<circle cx="40" cy="10" r="9" style="fill: var(--primary-color, #000)" />
-	<circle cx="70" cy="10" r="9" style="fill: var(--primary-color, #000)" />
+<svg viewBox="0 0 80 20">
+	<g fill="#000" style="fill: var(--primary-color, #000)">
+		<circle cx="10" cy="10" r="9" />
+		<circle cx="40" cy="10" r="9" />
+		<circle cx="70" cy="10" r="9" />
+	</g>
 </svg>

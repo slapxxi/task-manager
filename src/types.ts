@@ -103,6 +103,7 @@ interface InnerStore {
     updateTask: (task: Task) => void;
     updateProject: (project: Project) => void;
     deleteTask: (task: Task) => void;
+    deleteProject: (project: Project) => void;
   };
 }
 

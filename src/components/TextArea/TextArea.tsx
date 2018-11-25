@@ -35,7 +35,6 @@ function Textarea({ value, onChange, className, onClick, placeholder, ...rest }:
 const StyledTextarea = styled(TextareaAutosize)`
   overflow: visible;
   box-sizing: border-box;
-  width: 100%;
   height: auto;
   padding: 0;
   border: 0;

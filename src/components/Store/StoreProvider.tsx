@@ -1,3 +1,4 @@
+import deleteProject from '@local/services/deleteProject';
 import { InnerStore, Project, StoreState, Task } from '@local/types';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
@@ -31,6 +32,7 @@ function useStore() {
         updateProject: (project: Project) => updateProject(project),
         updateTask: (task: Task) => updateTask(task, db.tags),
         deleteTask: (task: Task) => deleteTask(task),
+        deleteProject: (project: Project) => deleteProject(project),
       },
     }),
     [db],

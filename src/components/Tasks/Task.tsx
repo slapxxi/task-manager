@@ -34,12 +34,21 @@ interface Props {
   task: ITask;
   expand?: boolean;
   confirmDelete?: boolean;
+  className?: string;
   onEdit?: (task: ITask) => void;
   onDelete?: (task: ITask) => void;
   onExpand?: (expand: boolean) => void;
 }
 
-function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props) {
+function Task({
+  task,
+  expand,
+  confirmDelete,
+  onEdit,
+  onDelete,
+  onExpand,
+  className,
+}: Props) {
   const [mode, setMode] = useState(Mode.default);
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -165,7 +174,7 @@ function Task({ task, expand, confirmDelete, onEdit, onDelete, onExpand }: Props
   }
 
   return (
-    <Container active={expand} completed={task.completed}>
+    <Container active={expand} completed={task.completed} className={className}>
       <header className={styles.taskHeader}>
         {task.subtasks.length > 0 ? (
           <ProgressCheckbox
@@ -272,7 +281,6 @@ const Container = styled<{ active: boolean; completed: boolean }, 'div'>('div')`
   overflow: hidden;
   box-sizing: border-box;
   position: relative;
-  padding: 15px 10px;
   background-color: ${({ active }) => (active ? '#fff' : 'transparent')};
   color: ${({ completed }) => (completed ? 'lightgrey' : '#334')};
   box-shadow: ${({ active }) => (active ? '0 1px 3px 2px rgba(0,0,0,0.1)' : 'none')};

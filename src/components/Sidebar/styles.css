@@ -1,0 +1,105 @@
+.container {
+  --primary-color: var(--middle-grey);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 100%;
+  background-color: var(--bg);
+  max-width: 250px;
+  width: 33%;
+}
+
+.container nav {
+  width: 100%;
+}
+
+.title {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-family: 'Source Sans Pro';
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--light-grey);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.starIcon {
+  --primary-color: transparent;
+  --secondary-color: var(--middle-grey);
+}
+
+.listItem > svg {
+  margin-right: 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--middle-grey);
+  flex: 1;
+}
+
+.link:global(.active) {
+  font-weight: bold;
+  color: var(--dark-grey);
+}
+
+.slot {
+  color: var(--middle-grey);
+}
+
+.section {
+  margin: 20px 0;
+}
+
+.sectionHeader {
+  --primary-color: var(--light-grey);
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sectionHeader > .title {
+  flex: 1;
+}
+
+.sectionListItem {
+  composes: listItem;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.button {
+  --primary-color: var(--light-grey);
+  font-size: 14px;
+  color: var(--light-grey);
+}
+
+.button:hover {
+  --primary-color: var(--dark-grey);
+  color: var(--dark-grey);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  justify-content: space-between;
+}

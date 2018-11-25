@@ -2,10 +2,27 @@
 
 :root {
   --golden: hsl(50, 100%, 50%);
+  --bg: hsl(180, 5%, 96%);
+  --dark-grey: hsl(225, 35%, 25%);
+  --middle-grey: hsl(225, 15%, 50%);
+  --light-grey: hsl(225, 15%, 70%);
+  --title-color: var(--dark-grey);
+}
+
+#root {
+  height: 100vh;
+}
+
+html {
+  height: 100%;
 }
 
 body {
-  background-color: #f9fafa;
+  height: 100%;
   font-size: 16px;
   font-family: Roboto, Helvetica, sans-serif;
+}
+
+.title {
+  font-family: 'Source Sans Pro', Arial, sans-serif;
 }

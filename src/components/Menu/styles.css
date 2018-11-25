@@ -4,7 +4,7 @@
 
 .menu {
   position: relative;
-  padding: 20px 10px;
+  padding: 0;
 }
 
 .layout {
@@ -13,7 +13,7 @@
   right: 0;
   left: 0;
   z-index: 1;
-  padding: 10px;
+  padding: 10px 20px;
   background: #112;
   color: #fff;
   transition: transform 0.2s;
@@ -48,7 +48,7 @@
 .icon {
   --primary-color: var(--base-color);
   --tertiary-color: var(--base-color);
-  margin-right: 0.5em;
+  margin-right: 1em;
 }
 
 .tagIcon {

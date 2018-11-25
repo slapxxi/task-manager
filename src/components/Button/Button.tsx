@@ -14,9 +14,8 @@ const Container = styled.button`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  width: 100%;
   border: 0;
-  padding: 10px 15px;
+  padding: 0;
   background: 0;
   color: #778;
 `;

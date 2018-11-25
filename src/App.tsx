@@ -1,8 +1,10 @@
-import Menu from '@local/components/Menu/Menu';
+import Header from '@local/components/Header/Header';
 import Placeholder from '@local/components/Placeholder/Placeholder';
+import Sidebar from '@local/components/Sidebar/Sidebar';
 import StoreProvider from '@local/components/Store/StoreProvider';
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import styles from './styles.css';
 
 const InboxPage = React.lazy(() =>
   import(/* webpackChunkName: "inbox" */ '@local/components/pages/InboxPage'),
@@ -39,25 +41,28 @@ function App() {
   return (
     <StoreProvider>
       <Router>
-        <div>
-          <Menu />
-          <Suspense fallback={<Placeholder />}>
-            <Switch>
-              <Route path="/" exact render={() => <InboxPage />} />
-              <Route path="/today" render={() => <TodayPage />} />
-              <Route path="/someday" render={() => <SomedayPage />} />
-              <Route path="/upcoming" render={() => <UpcomingPage />} />
-              <Route path="/logbook" render={() => <LogbookPage />} />
-              <Route path="/projects" exact render={() => <ProjectsPage />} />
-              <Route path="/tags" render={() => <TagsPage />} />
-              <Route path="/settings" render={() => <SettingsPage />} />
-              <Route path="/trash" render={() => <TrashPage />} />
-              <Route
-                path="/projects/:id"
-                render={({ match }) => <ProjectPage projectID={match.params.id} />}
-              />
-            </Switch>
-          </Suspense>
+        <div className={styles.container}>
+          <Sidebar />
+          <div className={styles.pageContainer}>
+            <Header />
+            <Suspense fallback={<Placeholder />}>
+              <Switch>
+                <Route path="/" exact render={() => <InboxPage />} />
+                <Route path="/today" render={() => <TodayPage />} />
+                <Route path="/someday" render={() => <SomedayPage />} />
+                <Route path="/upcoming" render={() => <UpcomingPage />} />
+                <Route path="/logbook" render={() => <LogbookPage />} />
+                <Route path="/projects" exact render={() => <ProjectsPage />} />
+                <Route path="/tags" render={() => <TagsPage />} />
+                <Route path="/settings" render={() => <SettingsPage />} />
+                <Route path="/trash" render={() => <TrashPage />} />
+                <Route
+                  path="/projects/:id"
+                  render={({ match }) => <ProjectPage projectID={match.params.id} />}
+                />
+              </Switch>
+            </Suspense>
+          </div>
         </div>
       </Router>
     </StoreProvider>

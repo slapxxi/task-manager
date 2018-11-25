@@ -1,9 +1,15 @@
 .inboxPage {
-  --primary-color: hsl(200, 100%, 50%);
+  --primary-color: var(--dark-grey);
+  padding: 20px 40px;
 }
 
 .todayPage {
-  --primary-color: hsl(50, 100%, 50%);
+  --secondary-color: var(--dark-grey);
+  padding: 20px 40px;
+}
+
+.projectPage {
+  padding: 20px 40px;
 }
 
 .upcomingPage {
@@ -34,9 +40,17 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 0 10px;
-  margin: 20px 0;
-  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.menu {
+  --primary-color: var(--light-grey);
+  margin-left: 10px;
+}
+
+.menu:hover {
+  --primary-color: var(--dark-grey);
 }
 
 .tags {
@@ -45,8 +59,26 @@
 }
 
 .title {
-  font-weight: 500;
+  font-size: 28px;
+  font-family: 'Source Sans Pro';
+  font-weight: bold;
   margin: 0 0 0 10px;
+  color: var(--title-color);
+}
+
+.editableTitle {
+  composes: title;
+  width: 100%;
+}
+
+.subtitle {
+  margin-top: 10px;
+  margin-left: 30px;
+  color: var(--light-grey);
+}
+
+.content {
+  margin-top: 30px;
 }
 
 .list {

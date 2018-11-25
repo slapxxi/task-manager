@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.pageContainer {
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+}

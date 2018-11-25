@@ -1,4 +1,5 @@
 export const tasks: string;
+export const task: string;
 export const taskHeader: string;
 export const taskTitle: string;
 export const indicator: string;
@@ -11,3 +12,5 @@ export const detailsIcon: string;
 export const footerIcon: string;
 export const footerIconDangerous: string;
 export const footerTags: string;
+export const footer: string;
+export const button: string;

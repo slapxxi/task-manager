@@ -21,6 +21,7 @@
     "paths": {
       "@lib": ["lib"],
       "@lib/*": ["lib/*"],
+      "@local/services/*": ["services/*"],
       "@local/hooks": ["hooks"],
       "@local/hooks/*": ["hooks/*"],
       "@local/types": ["types"],

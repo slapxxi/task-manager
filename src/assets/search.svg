@@ -1,0 +1,6 @@
+<svg viewBox="0 0 100 100">
+	<g stroke-width="10" fill="none" stroke-linecap="round" stroke="#000" style="fill: none; stroke: var(--primary-color, #000)">
+		<circle cx="38" cy="36" r="32" />
+		<path d="M58,60l35,35" />
+	</g>
+</svg>

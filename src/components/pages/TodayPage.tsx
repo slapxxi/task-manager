@@ -60,26 +60,27 @@ function TodayPage() {
   return (
     <div className={styles.todayPage}>
       <header className={styles.header}>
-        <IconSystem name="star" size={30} />
+        <IconSystem name="star" size={25} />
         <PageTitle className={styles.title}>Today</PageTitle>
-        <div className={styles.tags}>
-          <Tags
-            tags={[createTag({ id: 'all', name: 'All' }), ...todayTags]}
-            renderTag={({ tag }) => (
-              <Tag
-                tag={tag}
-                parentId="today-page"
-                onSelect={handleSelectTag}
-                selected={
-                  tag.id === 'all'
-                    ? selectedTags.length === todayTags.length
-                    : includes(selectedTags.map((t) => t.id), tag.id)
-                }
-              />
-            )}
-          />
-        </div>
+        <IconSystem name="dots" size={20} className={styles.menu} />
       </header>
+      <div className={styles.tags}>
+        <Tags
+          tags={[createTag({ id: 'all', name: 'All' }), ...todayTags]}
+          renderTag={({ tag }) => (
+            <Tag
+              tag={tag}
+              parentId="today-page"
+              onSelect={handleSelectTag}
+              selected={
+                tag.id === 'all'
+                  ? selectedTags.length === todayTags.length
+                  : includes(selectedTags.map((t) => t.id), tag.id)
+              }
+            />
+          )}
+        />
+      </div>
       <TasksEditor
         tasks={matchingTasks}
         onEdit={actions.updateTask}

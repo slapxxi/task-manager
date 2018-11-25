@@ -4,13 +4,19 @@ import React, { useEffect, useState } from 'react';
 type IconName =
   | 'arrow-down'
   | 'arrow-up'
+  | 'bars'
+  | 'bell'
   | 'book'
   | 'box'
   | 'briefcase'
   | 'cross'
+  | 'dots'
   | 'flag'
-  | 'list'
   | 'inbox'
+  | 'list'
+  | 'plus'
+  | 'cog'
+  | 'search'
   | 'settings'
   | 'star'
   | 'tag'
@@ -42,7 +48,7 @@ function IconSystem({ name, ...rest }: Props) {
 
 function Placeholder(props: { [prop: string]: any }) {
   return (
-    <svg {...props} viewBox="0 0 10 10" fill="lightgrey">
+    <svg {...props} width="20" height="20" viewBox="0 0 10 10" fill="lightgrey">
       <circle cx="5" cy="5" r="5" />
     </svg>
   );
@@ -92,6 +98,24 @@ async function loadIcon(name: IconName) {
       break;
     case 'flag':
       result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/flag.svg');
+      break;
+    case 'bars':
+      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/bars.svg');
+      break;
+    case 'search':
+      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/search.svg');
+      break;
+    case 'bell':
+      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/bell.svg');
+      break;
+    case 'dots':
+      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/dots.svg');
+      break;
+    case 'plus':
+      result = await import(/* webpackChunkName: 'icon-plus' */ '@local/assets/plus.svg');
+      break;
+    case 'cog':
+      result = await import(/* webpackChunkName: 'icon-cog' */ '@local/assets/cog.svg');
       break;
     default:
       return result;

@@ -4,6 +4,7 @@ import includes from 'lodash-es/includes';
 import React, { useEffect, useReducer } from 'react';
 import { Button } from '../';
 import { isValidTask } from '../../lib/tasks';
+import styles from './styles.css';
 import Task from './Task';
 import Tasks from './Tasks';
 
@@ -90,7 +91,12 @@ function TasksEditor({ tasks, onEdit, onDelete, onCreate }: Props) {
       <Tasks tasks={state.mode === Mode.create ? [...tasks, createTask({})] : tasks}>
         {({ task, index }) =>
           state.mode === Mode.create && index === tasks.length ? (
-            <Task task={task} expand={true} onEdit={handleCreateTask} />
+            <Task
+              task={task}
+              expand={true}
+              onEdit={handleCreateTask}
+              className={styles.task}
+            />
           ) : (
             <Task
               task={task}
@@ -99,17 +105,24 @@ function TasksEditor({ tasks, onEdit, onDelete, onCreate }: Props) {
               onDelete={handleDelete}
               onExpand={(expand) => handleExpand(task.id, expand)}
               confirmDelete
+              className={styles.task}
             />
           )
         }
       </Tasks>
-      {onCreate ? (
-        state.mode === Mode.default ? (
-          <Button onClick={handleEnableCreate}>Create Task</Button>
-        ) : (
-          <Button onClick={handleCancel}>Cancel</Button>
-        )
-      ) : null}
+      <footer className={styles.footer}>
+        {onCreate ? (
+          state.mode === Mode.default ? (
+            <Button onClick={handleEnableCreate} className={styles.button}>
+              Create Task
+            </Button>
+          ) : (
+            <Button onClick={handleCancel} className={styles.button}>
+              Cancel
+            </Button>
+          )
+        ) : null}
+      </footer>
     </>
   );
 }
