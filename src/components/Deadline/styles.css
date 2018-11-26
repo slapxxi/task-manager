@@ -4,6 +4,7 @@
 }
 
 .today {
+  --secondary-color: transparent;
   --primary-color: var(--golden);
   display: flex;
   align-items: center;

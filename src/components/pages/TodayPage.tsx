@@ -81,11 +81,13 @@ function TodayPage() {
           )}
         />
       </div>
-      <TasksEditor
-        tasks={matchingTasks}
-        onEdit={actions.updateTask}
-        onDelete={actions.deleteTask}
-      />
+      <div className={styles.content}>
+        <TasksEditor
+          tasks={matchingTasks}
+          onEdit={actions.updateTask}
+          onDelete={actions.deleteTask}
+        />
+      </div>
     </div>
   );
 }

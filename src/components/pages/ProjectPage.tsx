@@ -33,6 +33,18 @@ function ProjectPage({ projectID }: Props) {
 
   return (
     <div className={styles.projectPage}>
+      <div className={styles.toolbar}>
+        <div>
+          Home <IconSystem name="arrow-right" size={10} /> Projects{' '}
+          <IconSystem name="arrow-right" size={10} /> <strong>Blackout</strong>
+        </div>
+        <div>
+          Order <IconSystem name="arrow-down" size={10} />
+        </div>
+        <div>
+          Filter <IconSystem name="arrow-down" size={10} />
+        </div>
+      </div>
       <header className={styles.header}>
         <ProgressCheckbox
           size={22}
@@ -50,7 +62,7 @@ function ProjectPage({ projectID }: Props) {
           <IconSystem name="dots" size={22} />
         </Button>
       </header>
-      <div className={styles.subtitle}>{project.tasks.length} tasks</div>
+      <div className={styles.subtitle}>{project.tasks.length} Tasks</div>
       <div className={styles.content}>
         <TasksEditor
           tasks={project.tasks}

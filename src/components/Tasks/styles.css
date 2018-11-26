@@ -25,7 +25,9 @@
 }
 
 .taskDescription {
-  color: #556;
+  width: 100%;
+  margin-right: 10px;
+  color: var(--dark-grey);
 }
 
 .taskDescriptionCompleted {
@@ -94,6 +96,23 @@
 
 .footer {
   margin-top: 40px;
+}
+
+.detailsButton {
+  --primary-color: var(--light-grey);
+  margin-left: 10px;
+}
+
+.todayButton {
+  --primary-color: transparent;
+  --secondary-color: var(--light-grey);
+  margin-left: 10px;
+}
+
+.todayButtonActive {
+  --primary-color: var(--golden);
+  --secondary-color: transparent;
+  margin-left: 10px;
 }
 
 .button {

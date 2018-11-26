@@ -8,6 +8,10 @@
   text-decoration: line-through;
 }
 
+.input {
+  color: var(--dark-grey);
+}
+
 .subtasks {
   margin: 0;
   padding: 0;
@@ -24,7 +28,8 @@
 }
 
 .completed {
-  text-decoration: line-through;
+  composes: input;
+  color: var(--light-grey);
 }
 
 .trashbin {

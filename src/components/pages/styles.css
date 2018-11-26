@@ -1,3 +1,8 @@
+.page {
+  --primary-color: var(--dark-grey);
+  padding: 30px 40px;
+}
+
 .inboxPage {
   --primary-color: var(--dark-grey);
   padding: 20px 40px;
@@ -9,11 +14,11 @@
 }
 
 .projectPage {
-  padding: 20px 40px;
+  composes: page;
 }
 
 .upcomingPage {
-  --primary-color: hsl(340, 100%, 50%);
+  composes: page;
 }
 
 .somedayPage {
@@ -29,7 +34,8 @@
 }
 
 .settingsPage {
-  --primary-color: hsl(200, 10%, 50%);
+  --primary-color: var(--dark-grey);
+  padding: 20px 40px;
 }
 
 .trashPage {
@@ -104,4 +110,24 @@
 
 .link:hover {
   color: hsl(200, 20%, 40%);
+}
+
+.toolbar {
+  --primary-color: var(--light-grey);
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  color: var(--light-grey);
+}
+
+.toolbar > div:first-child {
+  flex: 1;
+}
+
+.toolbar > div:last-child {
+  margin-right: 0;
+}
+
+.toolbar > div {
+  margin-right: 10px;
 }

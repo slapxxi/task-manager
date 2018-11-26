@@ -3,6 +3,8 @@ import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import Project from './Project';
 
+jest.mock('@local/components/IconSystem/IconSystem', () => () => 'icon');
+
 const project = {
   id: 'test',
   name: 'Test Project',

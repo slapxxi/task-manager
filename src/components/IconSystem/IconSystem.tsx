@@ -1,21 +1,23 @@
-import Icon from '@local/components/Icon/Icon';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 
 type IconName =
   | 'arrow-down'
+  | 'arrow-right'
+  | 'checkmark'
   | 'arrow-up'
   | 'bars'
   | 'bell'
   | 'book'
   | 'box'
   | 'briefcase'
+  | 'cog'
   | 'cross'
   | 'dots'
   | 'flag'
   | 'inbox'
   | 'list'
+  | 'logo'
   | 'plus'
-  | 'cog'
   | 'search'
   | 'settings'
   | 'star'
@@ -29,98 +31,82 @@ interface Props {
 }
 
 function IconSystem({ name, ...rest }: Props) {
-  const [glyph, setGlyph] = useState(null);
-
-  useEffect(
-    () => {
-      const result = loadIcon(name);
-      // @ts-ignore
-      result.then((module) => setGlyph(module));
-    },
-    [name],
+  const LazyIcon = loadIcon(name);
+  return (
+    <Suspense fallback={<Placeholder {...rest} />}>
+      <LazyIcon {...rest} />
+    </Suspense>
   );
-
-  if (glyph === null) {
-    return <Placeholder {...rest} />;
-  }
-  return <Icon glyph={glyph} {...rest} />;
 }
 
 function Placeholder(props: { [prop: string]: any }) {
   return (
-    <svg {...props} width="20" height="20" viewBox="0 0 10 10" fill="lightgrey">
-      <circle cx="5" cy="5" r="5" />
+    <svg
+      {...props}
+      width={props.size}
+      height={props.size}
+      viewBox="0 0 10 10"
+      fill="none"
+      strokeDasharray="2 2"
+      stroke="hsl(225, 5%, 80%)"
+    >
+      <circle cx="5" cy="5" r="4" />
     </svg>
   );
 }
 
-async function loadIcon(name: IconName) {
-  let result;
+function loadIcon(name: IconName) {
   switch (name) {
-    case 'trash':
-      result = await import(/* webpackChunkName: 'icon-trash' */ '@local/assets/trash.svg');
-      break;
-    case 'trashbin':
-      result = await import(/* webpackChunkName: 'icon-trashbin' */ '@local/assets/trashbin.svg');
-      break;
-    case 'book':
-      result = await import(/* webpackChunkName: 'icon-book' */ '@local/assets/book.svg');
-      break;
-    case 'list':
-      result = await import(/* webpackChunkName: 'icon-list' */ '@local/assets/list.svg');
-      break;
-    case 'briefcase':
-      result = await import(/* webpackChunkName: 'icon-briefcase' */ '@local/assets/briefcase.svg');
-      break;
-    case 'star':
-      result = await import(/* webpackChunkName: 'icon-star' */ '@local/assets/star.svg');
-      break;
-    case 'tag':
-      result = await import(/* webpackChunkName: 'icon-tag' */ '@local/assets/tag.svg');
-      break;
-    case 'settings':
-      result = await import(/* webpackChunkName: 'icon-settings' */ '@local/assets/settings.svg');
-      break;
-    case 'inbox':
-      result = await import(/* webpackChunkName: 'icon-inbox' */ '@local/assets/inbox.svg');
-      break;
-    case 'box':
-      result = await import(/* webpackChunkName: 'icon-box' */ '@local/assets/box.svg');
-      break;
-    case 'arrow-up':
-      result = await import(/* webpackChunkName: 'icon-arrow-up' */ '@local/assets/arrow_up.svg');
-      break;
-    case 'arrow-down':
-      result = await import(/* webpackChunkName: 'icon-arrow-down' */ '@local/assets/arrow_down.svg');
-      break;
-    case 'cross':
-      result = await import(/* webpackChunkName: 'icon-cross' */ '@local/assets/cross.svg');
-      break;
-    case 'flag':
-      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/flag.svg');
-      break;
-    case 'bars':
-      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/bars.svg');
-      break;
-    case 'search':
-      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/search.svg');
-      break;
-    case 'bell':
-      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/bell.svg');
-      break;
+    case 'checkmark':
+      return React.lazy(() =>
+        import(/*webpackChunkName: 'checkmark-icon' */ './CheckmarkIcon'),
+      );
     case 'dots':
-      result = await import(/* webpackChunkName: 'icon-flag' */ '@local/assets/dots.svg');
-      break;
-    case 'plus':
-      result = await import(/* webpackChunkName: 'icon-plus' */ '@local/assets/plus.svg');
-      break;
+      return React.lazy(() => import(/*webpackChunkName: 'dots-icon' */ './DotsIcon'));
+    case 'arrow-down':
+      return React.lazy(() =>
+        import(/*webpackChunkName: 'arrow-down-icon' */ './ArrowDownIcon'),
+      );
+    case 'arrow-up':
+      return React.lazy(() =>
+        import(/*webpackChunkName: 'arrow-up-icon' */ './ArrowUpIcon'),
+      );
+    case 'arrow-right':
+      return React.lazy(() =>
+        import(/*webpackChunkName: 'arrow-right-icon' */ './ArrowRightIcon'),
+      );
+    case 'bell':
+      return React.lazy(() => import(/*webpackChunkName: 'bell-icon' */ './BellIcon'));
     case 'cog':
-      result = await import(/* webpackChunkName: 'icon-cog' */ '@local/assets/cog.svg');
-      break;
+      return React.lazy(() => import(/*webpackChunkName: 'cog-icon' */ './CogIcon'));
+    case 'inbox':
+      return React.lazy(() => import(/*webpackChunkName: 'inbox-icon' */ './InboxIcon'));
+    case 'plus':
+      return React.lazy(() => import(/*webpackChunkName: 'plus-icon' */ './PlusIcon'));
+    case 'logo':
+      return React.lazy(() => import(/*webpackChunkName: 'logo-icon' */ './LogoIcon'));
+    case 'star':
+      return React.lazy(() => import(/*webpackChunkName: 'star-icon' */ './StarIcon'));
+    case 'search':
+      return React.lazy(() =>
+        import(/*webpackChunkName: 'search-icon' */ './SearchIcon'),
+      );
+    case 'flag':
+      return React.lazy(() => import(/*webpackChunkName: 'flag-icon' */ './FlagIcon'));
+    case 'tag':
+      return React.lazy(() => import(/*webpackChunkName: 'tag-icon' */ './TagIcon'));
+    case 'list':
+      return React.lazy(() => import(/*webpackChunkName: 'list-icon' */ './ListIcon'));
+    case 'trashbin':
+      return React.lazy(() =>
+        import(/*webpackChunkName: 'trashbin-icon' */ './TrashbinIcon'),
+      );
     default:
-      return result;
+      return Placeholder;
   }
-  return result.default;
 }
 
-export default IconSystem;
+export default React.memo(
+  IconSystem,
+  (prevProps, nextProps) => prevProps.name === nextProps.name,
+);

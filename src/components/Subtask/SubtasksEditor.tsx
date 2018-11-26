@@ -1,5 +1,6 @@
 import { createSubtask } from '@lib';
 import { Subtask as ISubtask } from '@local/types';
+import isEqual from 'lodash-es/isEqual';
 import React, { useRef } from 'react';
 import Subtask from './Subtask';
 import Subtasks from './Subtasks';
@@ -85,4 +86,6 @@ function SubtasksEditor({
   );
 }
 
-export default React.memo(SubtasksEditor);
+export default React.memo(SubtasksEditor, (prevProps, nextProps) =>
+  isEqual(prevProps, nextProps),
+);

@@ -27,11 +27,11 @@
   box-sizing: border-box;
   padding: 5px 10px;
   min-width: 14px;
-  border-radius: 20px;
-  background: #b9dbcd;
+  border-radius: 5px;
+  background: var(--light-green);
   color: #298561;
   text-align: center;
-  font-size: 0.8em;
+  font-size: 13px;
   cursor: pointer;
 }
 

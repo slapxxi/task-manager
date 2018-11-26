@@ -49,19 +49,7 @@ exports[`renders project 1`] = `
     <button
       class="sc-bdVaJa cabFfC"
     >
-      <svg
-        fill="lightgrey"
-        height="20"
-        size="22"
-        viewBox="0 0 10 10"
-        width="20"
-      >
-        <circle
-          cx="5"
-          cy="5"
-          r="5"
-        />
-      </svg>
+      icon
     </button>
   </div>
   <div

@@ -1,3 +1,4 @@
+import { isToday } from 'date-fns';
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import { createTask } from '../../lib/tasks';
@@ -95,4 +96,22 @@ it('does not call `onDelete` without confirmation', () => {
   );
   fireEvent.click(getByTestId('delete'));
   expect(spy).not.toHaveBeenCalled();
+});
+
+it('sets deadline to current date on today button click', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(<Task task={task} onEdit={spy} />);
+  fireEvent.click(getByTestId('setToday'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(isToday(spy.mock.calls[0][0].deadline)).toEqual(true);
+});
+
+it('resets today deadline when today button clicked with deadline set to today', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(
+    <Task task={{ ...task, deadline: new Date() }} onEdit={spy} />,
+  );
+  fireEvent.click(getByTestId('setToday'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy.mock.calls[0][0].deadline).toBeUndefined();
 });

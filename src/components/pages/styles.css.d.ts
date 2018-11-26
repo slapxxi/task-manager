@@ -1,3 +1,4 @@
+export const page: string;
 export const inboxPage: string;
 export const todayPage: string;
 export const projectPage: string;
@@ -16,3 +17,4 @@ export const content: string;
 export const list: string;
 export const listItem: string;
 export const link: string;
+export const toolbar: string;

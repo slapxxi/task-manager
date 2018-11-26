@@ -21,6 +21,7 @@ function Textarea({ value, onChange, className, onClick, placeholder, ...rest }:
 
   return (
     <StyledTextarea
+      {...rest}
       value={value}
       className={className}
       onChange={handleChange}

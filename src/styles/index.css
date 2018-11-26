@@ -7,6 +7,7 @@
   --middle-grey: hsl(225, 15%, 50%);
   --light-grey: hsl(225, 15%, 70%);
   --title-color: var(--dark-grey);
+  --light-green: hsl(125, 30%, 80%);
 }
 
 #root {

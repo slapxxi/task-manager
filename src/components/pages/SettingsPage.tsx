@@ -6,21 +6,11 @@ function SettingsPage() {
   return (
     <div className={styles.settingsPage}>
       <header className={styles.header}>
-        <IconSystem name="settings" size={30} />
-        <PageTitle className={styles.title}>Settings</PageTitle>
+        <IconSystem name="cog" size={30} />
+        <h1 className={styles.title}>Settings</h1>
       </header>
     </div>
   );
-}
-
-function PageTitle({
-  children,
-  ...rest
-}: {
-  children: React.ReactNode;
-  [prop: string]: any;
-}) {
-  return <h1 {...rest}>{children}</h1>;
 }
 
 export default SettingsPage;

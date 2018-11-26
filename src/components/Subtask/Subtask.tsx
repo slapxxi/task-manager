@@ -80,7 +80,7 @@ function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }
       />
       <Input
         type="text"
-        className={subtask.completed && styles.completed}
+        className={subtask.completed ? styles.completed : styles.input}
         value={subtask.description}
         placeholder="What should be done..."
         onFocus={handleFocus}
@@ -100,4 +100,4 @@ function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }
   );
 }
 
-export default React.memo(Subtask);
+export default Subtask;

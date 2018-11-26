@@ -14,9 +14,11 @@ import {
   SubtasksEditor,
   TagsEditor,
 } from '@local/components';
+import Button from '@local/components/Button/Button';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import TextArea from '@local/components/TextArea/TextArea';
 import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
+import { isToday } from 'date-fns';
 import includes from 'lodash-es/includes';
 import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
@@ -167,6 +169,13 @@ function Task({
     setShowCalendar(false);
   }
 
+  function handleSetToday() {
+    if (onEdit) {
+      onEdit(setDeadline(task, new Date()));
+    }
+    setShowCalendar(false);
+  }
+
   function handleResetDeadline() {
     if (onEdit) {
       onEdit(resetDeadline(task));
@@ -205,13 +214,26 @@ function Task({
         {!expand && !isEmpty(task.tags) ? (
           <IconSystem name="tag" size={18} className={styles.tagIcon} />
         ) : null}
-        <IconSystem
-          name={expand ? 'arrow-up' : 'arrow-down'}
-          style={{ marginLeft: 10 }}
-          className={styles.detailsIcon}
+        <Button
+          className={
+            task.deadline && isToday(task.deadline)
+              ? styles.todayButtonActive
+              : styles.todayButton
+          }
+          onClick={
+            task.deadline && isToday(task.deadline) ? handleResetDeadline : handleSetToday
+          }
+          data-testid="setToday"
+        >
+          <IconSystem name="star" size={18} />
+        </Button>
+        <Button
           onClick={handleToggleDetails}
+          className={styles.detailsButton}
           data-testid="expand"
-        />
+        >
+          <IconSystem name={expand ? 'arrow-up' : 'arrow-down'} size={16} />
+        </Button>
       </header>
       <AnimatedDetails pose={expand ? 'open' : 'closed'} style={{ overflow: 'hidden' }}>
         <Details>
@@ -277,7 +299,7 @@ function Task({
   );
 }
 
-const Container = styled<{ active: boolean; completed: boolean }, 'div'>('div')`
+const Container = styled(({ active, completed, ...rest }) => <div {...rest} />)`
   overflow: hidden;
   box-sizing: border-box;
   position: relative;
@@ -286,10 +308,9 @@ const Container = styled<{ active: boolean; completed: boolean }, 'div'>('div')`
   box-shadow: ${({ active }) => (active ? '0 1px 3px 2px rgba(0,0,0,0.1)' : 'none')};
 `;
 
-const Title = styled(TextArea)`
-  text-decoration: ${({ completed }: any) => (completed ? 'line-through' : 'none')};
-  color: ${({ active }: any) => (active ? '#112' : '#445')};
-  color: ${({ completed }: any) => (completed ? '#b3b3bb' : null)};
+const Title = styled(({ active, completed, ...rest }) => <TextArea {...rest} />)`
+  color: 'var(--dark-grey)';
+  color: ${({ completed }: any) => (completed ? 'var(--light-grey)' : null)};
 `;
 
 const AnimatedDetails = posed.div({

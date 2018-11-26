@@ -2,12 +2,12 @@ import { Subtask } from '@local/types';
 import uuid from 'uuid';
 
 function createSubtask({
-  id = uuid.v4(),
+  id,
   description = '',
   completed = false,
 }: Partial<Subtask>): Subtask {
   return {
-    id,
+    id: id || uuid.v4(),
     description,
     completed,
   };

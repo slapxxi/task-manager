@@ -1,14 +1,17 @@
-import { createProject } from '@lib';
+import { createProject, getProjectProgress } from '@lib';
+import selectTodayTasks from '@lib/selectTodayTasks';
 import Button from '@local/components/Button/Button';
 import CalendarIcon from '@local/components/CalendarIcon/CalendarIcon';
 import IconSystem from '@local/components/IconSystem/IconSystem';
+import ProgressCheckbox from '@local/components/ProgressCheckbox/ProgressCheckbox';
 import { useStore } from '@local/hooks';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './styles.css';
 
 function Sidebar() {
   const { tasks, projects, actions } = useStore();
+  const todayTasks = selectTodayTasks(tasks);
 
   function handleAddProject() {
     actions.updateProject(createProject({ name: 'Untitled' }));
@@ -16,6 +19,9 @@ function Sidebar() {
 
   return (
     <aside className={styles.container}>
+      <header className={styles.header}>
+        <IconSystem name="logo" size={20} /> <IconSystem name="dots" size={20} />{' '}
+      </header>
       <nav>
         <ul className={styles.list}>
           <li className={styles.listItem}>
@@ -26,6 +32,13 @@ function Sidebar() {
             <span className={styles.slot}>{tasks.length}</span>
           </li>
           <li className={styles.listItem}>
+            <IconSystem name="star" size={20} className={styles.starIcon} />{' '}
+            <NavLink activeClassName="active" to="/today" exact className={styles.link}>
+              Today
+            </NavLink>
+            <span className={styles.slot}>{todayTasks.length}</span>
+          </li>
+          <li className={styles.listItem}>
             <CalendarIcon date={new Date()} size={18} />
             <NavLink
               activeClassName="active"
@@ -34,12 +47,6 @@ function Sidebar() {
               className={styles.link}
             >
               Schedule
-            </NavLink>
-          </li>
-          <li className={styles.listItem}>
-            <IconSystem name="star" size={20} className={styles.starIcon} />{' '}
-            <NavLink activeClassName="active" to="/today" exact className={styles.link}>
-              Starred
             </NavLink>
           </li>
         </ul>
@@ -57,7 +64,17 @@ function Sidebar() {
               <NavLink to={`/projects/${p.id}`} className={styles.link}>
                 {p.name}
               </NavLink>
-              <span className={styles.slot}>{p.tasks.length}</span>
+              <span className={styles.slot}>
+                {getProjectProgress(p) === 1 ? (
+                  <IconSystem name="checkmark" size={14} />
+                ) : (
+                  <ProgressCheckbox
+                    progress={getProjectProgress(p)}
+                    size={14}
+                    animate={false}
+                  />
+                )}
+              </span>
             </li>
           ))}
         </ul>
@@ -69,11 +86,11 @@ function Sidebar() {
       </nav>
       <footer className={styles.footer}>
         <Button className={styles.button}>
-          <IconSystem name="dots" size={16} />
+          <IconSystem name="plus" size={14} />
         </Button>
-        <Button className={styles.button}>
+        <Link to="/settings" className={styles.button}>
           <IconSystem name="cog" size={16} />
-        </Button>
+        </Link>
       </footer>
     </aside>
   );

@@ -13,4 +13,7 @@ export const footerIcon: string;
 export const footerIconDangerous: string;
 export const footerTags: string;
 export const footer: string;
+export const detailsButton: string;
+export const todayButton: string;
+export const todayButtonActive: string;
 export const button: string;

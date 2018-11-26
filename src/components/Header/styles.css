@@ -2,7 +2,7 @@
   --primary-color: hsl(230, 10%, 70%);
   display: flex;
   align-items: center;
-  padding: 20px 40px;
+  padding: 20px 40px 0;
 }
 
 .search {

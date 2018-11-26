@@ -14,10 +14,18 @@
   width: 100%;
 }
 
+.header {
+  --primary-color: var(--middle-grey);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
 .title {
   padding: 0;
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'Source Sans Pro';
   text-transform: uppercase;
   font-weight: bold;
@@ -49,6 +57,7 @@
   text-decoration: none;
   color: var(--middle-grey);
   flex: 1;
+  margin-right: 10px;
 }
 
 .link:global(.active) {
@@ -61,6 +70,7 @@
 }
 
 .section {
+  font-size: 15px;
   margin: 20px 0;
 }
 
@@ -77,8 +87,8 @@
 
 .sectionListItem {
   composes: listItem;
-  margin-left: 10px;
-  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 
 .button {
