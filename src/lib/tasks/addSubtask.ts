@@ -1,8 +1,12 @@
 import { Subtask, Task } from '@local/types';
+import includes from 'lodash-es/includes';
 import takeWhile from 'lodash-es/takeWhile';
 
 function addSubtask(task: Task, subtask: Subtask): Task {
-  const subtasks = task.subtasks.map((st) => (st.id === subtask.id ? subtask : st));
+  const subtasks = includes(task.subtasks.map((st) => st.id), subtask.id)
+    ? task.subtasks.map((st) => (st.id === subtask.id ? subtask : st))
+    : [...task.subtasks, subtask];
+
   return {
     ...task,
     subtasks,

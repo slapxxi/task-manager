@@ -33,19 +33,24 @@ exports[`renders 1`] = `
     </div>
   </div>
   <input
-    class="input sc-bdVaJa btPypT"
+    class="input sc-bwzfXH PGmuR"
     data-testid="input"
     placeholder="What should be done..."
     type="text"
     value="test"
   />
-  <div
-    class="trashbin"
-    name="trashbin"
-    size="16"
+  <button
+    class="sc-bdVaJa cabFfC"
+    data-testid="remove-test"
   >
-    icon-
-    trashbin
-  </div>
+    <div
+      class="trashbin"
+      name="trashbin"
+      size="16"
+    >
+      icon-
+      trashbin
+    </div>
+  </button>
 </div>
 `;

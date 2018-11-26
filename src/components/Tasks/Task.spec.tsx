@@ -115,3 +115,84 @@ it('resets today deadline when today button clicked with deadline set to today',
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy.mock.calls[0][0].deadline).toBeUndefined();
 });
+
+it('removes subtasks', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(
+    <Task
+      task={{
+        ...task,
+        completed: false,
+        subtasks: [
+          { id: 'first', description: 'first', completed: false },
+          { id: 'second', description: 'second', completed: true },
+          { id: 'third', description: 'third', completed: true },
+        ],
+      }}
+      onEdit={spy}
+    />,
+  );
+  fireEvent.click(getByTestId('remove-third'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy.mock.calls).toMatchInlineSnapshot(`
+Array [
+  Array [
+    Object {
+      "completed": false,
+      "createdAt": 69,
+      "deadline": undefined,
+      "description": "",
+      "id": "test",
+      "project": "",
+      "subtasks": Array [
+        Object {
+          "completed": false,
+          "description": "first",
+          "id": "first",
+        },
+        Object {
+          "completed": true,
+          "description": "second",
+          "id": "second",
+        },
+      ],
+      "tags": Array [],
+      "title": "test",
+    },
+  ],
+]
+`);
+});
+
+it('updates completion status when removing subtasks', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(
+    <Task
+      task={{
+        ...task,
+        completed: false,
+        subtasks: [{ id: 'first', description: 'first', completed: true }],
+      }}
+      onEdit={spy}
+    />,
+  );
+  fireEvent.click(getByTestId('remove-first'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy.mock.calls).toMatchInlineSnapshot(`
+Array [
+  Array [
+    Object {
+      "completed": false,
+      "createdAt": 69,
+      "deadline": undefined,
+      "description": "",
+      "id": "test",
+      "project": "",
+      "subtasks": Array [],
+      "tags": Array [],
+      "title": "test",
+    },
+  ],
+]
+`);
+});

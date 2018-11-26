@@ -41,6 +41,7 @@
 .listItem {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
@@ -49,7 +50,7 @@
   --secondary-color: var(--middle-grey);
 }
 
-.listItem > svg {
+.listItem > svg:first-child {
   margin-right: 10px;
 }
 

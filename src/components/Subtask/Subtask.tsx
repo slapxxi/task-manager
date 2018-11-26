@@ -1,4 +1,5 @@
 import { Keys } from '@lib';
+import Button from '@local/components/Button/Button';
 import Checkbox from '@local/components/Checkbox/Checkbox';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import Input from '@local/components/Input/Input';
@@ -60,10 +61,12 @@ function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     const keyCode = e.keyCode || e.charCode;
+
     if (e.currentTarget.value === '' && keyCode === Keys.backspace) {
       handleRemove();
       return;
     }
+
     if (keyCode === Keys.enter && onSubmit) {
       onSubmit(subtask);
       return;
@@ -78,6 +81,7 @@ function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }
         onToggle={handleToggle}
         className={styles.checkbox}
       />
+
       <Input
         type="text"
         className={subtask.completed ? styles.completed : styles.input}
@@ -90,12 +94,10 @@ function Subtask({ subtask, focus, onEdit, onFocus, onBlur, onRemove, onSubmit }
         ref={inputRef}
         data-testid="input"
       />
-      <IconSystem
-        name="trashbin"
-        size={16}
-        onClick={handleRemove}
-        className={styles.trashbin}
-      />
+
+      <Button onClick={handleRemove} data-testid={`remove-${subtask.id}`}>
+        <IconSystem name="trashbin" size={16} className={styles.trashbin} />
+      </Button>
     </div>
   );
 }

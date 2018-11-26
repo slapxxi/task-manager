@@ -44,4 +44,4 @@ function Project({ project, onEdit, children }: Props) {
   );
 }
 
-export default React.memo(Project);
+export default Project;

@@ -21,4 +21,4 @@ function Tasks({ tasks, children }: Props) {
   );
 }
 
-export default React.memo(Tasks);
+export default Tasks;

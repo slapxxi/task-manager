@@ -21,3 +21,15 @@ it('invokes callback when editing', () => {
     completed: false,
   });
 });
+
+it('invokes callback when subtask removed', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(<Subtask subtask={subtask} onRemove={spy} />);
+  fireEvent.click(getByTestId('remove-test'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith({
+    id: 'test',
+    description: 'test',
+    completed: false,
+  });
+});

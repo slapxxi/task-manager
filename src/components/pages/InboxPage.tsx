@@ -6,11 +6,12 @@ import styles from './styles.css';
 
 function InboxPage() {
   const { tasks, actions } = useStore();
+
   return (
     <div className={styles.inboxPage}>
       <header className={styles.header}>
         <IconSystem name="inbox" size={30} />
-        <PageTitle className={styles.title}>Inbox</PageTitle>
+        <h1 className={styles.title}>Inbox</h1>
         <IconSystem name="dots" size={20} className={styles.menu} />
       </header>
       <div className={styles.content}>
@@ -23,16 +24,6 @@ function InboxPage() {
       </div>
     </div>
   );
-}
-
-function PageTitle({
-  children,
-  ...rest
-}: {
-  children: React.ReactNode;
-  [prop: string]: any;
-}) {
-  return <h1 {...rest}>{children}</h1>;
 }
 
 export default InboxPage;

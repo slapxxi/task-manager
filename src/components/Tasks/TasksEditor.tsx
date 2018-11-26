@@ -158,4 +158,4 @@ function tasksReducer(state: State, action: Action<Actions>): State {
   }
 }
 
-export default React.memo(TasksEditor);
+export default TasksEditor;

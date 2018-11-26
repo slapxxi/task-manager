@@ -21,16 +21,10 @@ import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import { isToday } from 'date-fns';
 import includes from 'lodash-es/includes';
 import isEmpty from 'lodash-es/isEmpty';
-import isEqual from 'lodash-es/isEqual';
 import React, { useState } from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
 import styles from './styles.css';
-
-enum Mode {
-  default,
-  editing,
-}
 
 interface Props {
   task: ITask;
@@ -51,8 +45,8 @@ function Task({
   onExpand,
   className,
 }: Props) {
-  const [mode, setMode] = useState(Mode.default);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showSubtasks, setShowSubtasks] = useState(!isEmpty(task.subtasks));
 
   function handleToggle() {
     if (onEdit) {
@@ -137,15 +131,6 @@ function Task({
     }
   }
 
-  function handleAddSubtask(subtask: Subtask) {
-    if (onEdit) {
-      onEdit({
-        ...task,
-        subtasks: [...task.subtasks, subtask],
-      });
-    }
-  }
-
   function handleEditSubtask(subtask: Subtask) {
     if (onEdit) {
       onEdit(addSubtask(task, subtask));
@@ -158,8 +143,8 @@ function Task({
     }
   }
 
-  function handleChangeMode() {
-    setMode(mode === Mode.default ? Mode.editing : Mode.default);
+  function handleShowSubtasks() {
+    setShowSubtasks((show) => !show);
   }
 
   function handleSelectDeadline(date: Date) {
@@ -200,6 +185,7 @@ function Task({
             data-testid="checkbox"
           />
         )}
+
         <Title
           active={expand}
           completed={task.completed}
@@ -211,9 +197,11 @@ function Task({
           autoFocus={expand}
           data-testid="title"
         />
+
         {!expand && !isEmpty(task.tags) ? (
           <IconSystem name="tag" size={18} className={styles.tagIcon} />
         ) : null}
+
         <Button
           className={
             task.deadline && isToday(task.deadline)
@@ -244,14 +232,15 @@ function Task({
             onChange={handleChangeDescription}
             data-testid="description"
           />
-          <SubtasksEditor
-            subtasks={task.subtasks}
-            onCreate={handleAddSubtask}
-            onEdit={handleEditSubtask}
-            onRemove={handleRemoveSubtask}
-            focused={expand}
-            isEmpty={mode === Mode.editing && isEmpty(task.subtasks)}
-          />
+          {showSubtasks && (
+            <SubtasksEditor
+              subtasks={task.subtasks}
+              onCreate={handleEditSubtask}
+              onEdit={handleEditSubtask}
+              onRemove={handleRemoveSubtask}
+              focus={expand}
+            />
+          )}
           <footer className={styles.taskFooter}>
             {task.deadline && !showCalendar ? (
               <Deadline
@@ -280,7 +269,7 @@ function Task({
                 name="list"
                 size={16}
                 className={styles.footerIcon}
-                onClick={handleChangeMode}
+                onClick={handleShowSubtasks}
               />
             )}
             <IconSystem
@@ -337,4 +326,4 @@ const Details = styled.div`
   padding: 10px 0 0;
 `;
 
-export default React.memo(Task, (prevProps, nextProps) => isEqual(prevProps, nextProps));
+export default Task;

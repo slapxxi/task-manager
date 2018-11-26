@@ -1,27 +1,19 @@
 import { createSubtask } from '@lib';
 import { Subtask as ISubtask } from '@local/types';
-import isEqual from 'lodash-es/isEqual';
+import isEmpty from 'lodash-es/isEmpty';
 import React, { useRef } from 'react';
 import Subtask from './Subtask';
 import Subtasks from './Subtasks';
 
 interface Props {
   subtasks: ISubtask[];
-  focused?: boolean;
-  isEmpty?: boolean;
+  focus?: boolean;
   onCreate?: (subtask: ISubtask) => void;
   onEdit?: (subtask: ISubtask) => void;
   onRemove?: (subtask: ISubtask) => void;
 }
 
-function SubtasksEditor({
-  subtasks,
-  focused,
-  isEmpty,
-  onCreate,
-  onEdit,
-  onRemove,
-}: Props) {
+function SubtasksEditor({ subtasks, focus, onCreate, onEdit, onRemove }: Props) {
   const lastFocusedRef = useRef<number>(NaN);
 
   function handleEdit(subtask: ISubtask) {
@@ -65,13 +57,13 @@ function SubtasksEditor({
   return (
     <div>
       <Subtasks
-        subtasks={isEmpty ? [...subtasks, createSubtask({})] : subtasks}
+        subtasks={isEmpty(subtasks) ? [createSubtask({})] : subtasks}
         render={({ subtask, index }) =>
-          isEmpty && index === subtasks.length ? (
-            <Subtask subtask={subtask} onEdit={handleCreate} />
+          isEmpty(subtasks) && index === subtasks.length ? (
+            <Subtask subtask={subtask} onEdit={handleCreate} focus />
           ) : (
             <Subtask
-              focus={focused && lastFocusedRef.current === index}
+              focus={focus && lastFocusedRef.current === index}
               subtask={subtask}
               onEdit={handleEdit}
               onFocus={() => handleFocus(index)}
@@ -86,6 +78,4 @@ function SubtasksEditor({
   );
 }
 
-export default React.memo(SubtasksEditor, (prevProps, nextProps) =>
-  isEqual(prevProps, nextProps),
-);
+export default SubtasksEditor;

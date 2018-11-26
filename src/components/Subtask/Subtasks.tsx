@@ -19,4 +19,4 @@ function Subtasks({ subtasks, render }: Props) {
   );
 }
 
-export default React.memo(Subtasks);
+export default Subtasks;

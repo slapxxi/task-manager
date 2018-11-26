@@ -49,9 +49,11 @@ function Deadline({ deadline, onChange, onReset }: Props) {
 function renderDaysLeft(deadline: Date): React.ReactNode {
   const currentDate = new Date();
   const daysLeft = differenceInCalendarDays(deadline, currentDate);
+
   if (daysLeft <= 0) {
     return null;
   }
+
   if (daysLeft > 31) {
     const monthsLeft = differenceInCalendarMonths(deadline, currentDate);
     return (
@@ -60,6 +62,7 @@ function renderDaysLeft(deadline: Date): React.ReactNode {
       </div>
     );
   }
+
   return (
     <div className={styles.daysLeft}>
       {daysLeft} {pluralize(daysLeft, 'day')} left

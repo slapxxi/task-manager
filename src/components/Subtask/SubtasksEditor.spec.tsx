@@ -51,3 +51,15 @@ it('invokes callback when subtask submitted', () => {
     completed: false,
   });
 });
+
+it('only removes relevant subtasks', () => {
+  const spy = jest.fn();
+  const { getByTestId } = render(<SubtasksEditor subtasks={subtasks} onRemove={spy} />);
+  fireEvent.click(getByTestId('remove-second'));
+  expect(spy).toHaveBeenCalledTimes(1);
+  expect(spy).toHaveBeenCalledWith({
+    id: 'second',
+    description: 'second',
+    completed: false,
+  });
+});
