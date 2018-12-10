@@ -6,17 +6,17 @@ import React from 'react';
 import styles from './styles.css';
 
 function UpcomingPage() {
-  const { tasks, actions } = useStore();
+  const { getTasks, actions } = useStore();
   return (
     <div className={styles.upcomingPage}>
       <header className={styles.header}>
         <CalendarIcon date={new Date()} size={30} />
-        <PageTitle className={styles.title}>Upcoming</PageTitle>
+        <h1 className={styles.title}>Upcoming</h1>
         <IconSystem name="dots" size={20} className={styles.menu} />
       </header>
       <div className={styles.content}>
         <TasksEditor
-          tasks={tasks}
+          tasks={getTasks()}
           onEdit={actions.updateTask}
           onDelete={actions.deleteTask}
           onCreate={actions.updateTask}
@@ -24,16 +24,6 @@ function UpcomingPage() {
       </div>
     </div>
   );
-}
-
-function PageTitle({
-  children,
-  ...rest
-}: {
-  children: React.ReactNode;
-  [prop: string]: any;
-}) {
-  return <h1 {...rest}>{children}</h1>;
 }
 
 export default UpcomingPage;

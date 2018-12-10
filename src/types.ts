@@ -26,7 +26,6 @@ interface DBEntry<T> {
 
 interface DBProject {
   readonly name: string;
-  readonly tasks: ID[];
 }
 
 interface Tag {
@@ -46,22 +45,22 @@ interface Task {
   readonly id: ID;
   readonly title: string;
   readonly description: string;
-  readonly createdAt: number;
+  readonly createdAt: Date;
   readonly completed: boolean;
   readonly project: ID;
   readonly subtasks: Subtask[];
   readonly deadline?: Date;
-  readonly tags: Array<Tag | UserCreatedTag>;
+  readonly tags: Tag[];
 }
 
 interface DBTask {
   readonly title: string;
   readonly description: string;
-  readonly createdAt: number;
+  readonly createdAt: EpochTime;
   readonly completed: boolean;
   readonly project: ID;
   readonly subtasks: Subtask[];
-  readonly deadline: EpochTime;
+  readonly deadline?: EpochTime;
   readonly tags: ID[];
 }
 
@@ -88,25 +87,6 @@ interface Project {
   readonly tasks: Task[];
 }
 
-interface StoreState {
-  tasks: Task[];
-  tags: Tag[];
-  projects: Project[];
-}
-
-interface InnerStore {
-  tasks: Task[];
-  tags: Tag[];
-  projects: Project[];
-  isLoading: boolean;
-  actions: {
-    updateTask: (task: Task) => void;
-    updateProject: (project: Project) => void;
-    deleteTask: (task: Task) => void;
-    deleteProject: (project: Project) => void;
-  };
-}
-
 export {
   Action,
   ColorTheme,
@@ -117,11 +97,9 @@ export {
   EpochTime,
   Glyph,
   ID,
-  InnerStore,
   Percentage,
   Project,
   Size,
-  StoreState,
   Subtask,
   Tag,
   Task,

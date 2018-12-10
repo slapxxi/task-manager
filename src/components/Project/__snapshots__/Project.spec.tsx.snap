@@ -38,7 +38,7 @@ exports[`renders project 1`] = `
       </div>
     </div>
     <textarea
-      class="name sc-htpNat gyAANP"
+      class="name sc-bxivhb kfXVBf"
       data-testid="project-name"
       placeholder="Project Name..."
       rows="1"

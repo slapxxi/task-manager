@@ -1,12 +1,16 @@
-import { InnerStore } from '@local/types';
+import { State, StoreAction } from '@local/components/Store/StoreProvider';
 import { createContext } from 'react';
 
-const Context = createContext<InnerStore>({
-  tasks: [],
-  projects: [],
-  tags: [],
+interface ContextValue extends State {
+  dispatch: (action: StoreAction) => void;
+}
+
+const Context = createContext<ContextValue>({
+  tasks: {},
+  projects: {},
+  tags: {},
   isLoading: false,
-  actions: {} as any,
+  dispatch: () => null,
 });
 
 const { Provider, Consumer } = Context;

@@ -25,7 +25,7 @@ it('renders', () => {
 
 it('invokes callback when subtask created', () => {
   const spy = jest.fn();
-  const { getByTestId } = render(<SubtasksEditor subtasks={[]} onCreate={spy} isEmpty />);
+  const { getByTestId } = render(<SubtasksEditor subtasks={[]} onCreate={spy} />);
   fireEvent.change(getByTestId('input'), { target: { value: 'new' } });
   expect(spy).toHaveBeenCalledWith({
     id: 'unique-id-0',

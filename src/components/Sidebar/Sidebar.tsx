@@ -10,8 +10,8 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './styles.css';
 
 function Sidebar() {
-  const { tasks, projects, actions } = useStore();
-  const todayTasks = selectTodayTasks(tasks);
+  const { getProjects, getTasks, actions } = useStore();
+  const todayTasks = selectTodayTasks(getTasks());
 
   function handleAddProject() {
     actions.updateProject(createProject({ name: 'Untitled' }));
@@ -22,6 +22,7 @@ function Sidebar() {
       <header className={styles.header}>
         <IconSystem name="logo" size={20} /> <IconSystem name="dots" size={20} />{' '}
       </header>
+
       <nav>
         <ul className={styles.list}>
           <li className={styles.listItem}>
@@ -29,7 +30,7 @@ function Sidebar() {
             <NavLink to="/" className={styles.link} exact>
               Inbox
             </NavLink>{' '}
-            <span className={styles.slot}>{tasks.length}</span>
+            <span className={styles.slot}>{getTasks().length}</span>
           </li>
           <li className={styles.listItem}>
             <IconSystem name="star" size={20} className={styles.starIcon} />{' '}
@@ -51,6 +52,7 @@ function Sidebar() {
           </li>
         </ul>
       </nav>
+
       <nav className={styles.section}>
         <header className={styles.sectionHeader}>
           <h1 className={styles.title}>Projects</h1>
@@ -58,8 +60,9 @@ function Sidebar() {
             <IconSystem name="plus" size={12} />
           </Button>
         </header>
+
         <ul className={styles.list}>
-          {projects.map((p) => (
+          {getProjects().map((p) => (
             <li key={p.id} className={styles.sectionListItem}>
               <NavLink to={`/projects/${p.id}`} className={styles.link}>
                 {p.name}
@@ -79,11 +82,13 @@ function Sidebar() {
           ))}
         </ul>
       </nav>
+
       <nav className={styles.section}>
         <Button className={styles.button}>
           <IconSystem name="plus" size={14} style={{ marginRight: 10 }} /> Add Workspace
         </Button>
       </nav>
+
       <footer className={styles.footer}>
         <Button className={styles.button}>
           <IconSystem name="plus" size={14} />

@@ -15,9 +15,9 @@ import PageTitle from './PageTitle';
 import styles from './styles.css';
 
 function TodayPage() {
-  const { tasks, actions } = useStore();
+  const { getTasks, actions } = useStore();
   const [selectedTags, setSelectedTags] = useState<ITag[]>([]);
-  const todayTasks = tasks.filter((t) => t.deadline && isToday(t.deadline));
+  const todayTasks = getTasks().filter((t) => t.deadline && isToday(t.deadline));
   const todayTags = sortBy(
     uniqBy(flatten(todayTasks.map((t) => t.tags)), 'id') as ITag[],
     'name',
@@ -64,6 +64,7 @@ function TodayPage() {
         <PageTitle className={styles.title}>Today</PageTitle>
         <IconSystem name="dots" size={20} className={styles.menu} />
       </header>
+
       <div className={styles.tags}>
         <Tags
           tags={[createTag({ id: 'all', name: 'All' }), ...todayTags]}
@@ -81,6 +82,7 @@ function TodayPage() {
           )}
         />
       </div>
+
       <div className={styles.content}>
         <TasksEditor
           tasks={matchingTasks}

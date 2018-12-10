@@ -10,7 +10,7 @@ function createTask(params: Partial<Task>): Task {
     project: params.project || '',
     subtasks: params.subtasks || [],
     completed: params.completed || false,
-    createdAt: params.createdAt || Date.now(),
+    createdAt: params.createdAt || new Date(),
     deadline: params.deadline,
   };
 }

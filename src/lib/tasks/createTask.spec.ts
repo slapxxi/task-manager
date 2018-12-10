@@ -1,13 +1,7 @@
 import { Regex } from '@lib';
 import createTask from './createTask';
 
-Date.now = jest.fn(() => 69);
-
 jest.unmock('uuid');
-
-beforeEach(() => {
-  (Date.now as jest.Mock).mockClear();
-});
 
 it('generates ID', () => {
   const task = createTask({ id: undefined });
@@ -26,6 +20,5 @@ it('creates subtasks field', () => {
 
 it('generates creation date', () => {
   const task = createTask({ createdAt: undefined });
-  expect(Date.now).toHaveBeenCalledTimes(1);
-  expect(task.createdAt).toEqual(69);
+  expect(task.createdAt).toEqual(new Date());
 });

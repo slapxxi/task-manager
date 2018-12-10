@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`provides projects selector 1`] = `
+Array [
+  Array [
+    Object {
+      "id": "test-project",
+      "name": "Test Project",
+      "tasks": Array [
+        Object {
+          "completed": false,
+          "createdAt": 1970-01-01T00:00:00.300Z,
+          "deadline": 1970-01-01T00:00:00.300Z,
+          "description": "Testing a task.",
+          "id": "test-task",
+          "project": "test-project",
+          "subtasks": Array [],
+          "tags": Array [
+            Object {
+              "id": "css",
+              "name": "CSS",
+            },
+            Object {
+              "id": "html",
+              "name": "HTML",
+            },
+          ],
+          "title": "Test Task",
+        },
+      ],
+    },
+    Object {
+      "id": "second-project",
+      "name": "Second Test Project",
+      "tasks": Array [
+        Object {
+          "completed": false,
+          "createdAt": 1970-01-01T00:00:00.300Z,
+          "deadline": 1970-01-01T00:00:00.300Z,
+          "description": "Testing a task.",
+          "id": "second-task",
+          "project": "second-project",
+          "subtasks": Array [],
+          "tags": Array [
+            Object {
+              "id": "html",
+              "name": "HTML",
+            },
+          ],
+          "title": "Second Task",
+        },
+      ],
+    },
+  ],
+]
+`;
+
+exports[`provides tags selector 1`] = `
+Array [
+  Array [
+    Object {
+      "id": "css",
+      "name": "CSS",
+    },
+    Object {
+      "id": "html",
+      "name": "HTML",
+    },
+  ],
+]
+`;
+
+exports[`provides tasks selector 1`] = `
+Array [
+  Array [
+    Object {
+      "completed": false,
+      "createdAt": 1970-01-01T00:00:00.300Z,
+      "deadline": 1970-01-01T00:00:00.300Z,
+      "description": "Testing a task.",
+      "id": "test-task",
+      "project": "test-project",
+      "subtasks": Array [],
+      "tags": Array [
+        Object {
+          "id": "css",
+          "name": "CSS",
+        },
+        Object {
+          "id": "html",
+          "name": "HTML",
+        },
+      ],
+      "title": "Test Task",
+    },
+    Object {
+      "completed": false,
+      "createdAt": 1970-01-01T00:00:00.300Z,
+      "deadline": 1970-01-01T00:00:00.300Z,
+      "description": "Testing a task.",
+      "id": "second-task",
+      "project": "second-project",
+      "subtasks": Array [],
+      "tags": Array [
+        Object {
+          "id": "html",
+          "name": "HTML",
+        },
+      ],
+      "title": "Second Task",
+    },
+  ],
+]
+`;

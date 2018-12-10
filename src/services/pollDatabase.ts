@@ -1,20 +1,17 @@
 import { createTask, fromEpochTime } from '@lib';
-import {
-  DBEntry,
-  DBProject,
-  DBTag,
-  DBTask,
-  Project,
-  StoreState,
-  Tag,
-  Task,
-} from '@local/types';
+import { DBEntry, DBProject, DBTag, DBTask, Project, Tag, Task } from '@local/types';
 import firebase from 'firebase/app';
 import compact from 'lodash-es/compact';
 import map from 'lodash-es/map';
 import sortBy from 'lodash-es/sortBy';
 
-function pollDatabase(fn: (state: StoreState) => void) {
+interface Response {
+  tags: Tag[];
+  tasks: Task[];
+  projects: Project[];
+}
+
+function pollDatabase(fn: (state: Response) => void) {
   return firebase
     .database()
     .ref('/')

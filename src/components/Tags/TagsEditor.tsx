@@ -1,10 +1,11 @@
 import { Keys, Regex } from '@lib';
-import { ID, Tag as ITag, UserCreatedTag } from '@local/types';
+import { ID, Tag as ITag } from '@local/types';
 import includes from 'lodash-es/includes';
 import isEmpty from 'lodash-es/isEmpty';
 import last from 'lodash-es/last';
 import without from 'lodash-es/without';
 import React, { useState } from 'react';
+import uuid from 'uuid';
 import styles from './styles.css';
 import Tag from './Tag';
 import Tags from './Tags';
@@ -12,7 +13,7 @@ import Tags from './Tags';
 interface Props {
   tags: ITag[];
   className?: string;
-  onAddTag?: (tag: UserCreatedTag) => void;
+  onAddTag?: (tag: ITag) => void;
   onRemoveTags?: (tags: ITag[]) => void;
 }
 
@@ -31,7 +32,7 @@ function TagsEditor({ tags, onAddTag, onRemoveTags, className }: Props) {
     if (onAddTag) {
       const tagName = e.target.value;
       if (isValidTagName(tagName)) {
-        onAddTag({ name: normalizeTagName(tagName) });
+        onAddTag({ id: uuid.v4(), name: normalizeTagName(tagName) });
         e.target.value = '';
       }
     }
@@ -49,7 +50,7 @@ function TagsEditor({ tags, onAddTag, onRemoveTags, className }: Props) {
     if (key === Keys.enter) {
       if (e.currentTarget.value.trim() !== '') {
         if (onAddTag) {
-          onAddTag({ name: e.currentTarget.value });
+          onAddTag({ id: uuid.v4(), name: e.currentTarget.value });
           resetInput(e);
           return;
         }

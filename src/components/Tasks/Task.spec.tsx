@@ -139,7 +139,7 @@ Array [
   Array [
     Object {
       "completed": false,
-      "createdAt": 69,
+      "createdAt": 1969-12-31T21:00:00.000Z,
       "deadline": undefined,
       "description": "",
       "id": "test",
@@ -183,7 +183,7 @@ Array [
   Array [
     Object {
       "completed": false,
-      "createdAt": 69,
+      "createdAt": 1969-12-31T21:00:00.000Z,
       "deadline": undefined,
       "description": "",
       "id": "test",

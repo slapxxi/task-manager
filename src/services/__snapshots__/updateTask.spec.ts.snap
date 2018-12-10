@@ -39,7 +39,7 @@ Object {
     },
     "unique-id-0": Object {
       "completed": false,
-      "createdAt": 69,
+      "createdAt": 1970-01-01T00:00:00.069Z,
       "deadline": 0,
       "description": "",
       "project": "",
@@ -91,7 +91,7 @@ Object {
     },
     "unique-id-0": Object {
       "completed": false,
-      "createdAt": 69,
+      "createdAt": 1970-01-01T00:00:00.069Z,
       "deadline": 0,
       "description": "",
       "project": "",

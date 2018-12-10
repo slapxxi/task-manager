@@ -28,7 +28,11 @@ it('reuses existing tags', async () => {
   updateTask(
     createTask({
       title: 'task',
-      tags: [{ name: 'css' }, { name: 'html' }, { name: 'ruby' }],
+      tags: [
+        { id: 'css', name: 'css' },
+        { id: 'html', name: 'html' },
+        { id: 'ruby', name: 'ruby' },
+      ],
     }),
     tags,
   );

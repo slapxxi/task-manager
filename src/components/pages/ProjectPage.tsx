@@ -16,8 +16,8 @@ interface Props {
 
 function ProjectPage({ projectID }: Props) {
   const animateProgress = true;
-  const { projects, actions } = useStore();
-  const project = projects.filter((p) => p.id === projectID)[0];
+  const { getProjects, actions } = useStore();
+  const project = getProjects().filter((p) => p.id === projectID)[0];
 
   if (project === undefined) {
     return <Redirect to="/" />;
