@@ -6,6 +6,9 @@ import React, { ReactNode } from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import StoreProvider, { State } from './StoreProvider';
 
+jest.mock('@local/services/fetchDatabase', () => () => null);
+jest.mock('@local/services/saveDatabase', () => () => null);
+
 const mockStore = {
   tasks: {
     'test-task': {
@@ -46,6 +49,7 @@ const mockStore = {
     },
   },
   isLoading: false,
+  lastUpdated: 0,
 };
 
 function Subject({ children }: { children: (store: any) => ReactNode }) {
@@ -134,9 +138,14 @@ it('provides action to create tasks', () => {
   fireEvent.click(getByTestId('trigger'));
 
   const latestState = getLatestState(spy);
+  const newTask = latestState.tasks['new-task'];
   expect(spy).toHaveBeenCalledTimes(2);
-  expect(latestState.tasks['new-task']).not.toBeUndefined();
-  expect(latestState.tasks['new-task'].tags).toEqual(['new', 'css']);
+  expect(newTask).not.toBeUndefined();
+  expect(newTask.tags).toEqual(['new', 'css']);
+  expect(newTask.description).toBeNull();
+  expect(newTask.completed).toEqual(false);
+  expect(newTask.project).toBeNull();
+  expect(newTask.deadline).toBeNull();
   expect(latestState.tags).toEqual({
     css: { name: 'CSS' },
     html: { name: 'HTML' },

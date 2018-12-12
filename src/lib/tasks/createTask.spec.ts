@@ -10,7 +10,7 @@ it('generates ID', () => {
 
 it('provides empty values', () => {
   const task = createTask({ title: undefined, description: undefined });
-  expect(task).toMatchObject({ title: '', description: '' });
+  expect(task).toMatchObject({ title: '' });
 });
 
 it('creates subtasks field', () => {

@@ -1,5 +1,5 @@
 import { createTag } from '@lib';
-import { DBTag } from '@local/types';
+import { StoreTag } from '@local/types';
 import firebase from 'firebase/app';
 
 interface Params {
@@ -11,7 +11,7 @@ function createDBTag(params: Params) {
   firebase
     .database()
     .ref(`/tags/${tag.id}`)
-    .set({ name: tag.name } as DBTag);
+    .set({ name: tag.name } as StoreTag);
   return tag.id;
 }
 

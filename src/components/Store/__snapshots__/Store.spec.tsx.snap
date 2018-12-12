@@ -9,8 +9,8 @@ Array [
       "tasks": Array [
         Object {
           "completed": false,
-          "createdAt": 1970-01-01T00:00:00.300Z,
-          "deadline": 1970-01-01T00:00:00.300Z,
+          "createdAt": 2010-01-01T00:00:00.300Z,
+          "deadline": 2010-01-01T00:00:00.300Z,
           "description": "Testing a task.",
           "id": "test-task",
           "project": "test-project",
@@ -35,8 +35,8 @@ Array [
       "tasks": Array [
         Object {
           "completed": false,
-          "createdAt": 1970-01-01T00:00:00.300Z,
-          "deadline": 1970-01-01T00:00:00.300Z,
+          "createdAt": 2010-01-01T00:00:00.300Z,
+          "deadline": 2010-01-01T00:00:00.300Z,
           "description": "Testing a task.",
           "id": "second-task",
           "project": "second-project",
@@ -75,8 +75,8 @@ Array [
   Array [
     Object {
       "completed": false,
-      "createdAt": 1970-01-01T00:00:00.300Z,
-      "deadline": 1970-01-01T00:00:00.300Z,
+      "createdAt": 2010-01-01T00:00:00.300Z,
+      "deadline": 2010-01-01T00:00:00.300Z,
       "description": "Testing a task.",
       "id": "test-task",
       "project": "test-project",
@@ -95,8 +95,8 @@ Array [
     },
     Object {
       "completed": false,
-      "createdAt": 1970-01-01T00:00:00.300Z,
-      "deadline": 1970-01-01T00:00:00.300Z,
+      "createdAt": 2010-01-01T00:00:00.300Z,
+      "deadline": 2010-01-01T00:00:00.300Z,
       "description": "Testing a task.",
       "id": "second-task",
       "project": "second-project",

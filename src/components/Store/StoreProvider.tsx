@@ -1,5 +1,18 @@
 import { toEpochTime } from '@lib';
-import { DBEntry, DBProject, DBTag, DBTask, ID, Project, Tag, Task } from '@local/types';
+import fetchDatabase from '@local/services/fetchDatabase';
+import saveDatabase from '@local/services/saveDatabase';
+import {
+  Database,
+  EpochTime,
+  ID,
+  Project,
+  StoreEntry,
+  StoreProject,
+  StoreTag,
+  StoreTask,
+  Tag,
+  Task,
+} from '@local/types';
 import { cloneDeep } from 'lodash-es';
 import find from 'lodash-es/find';
 import flatten from 'lodash-es/flatten';
@@ -7,7 +20,7 @@ import includes from 'lodash-es/includes';
 import map from 'lodash-es/map';
 import reduce from 'lodash-es/reduce';
 import uniq from 'lodash-es/uniq';
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Provider } from './context';
 
 enum ActionType {
@@ -21,17 +34,18 @@ enum ActionType {
 
 type StoreAction =
   | { type: ActionType.requestData }
-  | { type: ActionType.receiveData; payload: State }
+  | { type: ActionType.receiveData; payload: Database }
   | { type: ActionType.updateTask; payload: Task }
   | { type: ActionType.deleteTask; payload: Task }
   | { type: ActionType.updateProject; payload: Project }
   | { type: ActionType.deleteProject; payload: Project };
 
 interface State {
-  readonly tasks: DBEntry<DBTask>;
-  readonly tags: DBEntry<DBTag>;
-  readonly projects: DBEntry<DBProject>;
+  readonly tasks: StoreEntry<StoreTask>;
+  readonly tags: StoreEntry<StoreTag>;
+  readonly projects: StoreEntry<StoreProject>;
   readonly isLoading: boolean;
+  readonly lastUpdated: EpochTime;
 }
 
 interface Props {
@@ -44,6 +58,7 @@ const defaultState: State = {
   tasks: {},
   projects: {},
   isLoading: false,
+  lastUpdated: 0,
 };
 
 function StoreProvider({ initialValue = defaultState, children }: Props) {
@@ -52,10 +67,20 @@ function StoreProvider({ initialValue = defaultState, children }: Props) {
     cloneDeep(initialValue),
   );
 
-  // useEffect(() => {
-  //   dispatch({ type: Actions.requestData });
-  //   fetchDatabase((db) => dispatch({ type: Actions.receiveData, payload: db }));
-  // }, []);
+  useEffect(() => {
+    dispatch({ type: ActionType.requestData });
+    fetchDatabase((db) => dispatch({ type: ActionType.receiveData, payload: db }));
+  }, []);
+
+  useEffect(
+    () => {
+      if (state.lastUpdated === 0) {
+        return;
+      }
+      saveDatabase({ tasks: state.tasks, tags: state.tags, projects: state.projects });
+    },
+    [state.lastUpdated],
+  );
 
   return <Provider value={{ ...state, dispatch }}>{children}</Provider>;
 }
@@ -65,7 +90,7 @@ function storeReducer(state: State, action: StoreAction): State {
     case ActionType.requestData:
       return { ...state, isLoading: true };
     case ActionType.receiveData:
-      return { ...action.payload, isLoading: false };
+      return { ...action.payload, isLoading: false, lastUpdated: state.lastUpdated };
     case ActionType.updateTask:
       return updateTask(state, action.payload);
     case ActionType.deleteTask:
@@ -80,7 +105,7 @@ function storeReducer(state: State, action: StoreAction): State {
 }
 
 function updateTask(state: State, task: Task): State {
-  const { tags: updatedTags } = task.tags.reduce(
+  const { tags: updatedTags = {} } = task.tags.reduce(
     (updatedState, tag) => updateTag(updatedState, tag),
     state,
   );
@@ -94,6 +119,7 @@ function updateTask(state: State, task: Task): State {
         tags: task.tags.map((t) => findMatchingTag(state, t)),
       }),
     },
+    lastUpdated: Date.now(),
   };
 }
 
@@ -118,25 +144,28 @@ function findMatchingTag(state: State, tag: Tag): Tag {
   }
 }
 
-function normalizeTask(task: Task): DBTask {
-  const result = {
+function normalizeTask(task: Task): StoreTask {
+  const dbTask = {
     ...task,
+    description: task.description || null,
+    project: task.project || null,
     tags: (task.tags as Tag[]).map((t) => t.id),
-    deadline: task.deadline ? toEpochTime(task.deadline) : undefined,
+    deadline: task.deadline ? toEpochTime(task.deadline) : null,
     createdAt: toEpochTime(task.createdAt),
   };
-  delete result.id;
-  return result;
+  delete dbTask.id;
+  return dbTask;
 }
 
 function updateProject(state: State, project: Project): State {
   return {
     ...state,
     projects: { ...state.projects, [project.id]: normalizeProject(project) },
+    lastUpdated: Date.now(),
   };
 }
 
-function normalizeProject(project: Project): DBProject {
+function normalizeProject(project: Project): StoreProject {
   return { name: project.name };
 }
 

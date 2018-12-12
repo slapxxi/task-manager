@@ -39,10 +39,8 @@ Object {
     },
     "unique-id-0": Object {
       "completed": false,
-      "createdAt": 1970-01-01T00:00:00.069Z,
+      "createdAt": 2010-01-01T00:00:00.000Z,
       "deadline": 0,
-      "description": "",
-      "project": "",
       "subtasks": Array [],
       "tags": Array [
         "css",
@@ -91,10 +89,8 @@ Object {
     },
     "unique-id-0": Object {
       "completed": false,
-      "createdAt": 1970-01-01T00:00:00.069Z,
+      "createdAt": 2010-01-01T00:00:00.000Z,
       "deadline": 0,
-      "description": "",
-      "project": "",
       "subtasks": Array [],
       "tags": Array [],
       "title": "task",

@@ -1,5 +1,5 @@
 import { createTask, fromEpochTime } from '@lib';
-import { DBEntry, DBProject, DBTag, DBTask, Project, Tag, Task } from '@local/types';
+import { DBEntry, DBProject, DBTask, Project, StoreTag, Tag, Task } from '@local/types';
 import firebase from 'firebase/app';
 import compact from 'lodash-es/compact';
 import map from 'lodash-es/map';
@@ -48,7 +48,7 @@ function matchTags(task: DBTask, tags: Tag[]): Tag[] {
   return [];
 }
 
-function normalizeTags(tags: DBEntry<DBTag>): Tag[] {
+function normalizeTags(tags: DBEntry<StoreTag>): Tag[] {
   return map(tags, (item, key) => ({
     id: key,
     name: item.name || 'empty tag',

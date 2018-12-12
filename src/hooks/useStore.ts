@@ -1,7 +1,15 @@
 import { createTask, fromEpochTime } from '@lib';
 import StoreContext from '@local/components/Store/context';
 import { ActionType } from '@local/components/Store/StoreProvider';
-import { DBEntry, DBProject, DBTag, DBTask, Project, Tag, Task } from '@local/types';
+import {
+  Project,
+  StoreEntry,
+  StoreProject,
+  StoreTag,
+  StoreTask,
+  Tag,
+  Task,
+} from '@local/types';
 import compact from 'lodash-es/compact';
 import map from 'lodash-es/map';
 import sortBy from 'lodash-es/sortBy';
@@ -43,7 +51,7 @@ function useStore() {
   return { ...selectors, actions, state };
 }
 
-function normalizeTasks(tasks: DBEntry<DBTask>, tags: Tag[]): Task[] {
+function normalizeTasks(tasks: StoreEntry<StoreTask>, tags: Tag[]): Task[] {
   return sortBy(
     map(tasks, (task, key) =>
       createTask({
@@ -51,29 +59,28 @@ function normalizeTasks(tasks: DBEntry<DBTask>, tags: Tag[]): Task[] {
         id: key,
         tags: matchTags(task, tags),
         createdAt: fromEpochTime(task.createdAt),
-        deadline:
-          task.deadline !== undefined ? fromEpochTime(task.deadline) : task.deadline,
+        deadline: task.deadline !== null ? fromEpochTime(task.deadline) : undefined,
       }),
     ),
     'createdAt',
   );
 }
 
-function matchTags(task: DBTask, tags: Tag[]): Tag[] {
+function matchTags(task: StoreTask, tags: Tag[]): Tag[] {
   if (task.tags) {
     return compact(task.tags.map((id) => tags.filter((it) => it.id === id)[0]));
   }
   return [];
 }
 
-function normalizeTags(tags: DBEntry<DBTag>): Tag[] {
+function normalizeTags(tags: StoreEntry<StoreTag>): Tag[] {
   return map(tags, (item, key) => ({
     id: key,
     name: item.name || 'empty tag',
   }));
 }
 
-function normalizeProjects(projects: DBEntry<DBProject>, tasks: Task[]): Project[] {
+function normalizeProjects(projects: StoreEntry<StoreProject>, tasks: Task[]): Project[] {
   return map(projects, (item, key) => ({
     id: key,
     name: item.name,

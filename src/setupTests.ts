@@ -1,6 +1,6 @@
 import 'react-testing-library/cleanup-after-each';
 
-const MOCK_DATE = new Date(69);
+const MOCK_DATE = new Date('2010');
 const _Date = Date;
 
 // @ts-ignore

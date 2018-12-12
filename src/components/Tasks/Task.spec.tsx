@@ -139,11 +139,8 @@ Array [
   Array [
     Object {
       "completed": false,
-      "createdAt": 1969-12-31T21:00:00.000Z,
-      "deadline": undefined,
-      "description": "",
+      "createdAt": 2009-12-31T21:00:00.000Z,
       "id": "test",
-      "project": "",
       "subtasks": Array [
         Object {
           "completed": false,
@@ -183,11 +180,8 @@ Array [
   Array [
     Object {
       "completed": false,
-      "createdAt": 1969-12-31T21:00:00.000Z,
-      "deadline": undefined,
-      "description": "",
+      "createdAt": 2009-12-31T21:00:00.000Z,
       "id": "test",
-      "project": "",
       "subtasks": Array [],
       "tags": Array [],
       "title": "test",
