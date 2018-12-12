@@ -163,7 +163,7 @@ it('provides action to update tasks', () => {
           spy(state) && (
             <button
               onClick={() =>
-                actions.updateTask({ ...getTasks()[0], title: 'Changed Task' })
+                actions.updateTask({ ...getTasks()[0], title: 'Changed Task', tags: [] })
               }
               data-testid="trigger"
             />
@@ -178,6 +178,8 @@ it('provides action to update tasks', () => {
   const latestState = getLatestState(spy);
   expect(spy).toHaveBeenCalledTimes(2);
   expect(latestState.tasks['test-task'].title).toEqual('Changed Task');
+  expect(latestState.tasks['test-task'].tags).toEqual([]);
+  expect(latestState.tags).toEqual({ html: { name: 'HTML' } });
 });
 
 it('provides action to delete tasks', () => {

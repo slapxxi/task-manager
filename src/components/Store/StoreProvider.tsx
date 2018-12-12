@@ -109,7 +109,7 @@ function updateTask(state: State, task: Task): State {
     (updatedState, tag) => updateTag(updatedState, tag),
     state,
   );
-  return {
+  const newState = {
     ...state,
     tags: updatedTags,
     tasks: {
@@ -121,6 +121,7 @@ function updateTask(state: State, task: Task): State {
     },
     lastUpdated: Date.now(),
   };
+  return deleteExtranousTags(newState);
 }
 
 function updateTag(state: State, tag: Tag): State {
