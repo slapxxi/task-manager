@@ -1,19 +1,21 @@
 import { toEpochTime } from '@lib';
+import removeNullableProperties from '@lib/removeNullableProperties';
 import fetchDatabase from '@local/services/fetchDatabase';
 import saveDatabase from '@local/services/saveDatabase';
 import {
   Database,
+  DBEntry,
+  DBProject,
+  DBTag,
+  DBTask,
   EpochTime,
   ID,
+  Nullable,
   Project,
-  StoreEntry,
-  StoreProject,
-  StoreTag,
-  StoreTask,
   Tag,
   Task,
 } from '@local/types';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, debounce } from 'lodash-es';
 import find from 'lodash-es/find';
 import flatten from 'lodash-es/flatten';
 import includes from 'lodash-es/includes';
@@ -41,9 +43,9 @@ type StoreAction =
   | { type: ActionType.deleteProject; payload: Project };
 
 interface State {
-  readonly tasks: StoreEntry<StoreTask>;
-  readonly tags: StoreEntry<StoreTag>;
-  readonly projects: StoreEntry<StoreProject>;
+  readonly tasks: DBEntry<DBTask>;
+  readonly tags: DBEntry<DBTag>;
+  readonly projects: DBEntry<DBProject>;
   readonly isLoading: boolean;
   readonly lastUpdated: EpochTime;
 }
@@ -61,6 +63,8 @@ const defaultState: State = {
   lastUpdated: 0,
 };
 
+const debouncedSaveDatabase = debounce(saveDatabase, 1000);
+
 function StoreProvider({ initialValue = defaultState, children }: Props) {
   const [state, dispatch] = useReducer<State, StoreAction>(
     storeReducer,
@@ -77,7 +81,11 @@ function StoreProvider({ initialValue = defaultState, children }: Props) {
       if (state.lastUpdated === 0) {
         return;
       }
-      saveDatabase({ tasks: state.tasks, tags: state.tags, projects: state.projects });
+      debouncedSaveDatabase({
+        tasks: state.tasks,
+        tags: state.tags,
+        projects: state.projects,
+      });
     },
     [state.lastUpdated],
   );
@@ -116,46 +124,39 @@ function updateTask(state: State, task: Task): State {
       ...state.tasks,
       [task.id]: normalizeTask({
         ...task,
-        tags: task.tags.map((t) => findMatchingTag(state, t)),
+        tags: task.tags.map((t) => findMatchingTag(state, t) || t),
       }),
     },
     lastUpdated: Date.now(),
   };
-  return deleteExtranousTags(newState);
+  return deleteUnusedTags(newState);
 }
 
 function updateTag(state: State, tag: Tag): State {
-  const updatedTag = findMatchingTag(state, tag);
+  tag = findMatchingTag(state, tag) || tag;
   return {
     ...state,
-    tags: { ...state.tags, [updatedTag.id]: { name: updatedTag.name } },
+    tags: { ...state.tags, [tag.id]: { name: tag.name } },
   };
 }
 
-function findMatchingTag(state: State, tag: Tag): Tag {
-  const matchingTag = find(
+function findMatchingTag(state: State, tag: Tag): Nullable<Tag> {
+  return find(
     map(state.tags, (t, id) => ({ id, name: t.name })),
     (t) =>
       t.name.toLowerCase().trim() === tag.name.toLowerCase().trim() || t.id === tag.id,
   );
-  if (matchingTag) {
-    return matchingTag;
-  } else {
-    return tag;
-  }
 }
 
-function normalizeTask(task: Task): StoreTask {
+function normalizeTask(task: Task): DBTask {
   const dbTask = {
     ...task,
-    description: task.description || null,
-    project: task.project || null,
     tags: (task.tags as Tag[]).map((t) => t.id),
-    deadline: task.deadline ? toEpochTime(task.deadline) : null,
+    deadline: task.deadline && toEpochTime(task.deadline),
     createdAt: toEpochTime(task.createdAt),
   };
   delete dbTask.id;
-  return dbTask;
+  return removeNullableProperties(dbTask) as DBTask;
 }
 
 function updateProject(state: State, project: Project): State {
@@ -173,10 +174,10 @@ function normalizeProject(project: Project): StoreProject {
 function deleteTask(state: State, task: Task): State {
   const updatedState = { ...state };
   delete updatedState.tasks[task.id];
-  return deleteExtranousTags(updatedState);
+  return deleteUnusedTags(updatedState);
 }
 
-function deleteExtranousTags(state: State): State {
+function deleteUnusedTags(state: State): State {
   const updatedTags = reduce(
     state.tags,
     (acc, tag, tagId) => {

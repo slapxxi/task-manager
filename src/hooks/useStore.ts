@@ -59,7 +59,7 @@ function normalizeTasks(tasks: StoreEntry<StoreTask>, tags: Tag[]): Task[] {
         id: key,
         tags: matchTags(task, tags),
         createdAt: fromEpochTime(task.createdAt),
-        deadline: task.deadline !== null ? fromEpochTime(task.deadline) : undefined,
+        deadline: task.deadline && fromEpochTime(task.deadline),
       }),
     ),
     'createdAt',

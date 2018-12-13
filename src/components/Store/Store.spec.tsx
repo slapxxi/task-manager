@@ -142,10 +142,7 @@ it('provides action to create tasks', () => {
   expect(spy).toHaveBeenCalledTimes(2);
   expect(newTask).not.toBeUndefined();
   expect(newTask.tags).toEqual(['new', 'css']);
-  expect(newTask.description).toBeNull();
   expect(newTask.completed).toEqual(false);
-  expect(newTask.project).toBeNull();
-  expect(newTask.deadline).toBeNull();
   expect(latestState.tags).toEqual({
     css: { name: 'CSS' },
     html: { name: 'HTML' },

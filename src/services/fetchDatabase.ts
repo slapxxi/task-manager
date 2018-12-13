@@ -1,4 +1,4 @@
-import { Database, DatabaseResponse, DBTask, StoreTask } from '@local/types';
+import { Database, DatabaseResponse } from '@local/types';
 import firebase from 'firebase/app';
 import reduce from 'lodash-es/reduce';
 
@@ -17,22 +17,9 @@ function fetchDatabase(fn: (state: Database) => void) {
 
 function normalizeResponse(response: DatabaseResponse): Database {
   return {
-    tasks: reduce(
-      response.tasks || {},
-      (acc, task, id) => ({ ...acc, [id]: dbTaskToStoreTask(task) }),
-      {},
-    ),
+    tasks: reduce(response.tasks || {}, (acc, task, id) => ({ ...acc, [id]: task }), {}),
     tags: response.tags || {},
     projects: response.projects || {},
-  };
-}
-
-function dbTaskToStoreTask(task: DBTask): StoreTask {
-  return {
-    ...task,
-    description: task.description || null,
-    project: task.project || null,
-    deadline: task.deadline || null,
   };
 }
 

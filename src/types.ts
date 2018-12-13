@@ -8,10 +8,12 @@ type ID = string;
 
 type Size = number | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
+type Nullable<T> = T | undefined | null;
+
 interface Database {
-  tags: StoreEntry<StoreTag>;
-  tasks: StoreEntry<StoreTask>;
-  projects: StoreEntry<StoreProject>;
+  tags: DBEntry<DBTag>;
+  tasks: DBEntry<DBTask>;
+  projects: DBEntry<DBProject>;
 }
 
 interface DatabaseResponse {
@@ -36,16 +38,8 @@ interface DBEntry<T> {
   [id: string]: T;
 }
 
-interface StoreEntry<T> {
-  [id: string]: T;
-}
-
 interface Tag {
   readonly id: ID;
-  readonly name: string;
-}
-
-interface StoreTag {
   readonly name: string;
 }
 
@@ -67,17 +61,6 @@ interface Task {
   readonly subtasks: Subtask[];
   readonly deadline?: Date;
   readonly tags: Tag[];
-}
-
-interface StoreTask {
-  readonly title: string;
-  readonly description: string | null;
-  readonly createdAt: EpochTime;
-  readonly completed: boolean;
-  readonly project: ID | null;
-  readonly subtasks: Subtask[];
-  readonly deadline: EpochTime | null;
-  readonly tags: ID[];
 }
 
 interface DBTask {
@@ -118,10 +101,6 @@ interface DBProject {
   readonly name: string;
 }
 
-interface StoreProject {
-  readonly name: string;
-}
-
 export {
   Action,
   ColorTheme,
@@ -134,13 +113,10 @@ export {
   EpochTime,
   Glyph,
   ID,
+  Nullable,
   Percentage,
   Project,
   Size,
-  StoreEntry,
-  StoreProject,
-  StoreTag,
-  StoreTask,
   Subtask,
   Tag,
   Task,

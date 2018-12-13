@@ -7,6 +7,7 @@ import styles from './styles.css';
 
 function InboxPage() {
   const { state, getTasks, actions } = useStore();
+  const tasks = getTasks();
 
   return (
     <div className={styles.inboxPage}>
@@ -20,7 +21,7 @@ function InboxPage() {
           <Spinner />
         ) : (
           <TasksEditor
-            tasks={getTasks()}
+            tasks={tasks}
             onEdit={actions.updateTask}
             onDelete={actions.deleteTask}
             onCreate={actions.updateTask}

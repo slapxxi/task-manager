@@ -5,7 +5,6 @@ Array [
   Object {
     "completed": false,
     "createdAt": 1,
-    "deadline": undefined,
     "id": "first-task",
     "subtasks": Array [],
     "tags": Array [],
@@ -23,7 +22,6 @@ Array [
   Object {
     "completed": false,
     "createdAt": 2010-01-01T00:00:02.668Z,
-    "deadline": undefined,
     "id": "third-task",
     "project": "test",
     "subtasks": Array [],

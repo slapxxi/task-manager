@@ -1,8 +1,9 @@
+import removeNullableProperties from '@lib/removeNullableProperties';
 import { Task } from '@local/types';
 import uuid from 'uuid';
 
 function createTask(params: Partial<Task>): Task {
-  return {
+  return removeNullableProperties({
     ...params,
     id: params.id || uuid.v4(),
     title: params.title || '',
@@ -10,7 +11,7 @@ function createTask(params: Partial<Task>): Task {
     subtasks: params.subtasks || [],
     completed: params.completed || false,
     createdAt: params.createdAt || new Date(),
-  };
+  }) as Task;
 }
 
 export default createTask;
