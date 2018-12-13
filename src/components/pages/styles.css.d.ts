@@ -2,6 +2,7 @@ export const page: string;
 export const inboxPage: string;
 export const todayPage: string;
 export const projectPage: string;
+export const projectsPage: string;
 export const upcomingPage: string;
 export const somedayPage: string;
 export const logbookPage: string;

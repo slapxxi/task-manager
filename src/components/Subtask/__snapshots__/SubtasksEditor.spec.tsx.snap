@@ -47,7 +47,7 @@ exports[`renders 1`] = `
           value="first"
         />
         <button
-          class="sc-bdVaJa cabFfC"
+          class="sc-bdVaJa fFWIpk"
           data-testid="remove-first"
         >
           <div
@@ -103,7 +103,7 @@ exports[`renders 1`] = `
           value="second"
         />
         <button
-          class="sc-bdVaJa cabFfC"
+          class="sc-bdVaJa fFWIpk"
           data-testid="remove-second"
         >
           <div

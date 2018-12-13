@@ -1,5 +1,5 @@
-import Button from '@local/components/Button/Button';
 import IconSystem from '@local/components/IconSystem/IconSystem';
+import Input from '@local/components/Input/Input';
 import React from 'react';
 
 interface Props {
@@ -9,9 +9,10 @@ interface Props {
 function Search({ ...rest }: Props) {
   return (
     <div {...rest}>
-      <Button>
+      <label htmlFor="search">
         <IconSystem name="search" size={20} />
-      </Button>
+      </label>
+      <Input id="search" type="search" placeholder="Search..." />
     </div>
   );
 }

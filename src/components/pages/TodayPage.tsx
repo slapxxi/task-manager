@@ -1,5 +1,6 @@
 import { createTag, matchTasksByTags } from '@lib';
 import { TasksEditor } from '@local/components';
+import Breadcrumbs from '@local/components/Breadcrumbs/Breadcrumbs';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import Tag from '@local/components/Tags/Tag';
 import Tags from '@local/components/Tags/Tags';
@@ -59,6 +60,10 @@ function TodayPage() {
 
   return (
     <div className={styles.todayPage}>
+      <div className={styles.toolbar}>
+        <Breadcrumbs />
+      </div>
+
       <header className={styles.header}>
         <IconSystem name="star" size={25} />
         <PageTitle className={styles.title}>Today</PageTitle>

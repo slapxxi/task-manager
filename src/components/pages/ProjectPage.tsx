@@ -1,5 +1,6 @@
 import { assignToProject, getProjectProgress } from '@lib';
 import { TasksEditor } from '@local/components';
+import Breadcrumbs from '@local/components/Breadcrumbs/Breadcrumbs';
 import Button from '@local/components/Button/Button';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import ProgressCheckbox from '@local/components/ProgressCheckbox/ProgressCheckbox';
@@ -34,10 +35,7 @@ function ProjectPage({ projectID }: Props) {
   return (
     <div className={styles.projectPage}>
       <div className={styles.toolbar}>
-        <div>
-          Home <IconSystem name="arrow-right" size={10} /> Projects{' '}
-          <IconSystem name="arrow-right" size={10} /> <strong>Blackout</strong>
-        </div>
+        <Breadcrumbs />
         <div>
           Order <IconSystem name="arrow-down" size={10} />
         </div>

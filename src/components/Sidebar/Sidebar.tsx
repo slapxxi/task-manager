@@ -55,7 +55,11 @@ function Sidebar() {
 
       <nav className={styles.section}>
         <header className={styles.sectionHeader}>
-          <h1 className={styles.title}>Projects</h1>
+          <h1 className={styles.title}>
+            <NavLink to="/projects" className={styles.link} exact>
+              Projects
+            </NavLink>
+          </h1>
           <Button onClick={handleAddProject}>
             <IconSystem name="plus" size={12} />
           </Button>

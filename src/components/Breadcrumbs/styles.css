@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  margin-right: 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--light-grey);
+}
+
+.link:global(.active) {
+  color: var(--dark-grey);
+}
+
+.icon {
+  margin-right: 10px;
+}

@@ -17,6 +17,10 @@
   composes: page;
 }
 
+.projectsPage {
+  composes: page;
+}
+
 .upcomingPage {
   composes: page;
 }
@@ -120,7 +124,7 @@
   color: var(--light-grey);
 }
 
-.toolbar > div:first-child {
+.toolbar > *:first-child {
   flex: 1;
 }
 

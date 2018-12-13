@@ -1,4 +1,5 @@
 import { TasksEditor } from '@local/components';
+import Breadcrumbs from '@local/components/Breadcrumbs/Breadcrumbs';
 import CalendarIcon from '@local/components/CalendarIcon/CalendarIcon';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import { useStore } from '@local/hooks';
@@ -9,6 +10,9 @@ function UpcomingPage() {
   const { getTasks, actions } = useStore();
   return (
     <div className={styles.upcomingPage}>
+      <div className={styles.toolbar}>
+        <Breadcrumbs />
+      </div>
       <header className={styles.header}>
         <CalendarIcon date={new Date()} size={30} />
         <h1 className={styles.title}>Upcoming</h1>
