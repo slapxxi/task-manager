@@ -6,6 +6,7 @@
   --dark-grey: hsl(225, 35%, 25%);
   --middle-grey: hsl(225, 15%, 50%);
   --light-grey: hsl(225, 15%, 70%);
+  --very-light-grey: hsl(225, 15%, 80%);
   --title-color: var(--dark-grey);
   --light-green: hsl(125, 30%, 80%);
 }

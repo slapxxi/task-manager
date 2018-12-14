@@ -15,7 +15,8 @@ import {
   Tag,
   Task,
 } from '@local/types';
-import { cloneDeep, debounce } from 'lodash-es';
+import cloneDeep from 'lodash-es/cloneDeep';
+import debounce from 'lodash-es/debounce';
 import find from 'lodash-es/find';
 import flatten from 'lodash-es/flatten';
 import includes from 'lodash-es/includes';
@@ -26,6 +27,8 @@ import React, { useEffect, useReducer } from 'react';
 import { Provider } from './context';
 
 enum ActionType {
+  startSync = 'START_SYNC',
+  completeSync = 'COMPLETE_SYNC',
   receiveData = 'RECEIVE_DATA',
   requestData = 'REQUEST_DATA',
   updateTask = 'UPDATE_TASK',
@@ -35,6 +38,8 @@ enum ActionType {
 }
 
 type StoreAction =
+  | { type: ActionType.startSync }
+  | { type: ActionType.completeSync }
   | { type: ActionType.requestData }
   | { type: ActionType.receiveData; payload: Database }
   | { type: ActionType.updateTask; payload: Task }
@@ -47,6 +52,7 @@ interface State {
   readonly tags: DBEntry<DBTag>;
   readonly projects: DBEntry<DBProject>;
   readonly isLoading: boolean;
+  readonly isSyncing: boolean;
   readonly lastUpdated: EpochTime;
 }
 
@@ -60,10 +66,17 @@ const defaultState: State = {
   tasks: {},
   projects: {},
   isLoading: false,
+  isSyncing: false,
   lastUpdated: 0,
 };
 
-const debouncedSaveDatabase = debounce(saveDatabase, 1000);
+const debouncedSaveDatabase = debounce(
+  (dispatch: (action: StoreAction) => void, db: Database) => {
+    dispatch({ type: ActionType.startSync });
+    saveDatabase(db, () => dispatch({ type: ActionType.completeSync }));
+  },
+  1000,
+);
 
 function StoreProvider({ initialValue = defaultState, children }: Props) {
   const [state, dispatch] = useReducer<State, StoreAction>(
@@ -81,7 +94,7 @@ function StoreProvider({ initialValue = defaultState, children }: Props) {
       if (state.lastUpdated === 0) {
         return;
       }
-      debouncedSaveDatabase({
+      debouncedSaveDatabase(dispatch, {
         tasks: state.tasks,
         tags: state.tags,
         projects: state.projects,
@@ -95,10 +108,19 @@ function StoreProvider({ initialValue = defaultState, children }: Props) {
 
 function storeReducer(state: State, action: StoreAction): State {
   switch (action.type) {
+    case ActionType.startSync:
+      return { ...state, isSyncing: true };
+    case ActionType.completeSync:
+      return { ...state, isSyncing: false };
     case ActionType.requestData:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: true, isSyncing: false };
     case ActionType.receiveData:
-      return { ...action.payload, isLoading: false, lastUpdated: state.lastUpdated };
+      return {
+        ...action.payload,
+        isLoading: false,
+        lastUpdated: state.lastUpdated,
+        isSyncing: false,
+      };
     case ActionType.updateTask:
       return updateTask(state, action.payload);
     case ActionType.deleteTask:
@@ -167,12 +189,12 @@ function updateProject(state: State, project: Project): State {
   };
 }
 
-function normalizeProject(project: Project): StoreProject {
+function normalizeProject(project: Project): DBProject {
   return { name: project.name };
 }
 
 function deleteTask(state: State, task: Task): State {
-  const updatedState = { ...state };
+  const updatedState = { ...state, lastUpdated: Date.now() };
   delete updatedState.tasks[task.id];
   return deleteUnusedTags(updatedState);
 }
@@ -204,9 +226,9 @@ function getTagsUsedInTasks(state: State): ID[] {
 }
 
 function deleteProject(state: State, project: Project): State {
-  const updatedState = { ...state, tasks: state.tasks };
+  const updatedState = { ...state, tasks: state.tasks, lastUpdated: Date.now() };
   delete updatedState.projects[project.id];
-  return removeProjectFromTasks(state, project);
+  return removeProjectFromTasks(updatedState, project);
 }
 
 function removeProjectFromTasks(state: State, project: Project): State {

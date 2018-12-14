@@ -12,6 +12,7 @@ type IconName =
   | 'briefcase'
   | 'cog'
   | 'cross'
+  | 'cloud'
   | 'dots'
   | 'flag'
   | 'inbox'
@@ -79,6 +80,8 @@ function loadIcon(name: IconName) {
       return React.lazy(() => import(/*webpackChunkName: 'bell-icon' */ './BellIcon'));
     case 'cog':
       return React.lazy(() => import(/*webpackChunkName: 'cog-icon' */ './CogIcon'));
+    case 'cloud':
+      return React.lazy(() => import(/*webpackChunkName: 'cog-icon' */ './CloudIcon'));
     case 'inbox':
       return React.lazy(() => import(/*webpackChunkName: 'inbox-icon' */ './InboxIcon'));
     case 'plus':

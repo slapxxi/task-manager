@@ -1,11 +1,11 @@
 import { Database } from '@local/types';
 import firebase from 'firebase/app';
 
-function saveDatabase(data: Database) {
+function saveDatabase(data: Database, onComplete?: () => void) {
   return firebase
     .database()
     .ref('/')
-    .set(data);
+    .set(data, onComplete);
 }
 
 export default saveDatabase;

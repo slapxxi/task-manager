@@ -1,13 +1,16 @@
 import { createProject, createTask } from '@lib';
 import { useStore } from '@local/hooks';
+import fetchDatabase from '@local/services/fetchDatabase';
+import saveDatabase from '@local/services/saveDatabase';
 import { size } from 'lodash-es';
 import last from 'lodash-es/last';
 import React, { ReactNode } from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import StoreProvider, { State } from './StoreProvider';
 
-jest.mock('@local/services/fetchDatabase', () => () => null);
-jest.mock('@local/services/saveDatabase', () => () => null);
+jest.mock('@local/services/fetchDatabase', () => jest.fn());
+jest.mock('@local/services/saveDatabase', () => jest.fn());
+jest.mock('lodash-es/debounce', () => (fn: any) => fn);
 
 const mockStore = {
   tasks: {
@@ -49,6 +52,7 @@ const mockStore = {
     },
   },
   isLoading: false,
+  isSyncing: false,
   lastUpdated: 0,
 };
 
@@ -56,6 +60,14 @@ function Subject({ children }: { children: (store: any) => ReactNode }) {
   const store = useStore();
   return <div>{children(store)}</div>;
 }
+
+const mockFetchDatabase = fetchDatabase as jest.Mock;
+const mockSaveDatabase = saveDatabase as jest.Mock;
+
+beforeEach(() => {
+  mockFetchDatabase.mockReset();
+  mockSaveDatabase.mockReset();
+});
 
 it('provides tasks selector', () => {
   const spy = jest.fn(() => 'div');
@@ -110,9 +122,9 @@ it('provides raw state', () => {
 });
 
 it('provides action to create tasks', () => {
+  Date.now = () => 100;
   const spy = jest.fn(() => 'div');
-
-  const { getByTestId } = render(
+  const Tree = (
     <StoreProvider initialValue={mockStore}>
       <Subject>
         {({ actions, state }) =>
@@ -132,8 +144,9 @@ it('provides action to create tasks', () => {
           )
         }
       </Subject>
-    </StoreProvider>,
+    </StoreProvider>
   );
+  const { getByTestId, rerender } = render(Tree);
 
   fireEvent.click(getByTestId('trigger'));
 
@@ -148,6 +161,10 @@ it('provides action to create tasks', () => {
     html: { name: 'HTML' },
     new: { name: 'ruby' },
   });
+
+  rerender(Tree);
+  expect(mockSaveDatabase).toHaveBeenCalledTimes(1);
+  expect(mockSaveDatabase.mock.calls[0][0].tasks['new-task']).not.toBeUndefined();
 });
 
 it('provides action to update tasks', () => {

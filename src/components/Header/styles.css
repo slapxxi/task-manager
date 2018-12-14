@@ -5,8 +5,13 @@
   padding: 20px 40px 0;
 }
 
-.button {
+.icon {
   margin-right: 15px;
+}
+
+.syncIcon {
+  --primary-color: var(--very-light-grey);
+  composes: icon;
 }
 
 .search {

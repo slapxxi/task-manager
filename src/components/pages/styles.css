@@ -5,12 +5,13 @@
 
 .inboxPage {
   --primary-color: var(--dark-grey);
-  padding: 20px 40px;
+  composes: page;
 }
 
 .todayPage {
+  --primary-color: none;
   --secondary-color: var(--dark-grey);
-  padding: 20px 40px;
+  composes: page;
 }
 
 .projectPage {

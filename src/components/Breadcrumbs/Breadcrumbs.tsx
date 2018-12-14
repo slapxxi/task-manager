@@ -8,7 +8,7 @@ function Breadcrumbs() {
     <ul className={styles.container}>
       <li className={styles.item}>
         <NavLink to="/" className={styles.link} exact>
-          Home
+          <IconSystem name="inbox" size={20} />
         </NavLink>
       </li>
       <Route path="/:path" component={BreadcrumbsItem} />
