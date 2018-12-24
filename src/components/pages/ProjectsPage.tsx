@@ -1,9 +1,10 @@
 import { createProject, getProjectProgress } from '@lib';
-import { Button, ProgressCheckbox } from '@local/components';
+import Breadcrumbs from '@local/components/Breadcrumbs/Breadcrumbs';
+import Button from '@local/components/Button/Button';
+import ProgressCheckbox from '@local/components/ProgressCheckbox/ProgressCheckbox';
 import { useStore } from '@local/hooks';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import styles from './styles.css';
 
 function ProjectsPage() {

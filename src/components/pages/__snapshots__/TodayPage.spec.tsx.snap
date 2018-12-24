@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<div
+  class="todayPage"
+>
+  <div
+    class="toolbar"
+  >
+    <ul
+      class="container"
+    >
+      <li
+        class="item"
+      >
+        <a
+          aria-current="page"
+          class="link active"
+          href="/"
+        >
+          <div
+            name="inbox"
+            size="20"
+          >
+            icon-
+            inbox
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <header
+    class="header"
+  >
+    <div
+      name="star"
+      size="25"
+    >
+      icon-
+      star
+    </div>
+    <h1
+      class="title"
+    >
+      Today
+    </h1>
+    <div
+      class="menu"
+      name="dots"
+      size="20"
+    >
+      icon-
+      dots
+    </div>
+  </header>
+  <div
+    class="tags"
+  >
+    <ul
+      class="tags"
+      data-testid="tags"
+    >
+      <li
+        class="tag"
+      >
+        <input
+          checked=""
+          class="checkbox"
+          data-testid="checkbox"
+          id="today-page-all"
+          type="checkbox"
+        />
+        <label
+          class="label"
+          for="today-page-all"
+        >
+          All
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div
+    class="content"
+  >
+    <p>
+      Tasks are empty.
+    </p>
+    <footer
+      class="footer"
+    />
+  </div>
+</div>
+`;

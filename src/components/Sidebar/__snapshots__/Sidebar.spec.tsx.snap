@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<aside
+  class="container"
+>
+  <header
+    class="header"
+  >
+    <div
+      name="logo"
+      size="20"
+    >
+      icon-
+      logo
+    </div>
+     
+    <div
+      name="dots"
+      size="20"
+    >
+      icon-
+      dots
+    </div>
+     
+  </header>
+  <nav>
+    <ul
+      class="list"
+    >
+      <li
+        class="listItem"
+      >
+        <div
+          name="inbox"
+          size="20"
+        >
+          icon-
+          inbox
+        </div>
+         
+        <a
+          aria-current="page"
+          class="link active"
+          href="/"
+        >
+          Inbox
+        </a>
+         
+        <span
+          class="slot"
+        >
+          0
+        </span>
+      </li>
+      <li
+        class="listItem"
+      >
+        <div
+          class="starIcon"
+          name="star"
+          size="20"
+        >
+          icon-
+          star
+        </div>
+         
+        <a
+          class="link"
+          href="/today"
+        >
+          Today
+        </a>
+        <span
+          class="slot"
+        >
+          0
+        </span>
+      </li>
+      <li
+        class="listItem"
+      >
+        <div
+          class="calendar-icon"
+        >
+          calendar-icon
+        </div>
+        <a
+          class="link"
+          href="/upcoming"
+        >
+          Schedule
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav
+    class="section"
+  >
+    <header
+      class="sectionHeader"
+    >
+      <h1
+        class="title"
+      >
+        <a
+          class="link"
+          href="/projects"
+        >
+          Projects
+        </a>
+      </h1>
+      <button
+        class="sc-bdVaJa fFWIpk"
+      >
+        <div
+          name="plus"
+          size="12"
+        >
+          icon-
+          plus
+        </div>
+      </button>
+    </header>
+    <ul
+      class="list"
+    />
+  </nav>
+  <nav
+    class="section"
+  >
+    <button
+      class="button sc-bdVaJa fFWIpk"
+    >
+      <div
+        name="plus"
+        size="14"
+        style="margin-right: 10px;"
+      >
+        icon-
+        plus
+      </div>
+       Add Workspace
+    </button>
+  </nav>
+  <footer
+    class="footer"
+  >
+    <button
+      class="button sc-bdVaJa fFWIpk"
+    >
+      <div
+        name="plus"
+        size="14"
+      >
+        icon-
+        plus
+      </div>
+    </button>
+    <a
+      class="button"
+      href="/settings"
+    >
+      <div
+        name="cog"
+        size="16"
+      >
+        icon-
+        cog
+      </div>
+    </a>
+  </footer>
+</aside>
+`;

@@ -1,6 +1,6 @@
-import { TasksEditor } from '@local/components';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import Spinner from '@local/components/Spinner/Spinner';
+import TasksEditor from '@local/components/Tasks/TasksEditor';
 import { useStore } from '@local/hooks';
 import React from 'react';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';

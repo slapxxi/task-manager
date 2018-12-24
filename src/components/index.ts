@@ -20,7 +20,7 @@ import TagsEditor from './Tags/TagsEditor';
 import Task from './Tasks/Task';
 import Tasks from './Tasks/Tasks';
 import TasksEditor from './Tasks/TasksEditor';
-import TextArea from './TextArea/TextArea';
+import Textarea from './Textarea/Textarea';
 
 export {
   Button,
@@ -45,5 +45,5 @@ export {
   Task,
   Tasks,
   TasksEditor,
-  TextArea,
+  Textarea,
 };

@@ -1,10 +1,10 @@
 import { assignToProject, getProjectProgress } from '@lib';
-import { TasksEditor } from '@local/components';
 import Breadcrumbs from '@local/components/Breadcrumbs/Breadcrumbs';
 import Button from '@local/components/Button/Button';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import ProgressCheckbox from '@local/components/ProgressCheckbox/ProgressCheckbox';
-import TextArea from '@local/components/TextArea/TextArea';
+import TasksEditor from '@local/components/Tasks/TasksEditor';
+import Textarea from '@local/components/Textarea/Textarea';
 import { useStore } from '@local/hooks';
 import { ID } from '@local/types';
 import React from 'react';
@@ -49,7 +49,7 @@ function ProjectPage({ projectID }: Props) {
           progress={getProjectProgress(project)}
           animate={animateProgress}
         />
-        <TextArea
+        <Textarea
           className={styles.editableTitle}
           placeholder="Project Name..."
           value={project.name}

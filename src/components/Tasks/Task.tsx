@@ -6,17 +6,15 @@ import {
   removeSubtask,
   resetTaskCompletion,
 } from '@lib/tasks';
-import {
-  Calendar,
-  Checkbox,
-  Deadline,
-  ProgressCheckbox,
-  SubtasksEditor,
-  TagsEditor,
-} from '@local/components';
 import Button from '@local/components/Button/Button';
+import Calendar from '@local/components/Calendar/Calendar';
+import Checkbox from '@local/components/Checkbox/Checkbox';
+import Deadline from '@local/components/Deadline/Deadline';
 import IconSystem from '@local/components/IconSystem/IconSystem';
-import TextArea from '@local/components/TextArea/TextArea';
+import ProgressCheckbox from '@local/components/ProgressCheckbox/ProgressCheckbox';
+import SubtasksEditor from '@local/components/Subtask/SubtasksEditor';
+import TagsEditor from '@local/components/Tags/TagsEditor';
+import Textarea from '@local/components/Textarea/Textarea';
 import { Subtask, Tag, Task as ITask, UserCreatedTag } from '@local/types';
 import { isToday } from 'date-fns';
 import includes from 'lodash-es/includes';
@@ -225,7 +223,7 @@ function Task({
       </header>
       <AnimatedDetails pose={expand ? 'open' : 'closed'} style={{ overflow: 'hidden' }}>
         <Details>
-          <TextArea
+          <Textarea
             className={styles.taskDescription}
             placeholder="Notes..."
             value={task.description || ''}
@@ -297,7 +295,7 @@ const Container = styled(({ active, completed, ...rest }) => <div {...rest} />)`
   box-shadow: ${({ active }) => (active ? '0 1px 3px 2px rgba(0,0,0,0.1)' : 'none')};
 `;
 
-const Title = styled(({ active, completed, ...rest }) => <TextArea {...rest} />)`
+const Title = styled(({ active, completed, ...rest }) => <Textarea {...rest} />)`
   color: 'var(--dark-grey)';
   color: ${({ completed }: any) => (completed ? 'var(--light-grey)' : null)};
 `;

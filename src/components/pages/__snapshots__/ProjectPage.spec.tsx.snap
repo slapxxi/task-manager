@@ -1,0 +1,304 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`redirects to home page if there is no matching project 1`] = `
+<div>
+  <div>
+    Home
+  </div>
+</div>
+`;
+
+exports[`renders project 1`] = `
+<div
+  class="projectPage"
+>
+  <div
+    class="toolbar"
+  >
+    <ul
+      class="container"
+    >
+      <li
+        class="item"
+      >
+        <a
+          class="link"
+          href="/"
+        >
+          <div
+            name="inbox"
+            size="20"
+          >
+            icon-
+            inbox
+          </div>
+        </a>
+      </li>
+      <li
+        class="item"
+      >
+        <div
+          class="icon"
+          name="arrow-right"
+          size="10"
+        >
+          icon-
+          arrow-right
+        </div>
+        <a
+          class="link"
+          href="/projects"
+        >
+          projects
+        </a>
+      </li>
+      <li
+        class="item"
+      >
+        <div
+          class="icon"
+          name="arrow-right"
+          size="10"
+        >
+          icon-
+          arrow-right
+        </div>
+        <a
+          aria-current="page"
+          class="link active"
+          href="/projects/test-project"
+        >
+          test-project
+        </a>
+      </li>
+    </ul>
+    <div>
+      Order 
+      <div
+        name="arrow-down"
+        size="10"
+      >
+        icon-
+        arrow-down
+      </div>
+    </div>
+    <div>
+      Filter 
+      <div
+        name="arrow-down"
+        size="10"
+      >
+        icon-
+        arrow-down
+      </div>
+    </div>
+  </div>
+  <header
+    class="header"
+  >
+    <div>
+      <div
+        class="container"
+        style="height: 22px;"
+      >
+        <input
+          class="input"
+          type="checkbox"
+        />
+        <svg
+          height="22"
+          viewBox="0 0 100 100"
+          width="22"
+        >
+          <circle
+            cx="50"
+            cy="50"
+            fill="none"
+            r="44"
+            stroke="#99a"
+            stroke-width="8"
+          />
+          <path
+            d="M 50 17 A 33 33 0 0 0 50 17 L 50 50 L 50 17 Z"
+            fill="#aab"
+            stroke="none"
+            stroke-width="6"
+          />
+          /&gt;
+        </svg>
+      </div>
+    </div>
+    <textarea
+      class="editableTitle sc-htpNat gyAANP"
+      data-testid="project-name"
+      placeholder="Project Name..."
+      rows="1"
+      style="overflow-x: hidden; word-wrap: break-word; overflow-y: hidden;"
+    >
+      Test Project
+    </textarea>
+    <button
+      class="menu sc-bdVaJa fFWIpk"
+    >
+      <div
+        name="dots"
+        size="22"
+      >
+        icon-
+        dots
+      </div>
+    </button>
+  </header>
+  <div
+    class="subtitle"
+  >
+    1
+     Tasks
+  </div>
+  <div
+    class="content"
+  >
+    <ul
+      class="tasks"
+    >
+      <li>
+        <div
+          class="task sc-bxivhb iaqica"
+        >
+          <header
+            class="taskHeader"
+          >
+            <div>
+              <div
+                style="position: relative; display: flex; align-items: center; height: 22px;"
+              >
+                <input
+                  class="input"
+                  data-testid="checkbox"
+                  type="checkbox"
+                />
+                <svg
+                  clip-rule="evenodd"
+                  height="22"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 100 100"
+                  width="22"
+                >
+                  <circle
+                    cx="50"
+                    cy="50"
+                    fill="none"
+                    r="44"
+                    stroke="#99a"
+                    stroke-width="8"
+                  />
+                </svg>
+              </div>
+            </div>
+            <textarea
+              class="taskTitle sc-ifAKCX iMtRMp sc-htpNat gyAANP"
+              data-testid="title"
+              placeholder="Title..."
+              rows="1"
+              style="overflow-x: hidden; word-wrap: break-word; overflow-y: hidden;"
+            >
+              Test Task
+            </textarea>
+            <button
+              class="todayButton sc-bdVaJa fFWIpk"
+              data-testid="setToday"
+            >
+              <div
+                name="star"
+                size="18"
+              >
+                icon-
+                star
+              </div>
+            </button>
+            <button
+              class="detailsButton sc-bdVaJa fFWIpk"
+              data-testid="expand"
+            >
+              <div
+                name="arrow-down"
+                size="16"
+              >
+                icon-
+                arrow-down
+              </div>
+            </button>
+          </header>
+          <div
+            style="overflow: hidden; height: 0px; opacity: 0;"
+          >
+            <div
+              class="sc-EHOje ddexpk"
+            >
+              <textarea
+                class="taskDescription sc-htpNat gyAANP"
+                data-testid="description"
+                placeholder="Notes..."
+                rows="1"
+                style="overflow-x: hidden; word-wrap: break-word; overflow-y: hidden;"
+              />
+              <footer
+                class="taskFooter"
+              >
+                <div
+                  class="footerTags"
+                >
+                  <ul
+                    class="tags"
+                    data-testid="tags"
+                  />
+                  <input
+                    class="input"
+                    data-testid="input"
+                    placeholder="Tag..."
+                    type="text"
+                  />
+                </div>
+                <div
+                  class="footerIconDangerous"
+                  data-testid="delete"
+                  name="trashbin"
+                  size="16"
+                >
+                  icon-
+                  trashbin
+                </div>
+                <div
+                  class="footerIcon"
+                  name="list"
+                  size="16"
+                >
+                  icon-
+                  list
+                </div>
+                <div
+                  class="footerIcon"
+                  name="flag"
+                  size="16"
+                >
+                  icon-
+                  flag
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <footer
+      class="footer"
+    >
+      <button
+        class="button sc-bdVaJa fFWIpk"
+      >
+        Create Task
+      </button>
+    </footer>
+  </div>
+</div>
+`;

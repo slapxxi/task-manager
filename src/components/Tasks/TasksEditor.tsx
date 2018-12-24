@@ -1,8 +1,8 @@
 import { createTask } from '@lib';
+import Button from '@local/components/Button/Button';
 import { Action, ID, Task as ITask } from '@local/types';
 import includes from 'lodash-es/includes';
 import React, { useEffect, useReducer } from 'react';
-import { Button } from '../';
 import { isValidTask } from '../../lib/tasks';
 import styles from './styles.css';
 import Task from './Task';

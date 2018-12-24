@@ -5,7 +5,6 @@ import { createTask } from '../../lib/tasks';
 import Task from './Task';
 
 jest.mock('@local/components/IconSystem/IconSystem');
-jest.mock('@local/hooks/useWorker');
 
 const task = createTask({ id: 'test', title: 'test' });
 

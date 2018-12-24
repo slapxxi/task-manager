@@ -1,9 +1,9 @@
 import { createTag, matchTasksByTags } from '@lib';
-import { TasksEditor } from '@local/components';
 import Breadcrumbs from '@local/components/Breadcrumbs/Breadcrumbs';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import Tag from '@local/components/Tags/Tag';
 import Tags from '@local/components/Tags/Tags';
+import TasksEditor from '@local/components/Tasks/TasksEditor';
 import { useStore } from '@local/hooks';
 import { Tag as ITag } from '@local/types';
 import { isToday } from 'date-fns';

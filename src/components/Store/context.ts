@@ -1,5 +1,6 @@
-import { State, StoreAction } from '@local/components/Store/StoreProvider';
+import { State } from '@local/components/Store/StoreProvider';
 import { createContext } from 'react';
+import { StoreAction } from './actions';
 
 interface ContextValue extends State {
   dispatch: (action: StoreAction) => void;
@@ -10,6 +11,8 @@ const Context = createContext<ContextValue>({
   projects: {},
   tags: {},
   isLoading: false,
+  isSyncing: false,
+  lastUpdated: 0,
   dispatch: () => null,
 });
 

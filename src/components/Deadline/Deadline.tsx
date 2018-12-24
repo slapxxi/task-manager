@@ -1,4 +1,4 @@
-import { DateTime } from '@local/components';
+import DateTime from '@local/components/DateTime/DateTime';
 import IconSystem from '@local/components/IconSystem/IconSystem';
 import { differenceInCalendarDays, differenceInCalendarMonths, isToday } from 'date-fns';
 import React from 'react';
