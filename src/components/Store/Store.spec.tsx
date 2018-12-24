@@ -1,16 +1,12 @@
 import { createProject, createTask } from '@lib';
 import { useStore } from '@local/hooks';
-import fetchDatabase from '@local/services/fetchDatabase';
-import saveDatabase from '@local/services/saveDatabase';
 import { size } from 'lodash-es';
 import last from 'lodash-es/last';
 import React, { ReactNode } from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import StoreProvider, { State } from './StoreProvider';
 
-jest.mock('@local/services/fetchDatabase', () => jest.fn());
-jest.mock('@local/services/saveDatabase', () => jest.fn());
-jest.mock('lodash-es/debounce', () => (fn: any) => fn);
+jest.mock('@local/hooks/useWorker');
 
 const mockStore = {
   tasks: {
@@ -60,14 +56,6 @@ function Subject({ children }: { children: (store: any) => ReactNode }) {
   const store = useStore();
   return <div>{children(store)}</div>;
 }
-
-const mockFetchDatabase = fetchDatabase as jest.Mock;
-const mockSaveDatabase = saveDatabase as jest.Mock;
-
-beforeEach(() => {
-  mockFetchDatabase.mockReset();
-  mockSaveDatabase.mockReset();
-});
 
 it('provides tasks selector', () => {
   const spy = jest.fn(() => 'div');
@@ -163,8 +151,6 @@ it('provides action to create tasks', () => {
   });
 
   rerender(Tree);
-  expect(mockSaveDatabase).toHaveBeenCalledTimes(1);
-  expect(mockSaveDatabase.mock.calls[0][0].tasks['new-task']).not.toBeUndefined();
 });
 
 it('provides action to update tasks', () => {

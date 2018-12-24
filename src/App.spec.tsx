@@ -3,8 +3,7 @@ import { render } from 'react-testing-library';
 import App from './App';
 
 jest.mock('@local/components/IconSystem/IconSystem');
-jest.mock('@local/services/fetchDatabase', () => () => null);
-jest.mock('@local/services/saveDatabase', () => () => null);
+jest.mock('@local/hooks/useWorker');
 
 it('renders', () => {
   expect(() => render(<App />)).not.toThrow();

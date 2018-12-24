@@ -1,5 +1,6 @@
 import { Database, DatabaseResponse } from '@local/types';
 import firebase from 'firebase/app';
+import 'firebase/database';
 import reduce from 'lodash-es/reduce';
 
 function fetchDatabase(fn: (state: Database) => void) {

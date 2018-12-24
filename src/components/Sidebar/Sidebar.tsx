@@ -10,8 +10,9 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './styles.css';
 
 function Sidebar() {
-  const { getProjects, getTasks, actions } = useStore();
-  const todayTasks = selectTodayTasks(getTasks());
+  const { getProjects, getTasks, actions, state } = useStore();
+  const allTasks = getTasks();
+  const todayTasks = selectTodayTasks(allTasks);
 
   function handleAddProject() {
     actions.updateProject(createProject({ name: 'Untitled' }));
@@ -30,14 +31,14 @@ function Sidebar() {
             <NavLink to="/" className={styles.link} exact>
               Inbox
             </NavLink>{' '}
-            <span className={styles.slot}>{getTasks().length}</span>
+            {!state.isLoading && <span className={styles.slot}>{allTasks.length}</span>}
           </li>
           <li className={styles.listItem}>
             <IconSystem name="star" size={20} className={styles.starIcon} />{' '}
             <NavLink activeClassName="active" to="/today" exact className={styles.link}>
               Today
             </NavLink>
-            <span className={styles.slot}>{todayTasks.length}</span>
+            {!state.isLoading && <span className={styles.slot}>{todayTasks.length}</span>}
           </li>
           <li className={styles.listItem}>
             <CalendarIcon date={new Date()} size={18} />

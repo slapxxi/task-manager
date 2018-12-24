@@ -4,6 +4,7 @@ import { fireEvent, render } from 'react-testing-library';
 import Project from './Project';
 
 jest.mock('@local/components/IconSystem/IconSystem', () => () => 'icon');
+jest.mock('@local/hooks/useWorker');
 
 const project = {
   id: 'test',

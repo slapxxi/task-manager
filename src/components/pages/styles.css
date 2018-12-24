@@ -39,8 +39,9 @@
 }
 
 .settingsPage {
-  --primary-color: var(--dark-grey);
-  padding: 20px 40px;
+  --primary-color: none;
+  --secondary-color: var(--dark-grey);
+  composes: page;
 }
 
 .trashPage {

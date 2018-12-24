@@ -47,6 +47,7 @@ function TagsEditor({ tags, onAddTag, onRemoveTags, className }: Props) {
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
     const key = e.keyCode || e.charCode;
+
     if (key === Keys.enter) {
       if (e.currentTarget.value.trim() !== '') {
         if (onAddTag) {
@@ -56,6 +57,7 @@ function TagsEditor({ tags, onAddTag, onRemoveTags, className }: Props) {
         }
       }
     }
+
     if (key === Keys.backspace) {
       handleRemove(e);
       return;

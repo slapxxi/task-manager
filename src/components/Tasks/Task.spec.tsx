@@ -5,20 +5,25 @@ import { createTask } from '../../lib/tasks';
 import Task from './Task';
 
 jest.mock('@local/components/IconSystem/IconSystem');
+jest.mock('@local/hooks/useWorker');
 
 const task = createTask({ id: 'test', title: 'test' });
 
 it('calls `onExpand` when expand button clicked', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<Task task={task} onExpand={spy} />);
+
   fireEvent.click(getByTestId('expand'));
+
   expect(spy).toHaveBeenCalled();
 });
 
 it('calls `onExpand` when title clicked', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<Task task={task} onExpand={spy} />);
+
   fireEvent.click(getByTestId('title'));
+
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(true);
 });
@@ -28,7 +33,9 @@ it('calls `onExpand` with `false` when deleted', () => {
   const { getByTestId } = render(
     <Task task={task} onExpand={spy} onDelete={() => null} />,
   );
+
   fireEvent.click(getByTestId('delete'));
+
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(false);
 });
@@ -36,7 +43,9 @@ it('calls `onExpand` with `false` when deleted', () => {
 it('calls `onExpand` with `true` when not expanded', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<Task task={task} onExpand={spy} expand={false} />);
+
   fireEvent.click(getByTestId('expand'));
+
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(true);
 });
@@ -44,7 +53,9 @@ it('calls `onExpand` with `true` when not expanded', () => {
 it('calls `onExpand` with `false` when expanded', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<Task task={task} onExpand={spy} expand={true} />);
+
   fireEvent.click(getByTestId('expand'));
+
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith(false);
 });

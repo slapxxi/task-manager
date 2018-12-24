@@ -19,6 +19,16 @@ const developmentConfiguration = {
   module: {
     rules: [
       {
+        test: /\.worker\.(t|j)s$/,
+        include: sourceFolderPath,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'worker-loader',
+          },
+        ],
+      },
+      {
         test: /\.(t|j)sx?$/,
         include: sourceFolderPath,
         exclude: /node_modules/,

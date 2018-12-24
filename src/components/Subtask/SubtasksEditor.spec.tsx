@@ -26,7 +26,9 @@ it('renders', () => {
 it('invokes callback when subtask created', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<SubtasksEditor subtasks={[]} onCreate={spy} />);
+
   fireEvent.change(getByTestId('input'), { target: { value: 'new' } });
+
   expect(spy).toHaveBeenCalledWith({
     id: 'unique-id-0',
     description: 'new',
@@ -42,9 +44,11 @@ it('invokes callback when subtask submitted', () => {
       onCreate={spy}
     />,
   );
+
   fireEvent.keyDown(getByTestId('input'), {
     keyCode: Keys.enter,
   });
+
   expect(spy).toHaveBeenCalledWith({
     id: 'unique-id-0',
     description: '',
@@ -55,7 +59,9 @@ it('invokes callback when subtask submitted', () => {
 it('only removes relevant subtasks', () => {
   const spy = jest.fn();
   const { getByTestId } = render(<SubtasksEditor subtasks={subtasks} onRemove={spy} />);
+
   fireEvent.click(getByTestId('remove-second'));
+
   expect(spy).toHaveBeenCalledTimes(1);
   expect(spy).toHaveBeenCalledWith({
     id: 'second',

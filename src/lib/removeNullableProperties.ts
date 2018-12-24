@@ -1,6 +1,10 @@
 import pickBy from 'lodash-es/pickBy';
 
-function removeNullableProperties(obj: object): object {
+interface Dictionary {
+  [key: string]: any;
+}
+
+function removeNullableProperties(obj: Dictionary): Dictionary {
   return pickBy(obj, (value) => value !== undefined && value !== null);
 }
 

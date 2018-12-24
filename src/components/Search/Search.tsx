@@ -10,7 +10,7 @@ function Search({ ...rest }: Props) {
   return (
     <div {...rest}>
       <label htmlFor="search">
-        <IconSystem name="search" size={20} />
+        <IconSystem name="search" size={18} />
       </label>
       <Input id="search" type="search" placeholder="Search..." />
     </div>

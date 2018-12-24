@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "jsx": "react",
-    "lib": ["es2015", "dom"],
+    "lib": ["webworker", "scripthost", "es2015", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -21,6 +21,7 @@
     "paths": {
       "@lib": ["lib"],
       "@lib/*": ["lib/*"],
+      "@local/*": ["*"],
       "@local/services/*": ["services/*"],
       "@local/hooks": ["hooks"],
       "@local/hooks/*": ["hooks/*"],

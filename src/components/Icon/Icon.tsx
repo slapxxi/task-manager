@@ -26,7 +26,7 @@ function Icon({ glyph, size, theme, ...rest }: Props) {
           />
         </defs>
       )}
-      <use xlinkHref={`#${glyph.id}`} id={'icon-' + glyph.id} />
+      <use id={'icon-' + glyph.id} xlinkHref={`#${glyph.id}`} />
     </svg>
   );
 }
